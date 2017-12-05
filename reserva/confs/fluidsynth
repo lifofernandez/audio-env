@@ -1,0 +1,12 @@
+# Mandatory parameters (uncomment and edit)
+#SOUND_FONT=/path/to/a/soundfont
+#AUDIO_DRIVER=alsa|jack|pulseaudio
+# see 'fluidsynth -a help'
+
+# Optional parameters (may be helpful)
+#OTHER_OPTS='-m alsa_seq -r 48000'
+# man fluidsynth, please
+
+SOUND_FONT=/usr/share/soundfonts/FluidR3_GM.sf2
+AUDIO_DRIVER=jack
+OTHER_OPTS='-l -g0.8 -C0 -R0 -is -c16 -Twav -r48000'

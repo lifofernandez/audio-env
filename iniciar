@@ -1,0 +1,41 @@
+#/usr/bin/env bash
+
+# JACK INICIAR COMO SERVICIO SYSTEMD
+systemctl start jackd
+sleep 3
+
+# SYNTES 
+# FLUID INICIAR COMO SERVICIO SYSTEMD
+systemctl start synth@GM
+#systemctl start synth@IBANEZ
+#systemctl start synth@DRUMS
+sleep 3
+ 
+# TIMIDITY
+#timidity -Oj -iAD -B 2,6 &
+#sleep 1
+#timidity -Oj -iAD -B 2,6 -c timidity-drum.cfg &
+#sleep 1
+
+
+# CONEXIONES JACK 
+jack_lsp
+#jack_connect GM:l_00 system:playback_1
+#jack_connect GM:r_00 system:playback_2
+
+
+# CONEXIONES MIDI
+aconnect -l
+alsa_through=14
+control=$(aconnect -l | grep ": 'Origin49'" | cut -f 1 -d ":" | cut -f 2 -d " ")
+synth=$(aconnect -l | grep ": 'GM'" | cut -f 1 -d ":" | cut -f 2 -d " ")
+
+if [ "$synth" ] && [ "$control" ]
+then
+	echo "Conectando $control:$alsa_through"
+	aconnect $control $alsa_through
+	echo "Conectando $alsa_through:$synth"
+	aconnect $alsa_through $synth
+	echo "Lizteilor!"
+fi
+

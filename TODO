@@ -1,0 +1,8 @@
+* VER como filtrar y rutear canales MIDI a dif syntes
+	* http://das.nasophon.de/mididings/doc/submodules.html#event
+	* estudiar midish
+* VER como elegir banko en en synte
+	* https://github.com/gbevin/SendMIDI (envia msj midi desde tty)
+* VER como reasingar encausar canal del Controlador USB 
+* Buscar bata .sf2 
+* Probar Sequencer http://www.midish.org/manual.html

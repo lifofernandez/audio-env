@@ -1,0 +1,11 @@
+[Unit]
+Description=JACK Daemon
+After=sound.target
+
+[Service]
+ExecStart=/usr/bin/jackd -R -P89 -dalsa -dhw:Pro24DSP00058b -r48000 -p256 -n3 
+#EnvironmentFile=/etc/conf.d/fluidsynth
+
+[Install]
+WantedBy=multi-user.target
+#WantedBy=default.target

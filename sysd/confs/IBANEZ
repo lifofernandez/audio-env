@@ -1,0 +1,6 @@
+SOUND_FONT=/usr/share/soundfonts/ibanez.sf2
+OTHER_OPTS='-o audio.jack.id=IBANEZ -o midi.alsa_seq.id=IBANEZ -o shell.port=1302'
+
+
+
+ 

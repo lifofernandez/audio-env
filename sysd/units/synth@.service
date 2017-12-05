@@ -1,0 +1,17 @@
+[Unit]
+Description=FluidSynth %I Daemon
+After=sound.target
+Requires=jackd.service
+
+[Service]
+EnvironmentFile=/root/audio-env/sysd/confs/%i
+
+ExecStart=/usr/bin/fluidsynth  \
+	-is -ajack -l \
+	$SOUND_FONT \
+	-g0.8 -C0 -R0 -c16 \
+	-Twav -Os32 -r48000 \
+	$OTHER_OPTS
+
+[Install]
+WantedBy=multi-user.target

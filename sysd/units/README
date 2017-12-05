@@ -1,0 +1,6 @@
+
+En este directorio estan las unidades de servicios de systemd.
+
+Para usarlos copiarlos a /etc/systemd/system/ e invocarlos con 'systemctl
+start unit.service' o 'systemctl start unit@instancia.service' para los
+templates.
