@@ -1,8 +1,14 @@
 * VER como filtrar y rutear canales MIDI a dif syntes
+
 	* http://das.nasophon.de/mididings/doc/submodules.html#event
-	* estudiar midish
+
+	* Probar Sequencer midish http://www.midish.org/manual.html
+
 * VER como elegir banko en en synte
+
 	* https://github.com/gbevin/SendMIDI (envia msj midi desde tty)
+
 * VER como reasingar encausar canal del Controlador USB 
-* Buscar bata .sf2 
-* Probar Sequencer http://www.midish.org/manual.html
+
+
+* zynaddsubfx --auto-connect --no-gui -O jack --load="/home/steve/bin/choir.xmz"

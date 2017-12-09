@@ -56,3 +56,4 @@ conseguí escuchar el metronomo -m129:0).
 ### Ruter MIDI 
 http://das.nasophon.de/mididings/
 https://github.com/tiwai/aseqview (lo probe, medio q no hace naa)
+jack_connect zynaddsubfx:out_2 system:playback_2

@@ -1,0 +1,6 @@
+SOUND_FONT=/usr/share/soundfonts/80sacdancedrums.sf2
+OTHER_OPTS='-o audio.jack.id=80DRUMS -o midi.alsa_seq.id=80DRUMS -o shell.port=1300'
+
+
+
+ 

@@ -1,30 +1,38 @@
 #/usr/bin/env bash
 
-# JACK INICIAR COMO SERVICIO SYSTEMD
+# iniciar JACK como servicio systemd
 systemctl start jackd
 sleep 3
 
-# SYNTES 
-# FLUID INICIAR COMO SERVICIO SYSTEMD
+# Inicializar syntes como servicio de systemd 
+## Fluidsynth 
 systemctl start synth@GM
 #systemctl start synth@IBANEZ
 #systemctl start synth@DRUMS
 sleep 3
+
+## Zynaddsubfx
+systemctl start zinadd
+sleep 3
  
-# TIMIDITY
+## Timidity
+# TODO Timidity como servicio de systemd
 #timidity -Oj -iAD -B 2,6 &
 #sleep 1
 #timidity -Oj -iAD -B 2,6 -c timidity-drum.cfg &
 #sleep 1
 
 
-# CONEXIONES JACK 
+# Conexiones JACK 
 jack_lsp
-#jack_connect GM:l_00 system:playback_1
-#jack_connect GM:r_00 system:playback_2
 
+jack_connect GM:l_00 system:playback_1
+jack_connect GM:r_00 system:playback_2
 
-# CONEXIONES MIDI
+jack_connect zynaddsubfx:out_1 system:playback_1
+jack_connect zynaddsubfx:out_2 system:playback_2
+
+# Conexiones MIDI
 aconnect -l
 alsa_through=14
 control=$(aconnect -l | grep ": 'Origin49'" | cut -f 1 -d ":" | cut -f 2 -d " ")

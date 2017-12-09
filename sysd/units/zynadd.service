@@ -1,0 +1,10 @@
+[Unit]
+Description=ZYNADD Daemon
+After=sound.target
+Requires=jackd.service
+
+[Service]
+ExecStart=/usr/bin/zynaddsubfx --auto-connect --no-gui -I alsa -O jack --load="/root/audio-env/sysd/confs/zynadd.xmz"
+
+[Install]
+WantedBy=multi-user.target

@@ -1,2 +1,2 @@
-En este directorio residen los "EviromentFile" para el template de servicio
-'synth@INSTANCIA.service' de systemd.
+En este directorio residen los "EviromentFile" y archivos de configuracion
+necesarias los servicios y templates de servicio de systemd.
