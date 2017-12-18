@@ -1,5 +1,5 @@
 SOUND_FONT=/usr/share/soundfonts/FluidR3_GM.sf2
-OTHER_OPTS='-o audio.jack.id=FuidGM -o midi.alsa_seq.id=FuidGM -o shell.port=1301'
+OTHER_OPTS='-o audio.jack.id=FluidGM -o midi.alsa_seq.id=FluidGM -o shell.port=1301'
 
 
 

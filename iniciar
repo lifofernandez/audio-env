@@ -6,13 +6,13 @@ sleep 3
 
 # Inicializar syntes como servicio de systemd 
 ## Fluidsynth 
-systemctl start synth@GM
+systemctl start fluidsynth@GM
 #systemctl start synth@IBANEZ
 #systemctl start synth@DRUMS
 sleep 3
 
 ## Zynaddsubfx
-systemctl start zinadd
+#systemctl start zynadd
 sleep 3
  
 ## Timidity
@@ -26,17 +26,17 @@ sleep 3
 # Conexiones JACK 
 jack_lsp
 
-jack_connect GM:l_00 system:playback_1
-jack_connect GM:r_00 system:playback_2
+jack_connect FluidGM\:l_00 system\:playback_1
+jack_connect FluidGM\:r_00 system\:playback_2
 
-jack_connect zynaddsubfx:out_1 system:playback_1
-jack_connect zynaddsubfx:out_2 system:playback_2
+#jack_connect zynaddsubfx\:out_1 system\:playback_1
+#jack_connect zynaddsubfx\:out_2 system\:playback_2
 
 # Conexiones MIDI
 aconnect -l
 alsa_through=14
-control=$(aconnect -l | grep ": 'Origin49'" | cut -f 1 -d ":" | cut -f 2 -d " ")
-synth=$(aconnect -l | grep ": 'GM'" | cut -f 1 -d ":" | cut -f 2 -d " ")
+control=$(aconnect -l | grep "Origin49" | cut -f 1 -d ":" | cut -f 2 -d " ")
+synth=$(aconnect -l | grep "FLUID" | cut -f 1 -d ":" | cut -f 2 -d " ")
 
 if [ "$synth" ] && [ "$control" ]
 then

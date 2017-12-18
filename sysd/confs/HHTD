@@ -1,0 +1,6 @@
+SOUND_FONT=/usr/share/soundfonts/happy_hardcore_techno_drums_by_simon_morton_v1.sf2
+OTHER_OPTS='-o audio.jack.id=HHTD -o midi.alsa_seq.id=HHTD -o shell.port=1304'
+
+
+
+ 

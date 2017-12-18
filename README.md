@@ -12,8 +12,24 @@ jack_lsp
 ```
 ### Conectar dispoitivos de audio (pares cliente:puerto)
 ```bash
-
 jack_connect IN OUT
+```
+
+### Iniciar y exponer Ecasound a JACK
+```bash
+ecasound -f:f32_le,2,48000 -i jack -o jack,system -G:jack,eca_slave,recv 
+# JACK transport tienen que estar "rodando" por el parametro "recv"
+```
+
+```bash
+# some reverb
+ecasound -f:f32_le,2,48000 -i jack -o jack,system -G:jack,eca_slave -etr:40,0,55 
+
+```
+### Metronomo JACK 
+```bash
+jack_metro -f440 -b120
+jack_connect metro:120_bpm system:playback_1
 ```
 
 ## MIDI
@@ -57,3 +73,4 @@ conseguí escuchar el metronomo -m129:0).
 http://das.nasophon.de/mididings/
 https://github.com/tiwai/aseqview (lo probe, medio q no hace naa)
 jack_connect zynaddsubfx:out_2 system:playback_2
+

@@ -1,0 +1,6 @@
+SOUND_FONT=/usr/share/soundfonts/hs_tr808.sf2
+OTHER_OPTS='-o audio.jack.id=TR808 -o midi.alsa_seq.id=TR808 -o shell.port=1305'
+
+
+
+ 
