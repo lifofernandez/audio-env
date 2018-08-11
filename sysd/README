@@ -1,1 +1,6 @@
 En este directorio reside lo realacionado a System D
+systemctl --user list-unit-files
+ systemctl --user list-units
+ systemctl --user list-sockets
+ systemctl --user status pulseaudio
+ systemctl --user status pulseaudio.socket

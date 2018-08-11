@@ -1,0 +1,6 @@
+SOUND_FONT=/root/libreria/drums/tr808/clean_kit/tr808_clean.sf2
+OTHER_OPTS='-o audio.jack.id=TR808 -o midi.alsa_seq.id=TR808 -o shell.port=1305'
+
+
+
+ 

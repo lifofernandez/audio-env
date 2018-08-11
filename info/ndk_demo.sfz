@@ -1,0 +1,474 @@
+////
+// ns_kit7 free - Douglas Whates (naturalstudio)
+// Sat Feb 21 12:46:58 2004 - ©2004 Douglas Whates (naturalstudio)
+// CDXtract:SFEDT v1.28: - with qnd_sf2tosfz.pl
+// ©2004 Douglas Whates (naturalstudio)
+// - - -
+// E-mu 10K1, 2.1
+// Added hat top to hat exclusive group -- plj
+////
+
+
+
+//
+// Bank: 000; Program: 000; Preset: ns_kit7 free
+//
+
+//
+// Layer: ns_kit7 free
+//
+<group> loop_mode=one_shot key=24
+<region> lovel=001 hivel=018 amp_velcurve_018=1 sample=samples\kick_cls_08.wav
+<region> lovel=019 hivel=026 amp_velcurve_026=1 sample=samples\kick_cls_11.wav
+<region> lovel=027 hivel=034 amp_velcurve_034=1 sample=samples\kick_cls_14.wav
+<region> lovel=035 hivel=042 amp_velcurve_042=1 sample=samples\kick_cls_17.wav
+<region> lovel=043 hivel=050 amp_velcurve_050=1 sample=samples\kick_cls_20.wav
+<region> lovel=051 hivel=058 amp_velcurve_058=1 sample=samples\kick_cls_23.wav
+<region> lovel=059 hivel=066 amp_velcurve_066=1 sample=samples\kick_cls_26.wav
+<region> lovel=067 hivel=074 amp_velcurve_074=1 sample=samples\kick_cls_28.wav
+<region> lovel=075 hivel=082 amp_velcurve_082=1 sample=samples\kick_cls_30.wav
+<region> lovel=083 hivel=090 amp_velcurve_090=1 sample=samples\kick_cls_32.wav
+<region> lovel=091 hivel=096 amp_velcurve_096=1 sample=samples\kick_cls_34.wav
+<region> lovel=097 hivel=102 amp_velcurve_102=1 sample=samples\kick_cls_36.wav
+<region> lovel=103 hivel=109 amp_velcurve_109=1 sample=samples\kick_cls_38.wav
+<region> lovel=110 hivel=116 amp_velcurve_116=1 sample=samples\kick_cls_40.wav
+<region> lovel=117 hivel=122 amp_velcurve_122=1 sample=samples\kick_cls_42.wav
+<region> lovel=123 hivel=127 amp_velcurve_127=1 sample=samples\kick_cls_44.wav
+
+<group> loop_mode=one_shot key=35
+<region> lovel=001 hivel=018 amp_velcurve_018=1 sample=samples\kick_cls_08.wav
+<region> lovel=019 hivel=026 amp_velcurve_026=1 sample=samples\kick_cls_11.wav
+<region> lovel=027 hivel=034 amp_velcurve_034=1 sample=samples\kick_cls_14.wav
+<region> lovel=035 hivel=042 amp_velcurve_042=1 sample=samples\kick_cls_17.wav
+<region> lovel=043 hivel=050 amp_velcurve_050=1 sample=samples\kick_cls_20.wav
+<region> lovel=051 hivel=058 amp_velcurve_058=1 sample=samples\kick_cls_23.wav
+<region> lovel=059 hivel=066 amp_velcurve_066=1 sample=samples\kick_cls_26.wav
+<region> lovel=067 hivel=074 amp_velcurve_074=1 sample=samples\kick_cls_28.wav
+<region> lovel=075 hivel=082 amp_velcurve_082=1 sample=samples\kick_cls_30.wav
+<region> lovel=083 hivel=090 amp_velcurve_090=1 sample=samples\kick_cls_32.wav
+<region> lovel=091 hivel=096 amp_velcurve_096=1 sample=samples\kick_cls_34.wav
+<region> lovel=097 hivel=102 amp_velcurve_102=1 sample=samples\kick_cls_36.wav
+<region> lovel=103 hivel=109 amp_velcurve_109=1 sample=samples\kick_cls_38.wav
+<region> lovel=110 hivel=116 amp_velcurve_116=1 sample=samples\kick_cls_40.wav
+<region> lovel=117 hivel=122 amp_velcurve_122=1 sample=samples\kick_cls_42.wav
+<region> lovel=123 hivel=127 amp_velcurve_127=1 sample=samples\kick_cls_44.wav
+
+<group> loop_mode=one_shot key=36
+<region> lovel=001 hivel=023 amp_velcurve_023=1 sample=samples\kick_opn_08.wav
+<region> lovel=024 hivel=031 amp_velcurve_031=1 sample=samples\kick_opn_11.wav
+<region> lovel=032 hivel=039 amp_velcurve_039=1 sample=samples\kick_opn_14.wav
+<region> lovel=040 hivel=047 amp_velcurve_047=1 sample=samples\kick_opn_17.wav
+<region> lovel=048 hivel=056 amp_velcurve_056=1 sample=samples\kick_opn_20.wav
+<region> lovel=057 hivel=065 amp_velcurve_065=1 sample=samples\kick_opn_23.wav
+<region> lovel=066 hivel=074 amp_velcurve_074=1 sample=samples\kick_opn_26.wav
+<region> lovel=075 hivel=081 amp_velcurve_081=1 sample=samples\kick_opn_29.wav
+<region> lovel=082 hivel=088 amp_velcurve_088=1 sample=samples\kick_opn_32.wav
+<region> lovel=089 hivel=094 amp_velcurve_094=1 sample=samples\kick_opn_35.wav
+<region> lovel=095 hivel=101 amp_velcurve_101=1 sample=samples\kick_opn_38.wav
+<region> lovel=102 hivel=107 amp_velcurve_107=1 sample=samples\kick_opn_41.wav
+<region> lovel=108 hivel=113 amp_velcurve_113=1 sample=samples\kick_opn_44.wav
+<region> lovel=114 hivel=118 amp_velcurve_118=1 sample=samples\kick_opn_46.wav
+<region> lovel=119 hivel=123 amp_velcurve_123=1 sample=samples\kick_opn_48.wav
+<region> lovel=124 hivel=127 amp_velcurve_127=1 sample=samples\kick_opn_50.wav
+
+<group> loop_mode=one_shot key=37
+<region> lovel=001 hivel=024 amp_velcurve_024=1 sample=samples\snr_xst_06.wav
+<region> lovel=025 hivel=032 amp_velcurve_032=1 sample=samples\snr_xst_08.wav
+<region> lovel=033 hivel=040 amp_velcurve_040=1 sample=samples\snr_xst_10.wav
+<region> lovel=041 hivel=048 amp_velcurve_048=1 sample=samples\snr_xst_12.wav
+<region> lovel=049 hivel=056 amp_velcurve_056=1 sample=samples\snr_xst_14.wav
+<region> lovel=057 hivel=064 amp_velcurve_064=1 sample=samples\snr_xst_16.wav
+<region> lovel=065 hivel=072 amp_velcurve_072=1 sample=samples\snr_xst_18.wav
+<region> lovel=073 hivel=079 amp_velcurve_079=1 sample=samples\snr_xst_20.wav
+<region> lovel=080 hivel=086 amp_velcurve_086=1 sample=samples\snr_xst_22.wav
+<region> lovel=087 hivel=093 amp_velcurve_093=1 sample=samples\snr_xst_23.wav
+<region> lovel=094 hivel=100 amp_velcurve_100=1 sample=samples\snr_xst_24.wav
+<region> lovel=101 hivel=106 amp_velcurve_106=1 sample=samples\snr_xst_25.wav
+<region> lovel=107 hivel=112 amp_velcurve_112=1 sample=samples\snr_xst_26.wav
+<region> lovel=113 hivel=117 amp_velcurve_117=1 sample=samples\snr_xst_27.wav
+<region> lovel=118 hivel=122 amp_velcurve_122=1 sample=samples\snr_xst_28.wav
+<region> lovel=123 hivel=127 amp_velcurve_127=1 sample=samples\snr_xst_29.wav
+
+<group> loop_mode=one_shot key=26
+<region> lovel=001 hivel=011 amp_velcurve_011=1 sample=samples\snr_prs_l10.wav
+<region> lovel=012 hivel=023 amp_velcurve_023=1 sample=samples\snr_prs_l12.wav
+<region> lovel=024 hivel=033 amp_velcurve_033=1 sample=samples\snr_prs_l14.wav
+<region> lovel=034 hivel=042 amp_velcurve_042=1 sample=samples\snr_prs_l16.wav
+<region> lovel=043 hivel=051 amp_velcurve_051=1 sample=samples\snr_prs_l18.wav
+<region> lovel=052 hivel=058 amp_velcurve_058=1 sample=samples\snr_prs_l20.wav
+<region> lovel=059 hivel=066 amp_velcurve_066=1 sample=samples\snr_prs_l22.wav
+<region> lovel=067 hivel=074 amp_velcurve_074=1 sample=samples\snr_prs_l24.wav
+<region> lovel=075 hivel=082 amp_velcurve_082=1 sample=samples\snr_prs_l26.wav
+<region> lovel=083 hivel=090 amp_velcurve_090=1 sample=samples\snr_prs_l28.wav
+<region> lovel=091 hivel=097 amp_velcurve_097=1 sample=samples\snr_prs_l29.wav
+<region> lovel=098 hivel=104 amp_velcurve_104=1 sample=samples\snr_prs_l30.wav
+<region> lovel=105 hivel=110 amp_velcurve_110=1 sample=samples\snr_prs_l31.wav
+<region> lovel=111 hivel=116 amp_velcurve_116=1 sample=samples\snr_prs_l32.wav
+<region> lovel=117 hivel=122 amp_velcurve_122=1 sample=samples\snr_prs_l33.wav
+<region> lovel=123 hivel=127 amp_velcurve_127=1 sample=samples\snr_prs_l34.wav
+
+<group> loop_mode=one_shot key=28
+<region> lovel=001 hivel=013 amp_velcurve_013=1 sample=samples\snr_prs_r07.wav
+<region> lovel=014 hivel=026 amp_velcurve_026=1 sample=samples\snr_prs_r08.wav
+<region> lovel=027 hivel=036 amp_velcurve_036=1 sample=samples\snr_prs_r09.wav
+<region> lovel=037 hivel=047 amp_velcurve_047=1 sample=samples\snr_prs_r10.wav
+<region> lovel=048 hivel=056 amp_velcurve_056=1 sample=samples\snr_prs_r11.wav
+<region> lovel=057 hivel=063 amp_velcurve_063=1 sample=samples\snr_prs_r12.wav
+<region> lovel=064 hivel=071 amp_velcurve_071=1 sample=samples\snr_prs_r13.wav
+<region> lovel=072 hivel=079 amp_velcurve_079=1 sample=samples\snr_prs_r14.wav
+<region> lovel=080 hivel=086 amp_velcurve_086=1 sample=samples\snr_prs_r15.wav
+<region> lovel=087 hivel=093 amp_velcurve_093=1 sample=samples\snr_prs_r16.wav
+<region> lovel=094 hivel=099 amp_velcurve_099=1 sample=samples\snr_prs_r17.wav
+<region> lovel=100 hivel=105 amp_velcurve_105=1 sample=samples\snr_prs_r18.wav
+<region> lovel=106 hivel=111 amp_velcurve_111=1 sample=samples\snr_prs_r19.wav
+<region> lovel=112 hivel=117 amp_velcurve_117=1 sample=samples\snr_prs_r20.wav
+<region> lovel=118 hivel=122 amp_velcurve_122=1 sample=samples\snr_prs_r21.wav
+<region> lovel=123 hivel=127 amp_velcurve_127=1 sample=samples\snr_prs_r22.wav
+
+<group> loop_mode=one_shot key=38
+<region> lovel=001 hivel=014 amp_velcurve_014=1 sample=samples\snr_ord_l09.wav
+<region> lovel=015 hivel=025 amp_velcurve_025=1 sample=samples\snr_ord_l12.wav
+<region> lovel=026 hivel=033 amp_velcurve_033=1 sample=samples\snr_ord_l15.wav
+<region> lovel=034 hivel=041 amp_velcurve_041=1 sample=samples\snr_ord_l18.wav
+<region> lovel=042 hivel=048 amp_velcurve_048=1 sample=samples\snr_ord_l21.wav
+<region> lovel=049 hivel=055 amp_velcurve_055=1 sample=samples\snr_ord_l24.wav
+<region> lovel=056 hivel=062 amp_velcurve_062=1 sample=samples\snr_ord_l27.wav
+<region> lovel=063 hivel=070 amp_velcurve_070=1 sample=samples\snr_ord_l29.wav
+<region> lovel=071 hivel=078 amp_velcurve_078=1 sample=samples\snr_ord_l31.wav
+<region> lovel=079 hivel=085 amp_velcurve_085=1 sample=samples\snr_ord_l33.wav
+<region> lovel=086 hivel=092 amp_velcurve_092=1 sample=samples\snr_ord_l35.wav
+<region> lovel=093 hivel=099 amp_velcurve_099=1 sample=samples\snr_ord_l37.wav
+<region> lovel=100 hivel=107 amp_velcurve_107=1 sample=samples\snr_ord_l39.wav
+<region> lovel=108 hivel=114 amp_velcurve_114=1 sample=samples\snr_ord_l41.wav
+<region> lovel=115 hivel=121 amp_velcurve_121=1 sample=samples\snr_ord_l43.wav
+<region> lovel=122 hivel=127 amp_velcurve_127=1 sample=samples\snr_ord_l45.wav
+
+<group> loop_mode=one_shot key=40
+<region> lovel=001 hivel=023 amp_velcurve_023=1 sample=samples\snr_ord_r10.wav
+<region> lovel=024 hivel=031 amp_velcurve_031=1 sample=samples\snr_ord_r13.wav
+<region> lovel=032 hivel=039 amp_velcurve_039=1 sample=samples\snr_ord_r16.wav
+<region> lovel=040 hivel=046 amp_velcurve_046=1 sample=samples\snr_ord_r19.wav
+<region> lovel=047 hivel=054 amp_velcurve_054=1 sample=samples\snr_ord_r22.wav
+<region> lovel=055 hivel=061 amp_velcurve_061=1 sample=samples\snr_ord_r25.wav
+<region> lovel=062 hivel=068 amp_velcurve_068=1 sample=samples\snr_ord_r28.wav
+<region> lovel=069 hivel=075 amp_velcurve_075=1 sample=samples\snr_ord_r30.wav
+<region> lovel=076 hivel=082 amp_velcurve_082=1 sample=samples\snr_ord_r32.wav
+<region> lovel=083 hivel=088 amp_velcurve_088=1 sample=samples\snr_ord_r34.wav
+<region> lovel=089 hivel=094 amp_velcurve_094=1 sample=samples\snr_ord_r36.wav
+<region> lovel=095 hivel=101 amp_velcurve_101=1 sample=samples\snr_ord_r38.wav
+<region> lovel=102 hivel=107 amp_velcurve_107=1 sample=samples\snr_ord_r40.wav
+<region> lovel=108 hivel=115 amp_velcurve_115=1 sample=samples\snr_ord_r42.wav
+<region> lovel=116 hivel=122 amp_velcurve_122=1 sample=samples\snr_ord_r44.wav
+<region> lovel=123 hivel=127 amp_velcurve_127=1 sample=samples\snr_ord_r46.wav
+
+
+<group> loop_mode=one_shot volume=-3 key=39
+<region> lovel=001 hivel=021 amp_velcurve_021=1 sample=samples\snr_rim_l04.wav
+<region> lovel=022 hivel=028 amp_velcurve_028=1 sample=samples\snr_rim_l06.wav
+<region> lovel=029 hivel=036 amp_velcurve_036=1 sample=samples\snr_rim_l08.wav
+<region> lovel=037 hivel=044 amp_velcurve_044=1 sample=samples\snr_rim_l10.wav
+<region> lovel=045 hivel=053 amp_velcurve_053=1 sample=samples\snr_rim_l12.wav
+<region> lovel=054 hivel=062 amp_velcurve_062=1 sample=samples\snr_rim_l14.wav
+<region> lovel=063 hivel=070 amp_velcurve_070=1 sample=samples\snr_rim_l16.wav
+<region> lovel=071 hivel=078 amp_velcurve_078=1 sample=samples\snr_rim_l18.wav
+<region> lovel=079 hivel=084 amp_velcurve_084=1 sample=samples\snr_rim_l19.wav
+<region> lovel=085 hivel=090 amp_velcurve_090=1 sample=samples\snr_rim_l20.wav
+<region> lovel=091 hivel=095 amp_velcurve_095=1 sample=samples\snr_rim_l21.wav
+<region> lovel=096 hivel=101 amp_velcurve_101=1 sample=samples\snr_rim_l22.wav
+<region> lovel=102 hivel=108 amp_velcurve_108=1 sample=samples\snr_rim_l23.wav
+<region> lovel=109 hivel=115 amp_velcurve_115=1 sample=samples\snr_rim_l24.wav
+<region> lovel=116 hivel=122 amp_velcurve_122=1 sample=samples\snr_rim_l25.wav
+<region> lovel=123 hivel=127 amp_velcurve_127=1 sample=samples\snr_rim_l26.wav
+
+<group> loop_mode=one_shot volume=-3 key=41
+<region> lovel=001 hivel=022 amp_velcurve_022=1 sample=samples\snr_rim_r06.wav
+<region> lovel=023 hivel=033 amp_velcurve_033=1 sample=samples\snr_rim_r08.wav
+<region> lovel=034 hivel=043 amp_velcurve_043=1 sample=samples\snr_rim_r10.wav
+<region> lovel=044 hivel=053 amp_velcurve_053=1 sample=samples\snr_rim_r12.wav
+<region> lovel=054 hivel=062 amp_velcurve_062=1 sample=samples\snr_rim_r13.wav
+<region> lovel=063 hivel=071 amp_velcurve_071=1 sample=samples\snr_rim_r14.wav
+<region> lovel=072 hivel=079 amp_velcurve_079=1 sample=samples\snr_rim_r15.wav
+<region> lovel=080 hivel=086 amp_velcurve_086=1 sample=samples\snr_rim_r16.wav
+<region> lovel=087 hivel=092 amp_velcurve_092=1 sample=samples\snr_rim_r17.wav
+<region> lovel=093 hivel=098 amp_velcurve_098=1 sample=samples\snr_rim_r18.wav
+<region> lovel=099 hivel=103 amp_velcurve_103=1 sample=samples\snr_rim_r19.wav
+<region> lovel=104 hivel=109 amp_velcurve_109=1 sample=samples\snr_rim_r20.wav
+<region> lovel=110 hivel=114 amp_velcurve_114=1 sample=samples\snr_rim_r21.wav
+<region> lovel=115 hivel=119 amp_velcurve_119=1 sample=samples\snr_rim_r22.wav
+<region> lovel=120 hivel=123 amp_velcurve_123=1 sample=samples\snr_rim_r23.wav
+<region> lovel=124 hivel=127 amp_velcurve_127=1 sample=samples\snr_rim_r24.wav
+
+
+<group> loop_mode=one_shot key=43
+<region> lovel=001 hivel=019 amp_velcurve_019=1 sample=samples\tom_flr_06.wav
+<region> lovel=020 hivel=027 amp_velcurve_027=1 sample=samples\tom_flr_08.wav
+<region> lovel=028 hivel=035 amp_velcurve_035=1 sample=samples\tom_flr_10.wav
+<region> lovel=036 hivel=043 amp_velcurve_043=1 sample=samples\tom_flr_12.wav
+<region> lovel=044 hivel=053 amp_velcurve_053=1 sample=samples\tom_flr_14.wav
+<region> lovel=054 hivel=061 amp_velcurve_061=1 sample=samples\tom_flr_16.wav
+<region> lovel=062 hivel=070 amp_velcurve_070=1 sample=samples\tom_flr_18.wav
+<region> lovel=071 hivel=078 amp_velcurve_078=1 sample=samples\tom_flr_20.wav
+<region> lovel=079 hivel=086 amp_velcurve_086=1 sample=samples\tom_flr_21.wav
+<region> lovel=087 hivel=094 amp_velcurve_094=1 sample=samples\tom_flr_22.wav
+<region> lovel=095 hivel=101 amp_velcurve_101=1 sample=samples\tom_flr_23.wav
+<region> lovel=102 hivel=107 amp_velcurve_107=1 sample=samples\tom_flr_24.wav
+<region> lovel=108 hivel=112 amp_velcurve_112=1 sample=samples\tom_flr_25.wav
+<region> lovel=113 hivel=117 amp_velcurve_117=1 sample=samples\tom_flr_26.wav
+<region> lovel=118 hivel=122 amp_velcurve_122=1 sample=samples\tom_flr_27.wav
+<region> lovel=123 hivel=127 amp_velcurve_127=1 sample=samples\tom_flr_28.wav
+
+<group> loop_mode=one_shot key=45
+<region> lovel=001 hivel=023 amp_velcurve_023=1 sample=samples\tom_mid_07.wav
+<region> lovel=024 hivel=034 amp_velcurve_034=1 sample=samples\tom_mid_09.wav
+<region> lovel=035 hivel=044 amp_velcurve_044=1 sample=samples\tom_mid_11.wav
+<region> lovel=045 hivel=055 amp_velcurve_055=1 sample=samples\tom_mid_13.wav
+<region> lovel=056 hivel=065 amp_velcurve_065=1 sample=samples\tom_mid_15.wav
+<region> lovel=066 hivel=074 amp_velcurve_074=1 sample=samples\tom_mid_17.wav
+<region> lovel=075 hivel=080 amp_velcurve_080=1 sample=samples\tom_mid_19.wav
+<region> lovel=081 hivel=087 amp_velcurve_087=1 sample=samples\tom_mid_21.wav
+<region> lovel=088 hivel=094 amp_velcurve_094=1 sample=samples\tom_mid_23.wav
+<region> lovel=095 hivel=099 amp_velcurve_099=1 sample=samples\tom_mid_25.wav
+<region> lovel=100 hivel=104 amp_velcurve_104=1 sample=samples\tom_mid_27.wav
+<region> lovel=105 hivel=109 amp_velcurve_109=1 sample=samples\tom_mid_29.wav
+<region> lovel=110 hivel=114 amp_velcurve_114=1 sample=samples\tom_mid_30.wav
+<region> lovel=115 hivel=119 amp_velcurve_119=1 sample=samples\tom_mid_31.wav
+<region> lovel=120 hivel=123 amp_velcurve_123=1 sample=samples\tom_mid_32.wav
+<region> lovel=124 hivel=127 amp_velcurve_127=1 sample=samples\tom_mid_33.wav
+
+<group> loop_mode=one_shot key=47
+<region> lovel=001 hivel=023 amp_velcurve_023=1 sample=samples\tom_mid_07.wav
+<region> lovel=024 hivel=034 amp_velcurve_034=1 sample=samples\tom_mid_09.wav
+<region> lovel=035 hivel=044 amp_velcurve_044=1 sample=samples\tom_mid_11.wav
+<region> lovel=045 hivel=055 amp_velcurve_055=1 sample=samples\tom_mid_13.wav
+<region> lovel=056 hivel=065 amp_velcurve_065=1 sample=samples\tom_mid_15.wav
+<region> lovel=066 hivel=074 amp_velcurve_074=1 sample=samples\tom_mid_17.wav
+<region> lovel=075 hivel=080 amp_velcurve_080=1 sample=samples\tom_mid_19.wav
+<region> lovel=081 hivel=087 amp_velcurve_087=1 sample=samples\tom_mid_21.wav
+<region> lovel=088 hivel=094 amp_velcurve_094=1 sample=samples\tom_mid_23.wav
+<region> lovel=095 hivel=099 amp_velcurve_099=1 sample=samples\tom_mid_25.wav
+<region> lovel=100 hivel=104 amp_velcurve_104=1 sample=samples\tom_mid_27.wav
+<region> lovel=105 hivel=109 amp_velcurve_109=1 sample=samples\tom_mid_29.wav
+<region> lovel=110 hivel=114 amp_velcurve_114=1 sample=samples\tom_mid_30.wav
+<region> lovel=115 hivel=119 amp_velcurve_119=1 sample=samples\tom_mid_31.wav
+<region> lovel=120 hivel=123 amp_velcurve_123=1 sample=samples\tom_mid_32.wav
+<region> lovel=124 hivel=127 amp_velcurve_127=1 sample=samples\tom_mid_33.wav
+
+<group> loop_mode=one_shot key=48
+<region> lovel=001 hivel=018 amp_velcurve_018=1 sample=samples\tom_hi_09.wav
+<region> lovel=019 hivel=030 amp_velcurve_030=1 sample=samples\tom_hi_11.wav
+<region> lovel=031 hivel=040 amp_velcurve_040=1 sample=samples\tom_hi_13.wav
+<region> lovel=041 hivel=049 amp_velcurve_049=1 sample=samples\tom_hi_15.wav
+<region> lovel=050 hivel=058 amp_velcurve_058=1 sample=samples\tom_hi_17.wav
+<region> lovel=059 hivel=066 amp_velcurve_066=1 sample=samples\tom_hi_19.wav
+<region> lovel=067 hivel=074 amp_velcurve_074=1 sample=samples\tom_hi_21.wav
+<region> lovel=075 hivel=081 amp_velcurve_081=1 sample=samples\tom_hi_23.wav
+<region> lovel=082 hivel=088 amp_velcurve_088=1 sample=samples\tom_hi_25.wav
+<region> lovel=089 hivel=096 amp_velcurve_096=1 sample=samples\tom_hi_27.wav
+<region> lovel=097 hivel=102 amp_velcurve_102=1 sample=samples\tom_hi_28.wav
+<region> lovel=103 hivel=108 amp_velcurve_108=1 sample=samples\tom_hi_29.wav
+<region> lovel=109 hivel=114 amp_velcurve_114=1 sample=samples\tom_hi_30.wav
+<region> lovel=115 hivel=118 amp_velcurve_118=1 sample=samples\tom_hi_31.wav
+<region> lovel=119 hivel=123 amp_velcurve_123=1 sample=samples\tom_hi_32.wav
+<region> lovel=124 hivel=127 amp_velcurve_127=1 sample=samples\tom_hi_33.wav
+
+<group> loop_mode=one_shot key=50
+<region> lovel=001 hivel=018 amp_velcurve_018=1 sample=samples\tom_hi_09.wav
+<region> lovel=019 hivel=030 amp_velcurve_030=1 sample=samples\tom_hi_11.wav
+<region> lovel=031 hivel=040 amp_velcurve_040=1 sample=samples\tom_hi_13.wav
+<region> lovel=041 hivel=049 amp_velcurve_049=1 sample=samples\tom_hi_15.wav
+<region> lovel=050 hivel=058 amp_velcurve_058=1 sample=samples\tom_hi_17.wav
+<region> lovel=059 hivel=066 amp_velcurve_066=1 sample=samples\tom_hi_19.wav
+<region> lovel=067 hivel=074 amp_velcurve_074=1 sample=samples\tom_hi_21.wav
+<region> lovel=075 hivel=081 amp_velcurve_081=1 sample=samples\tom_hi_23.wav
+<region> lovel=082 hivel=088 amp_velcurve_088=1 sample=samples\tom_hi_25.wav
+<region> lovel=089 hivel=096 amp_velcurve_096=1 sample=samples\tom_hi_27.wav
+<region> lovel=097 hivel=102 amp_velcurve_102=1 sample=samples\tom_hi_28.wav
+<region> lovel=103 hivel=108 amp_velcurve_108=1 sample=samples\tom_hi_29.wav
+<region> lovel=109 hivel=114 amp_velcurve_114=1 sample=samples\tom_hi_30.wav
+<region> lovel=115 hivel=118 amp_velcurve_118=1 sample=samples\tom_hi_31.wav
+<region> lovel=119 hivel=123 amp_velcurve_123=1 sample=samples\tom_hi_32.wav
+<region> lovel=124 hivel=127 amp_velcurve_127=1 sample=samples\tom_hi_33.wav
+
+
+<group> loop_mode=one_shot volume=3 group=1 off_by=1 key=42
+<region> lovel=001 hivel=031 amp_velcurve_031=1 sample=samples\13hat_top_07.wav
+<region> lovel=032 hivel=039 amp_velcurve_039=1 sample=samples\13hat_top_09.wav
+<region> lovel=040 hivel=046 amp_velcurve_046=1 sample=samples\13hat_top_11.wav
+<region> lovel=047 hivel=054 amp_velcurve_054=1 sample=samples\13hat_top_13.wav
+<region> lovel=055 hivel=061 amp_velcurve_061=1 sample=samples\13hat_top_15.wav
+<region> lovel=062 hivel=069 amp_velcurve_069=1 sample=samples\13hat_top_17.wav
+<region> lovel=070 hivel=076 amp_velcurve_076=1 sample=samples\13hat_top_19.wav
+<region> lovel=077 hivel=083 amp_velcurve_083=1 sample=samples\13hat_top_21.wav
+<region> lovel=084 hivel=091 amp_velcurve_091=1 sample=samples\13hat_top_23.wav
+<region> lovel=092 hivel=099 amp_velcurve_099=1 sample=samples\13hat_top_25.wav
+<region> lovel=100 hivel=105 amp_velcurve_105=1 sample=samples\13hat_top_27.wav
+<region> lovel=106 hivel=111 amp_velcurve_111=1 sample=samples\13hat_top_28.wav
+<region> lovel=112 hivel=115 amp_velcurve_115=1 sample=samples\13hat_top_29.wav
+<region> lovel=116 hivel=119 amp_velcurve_119=1 sample=samples\13hat_top_31.wav
+<region> lovel=120 hivel=123 amp_velcurve_123=1 sample=samples\13hat_top_32.wav
+<region> lovel=124 hivel=127 amp_velcurve_127=1 sample=samples\13hat_top_33.wav
+
+<group> loop_mode=one_shot volume=3 group=1 off_by=1 key=44
+<region> lovel=001 hivel=007 amp_velcurve_007=1 sample=samples\13hat_ped_07.wav
+<region> lovel=008 hivel=015 amp_velcurve_015=1 sample=samples\13hat_ped_09.wav
+<region> lovel=016 hivel=023 amp_velcurve_023=1 sample=samples\13hat_ped_11.wav
+<region> lovel=024 hivel=031 amp_velcurve_031=1 sample=samples\13hat_ped_13.wav
+<region> lovel=032 hivel=039 amp_velcurve_039=1 sample=samples\13hat_ped_14.wav
+<region> lovel=040 hivel=047 amp_velcurve_047=1 sample=samples\13hat_ped_15.wav
+<region> lovel=048 hivel=055 amp_velcurve_055=1 sample=samples\13hat_ped_16.wav
+<region> lovel=056 hivel=063 amp_velcurve_063=1 sample=samples\13hat_ped_17.wav
+<region> lovel=064 hivel=071 amp_velcurve_071=1 sample=samples\13hat_ped_18.wav
+<region> lovel=072 hivel=079 amp_velcurve_079=1 sample=samples\13hat_ped_19.wav
+<region> lovel=080 hivel=087 amp_velcurve_087=1 sample=samples\13hat_ped_20.wav
+<region> lovel=088 hivel=095 amp_velcurve_095=1 sample=samples\13hat_ped_21.wav
+<region> lovel=096 hivel=103 amp_velcurve_103=1 sample=samples\13hat_ped_22.wav
+<region> lovel=104 hivel=111 amp_velcurve_111=1 sample=samples\13hat_ped_23.wav
+<region> lovel=112 hivel=121 amp_velcurve_121=1 sample=samples\13hat_ped_24.wav
+<region> lovel=122 hivel=127 amp_velcurve_127=1 sample=samples\13hat_ped_25.wav
+
+<group> loop_mode=one_shot volume=3 group=1 off_by=1 key=46
+<region> lovel=001 hivel=016 amp_velcurve_016=1 sample=samples\13hat_opn_06.wav
+<region> lovel=017 hivel=033 amp_velcurve_033=1 sample=samples\13hat_opn_07.wav
+<region> lovel=034 hivel=042 amp_velcurve_042=1 sample=samples\13hat_opn_08.wav
+<region> lovel=043 hivel=050 amp_velcurve_050=1 sample=samples\13hat_opn_09.wav
+<region> lovel=051 hivel=058 amp_velcurve_058=1 sample=samples\13hat_opn_10.wav
+<region> lovel=059 hivel=065 amp_velcurve_065=1 sample=samples\13hat_opn_11.wav
+<region> lovel=066 hivel=072 amp_velcurve_072=1 sample=samples\13hat_opn_12.wav
+<region> lovel=073 hivel=079 amp_velcurve_079=1 sample=samples\13hat_opn_13.wav
+<region> lovel=080 hivel=086 amp_velcurve_086=1 sample=samples\13hat_opn_14.wav
+<region> lovel=087 hivel=092 amp_velcurve_092=1 sample=samples\13hat_opn_15.wav
+<region> lovel=093 hivel=098 amp_velcurve_098=1 sample=samples\13hat_opn_16.wav
+<region> lovel=099 hivel=104 amp_velcurve_104=1 sample=samples\13hat_opn_17.wav
+<region> lovel=105 hivel=110 amp_velcurve_110=1 sample=samples\13hat_opn_18.wav
+<region> lovel=111 hivel=116 amp_velcurve_116=1 sample=samples\13hat_opn_19.wav
+<region> lovel=117 hivel=122 amp_velcurve_122=1 sample=samples\13hat_opn_20.wav
+<region> lovel=123 hivel=127 amp_velcurve_127=1 sample=samples\13hat_opn_21.wav
+
+
+<group> loop_mode=one_shot volume=3 key=58
+<region> lovel=001 hivel=016 amp_velcurve_016=1 sample=samples\13hat_opn_06.wav
+<region> lovel=017 hivel=033 amp_velcurve_033=1 sample=samples\13hat_opn_07.wav
+<region> lovel=034 hivel=042 amp_velcurve_042=1 sample=samples\13hat_opn_08.wav
+<region> lovel=043 hivel=050 amp_velcurve_050=1 sample=samples\13hat_opn_09.wav
+<region> lovel=051 hivel=058 amp_velcurve_058=1 sample=samples\13hat_opn_10.wav
+<region> lovel=059 hivel=065 amp_velcurve_065=1 sample=samples\13hat_opn_11.wav
+<region> lovel=066 hivel=072 amp_velcurve_072=1 sample=samples\13hat_opn_12.wav
+<region> lovel=073 hivel=079 amp_velcurve_079=1 sample=samples\13hat_opn_13.wav
+<region> lovel=080 hivel=086 amp_velcurve_086=1 sample=samples\13hat_opn_14.wav
+<region> lovel=087 hivel=092 amp_velcurve_092=1 sample=samples\13hat_opn_15.wav
+<region> lovel=093 hivel=098 amp_velcurve_098=1 sample=samples\13hat_opn_16.wav
+<region> lovel=099 hivel=104 amp_velcurve_104=1 sample=samples\13hat_opn_17.wav
+<region> lovel=105 hivel=110 amp_velcurve_110=1 sample=samples\13hat_opn_18.wav
+<region> lovel=111 hivel=116 amp_velcurve_116=1 sample=samples\13hat_opn_19.wav
+<region> lovel=117 hivel=122 amp_velcurve_122=1 sample=samples\13hat_opn_20.wav
+<region> lovel=123 hivel=127 amp_velcurve_127=1 sample=samples\13hat_opn_21.wav
+
+
+<group> loop_mode=one_shot volume=1 off_by=049 key=49
+<region> lovel=001 hivel=020 amp_velcurve_020=1 sample=samples\18crs_ord_10.wav
+<region> lovel=021 hivel=039 amp_velcurve_039=1 sample=samples\18crs_ord_12.wav
+<region> lovel=040 hivel=052 amp_velcurve_052=1 sample=samples\18crs_ord_14.wav
+<region> lovel=053 hivel=067 amp_velcurve_067=1 sample=samples\18crs_ord_16.wav
+<region> lovel=068 hivel=081 amp_velcurve_081=1 sample=samples\18crs_ord_18.wav
+<region> lovel=082 hivel=093 amp_velcurve_093=1 sample=samples\18crs_ord_20.wav
+<region> lovel=094 hivel=103 amp_velcurve_103=1 sample=samples\18crs_ord_22.wav
+<region> lovel=104 hivel=112 amp_velcurve_112=1 sample=samples\18crs_ord_24.wav
+<region> lovel=113 hivel=120 amp_velcurve_120=1 sample=samples\18crs_ord_26.wav
+<region> lovel=121 hivel=127 amp_velcurve_127=1 sample=samples\18crs_ord_28.wav
+
+
+<group> loop_mode=one_shot off_by=051 key=51
+<region> lovel=001 hivel=013 amp_velcurve_013=1 sample=samples\20rde_ord_14.wav
+<region> lovel=014 hivel=025 amp_velcurve_025=1 sample=samples\20rde_ord_16.wav
+<region> lovel=026 hivel=036 amp_velcurve_036=1 sample=samples\20rde_ord_18.wav
+<region> lovel=037 hivel=046 amp_velcurve_046=1 sample=samples\20rde_ord_20.wav
+<region> lovel=047 hivel=057 amp_velcurve_057=1 sample=samples\20rde_ord_21.wav
+<region> lovel=058 hivel=068 amp_velcurve_068=1 sample=samples\20rde_ord_22.wav
+<region> lovel=069 hivel=078 amp_velcurve_078=1 sample=samples\20rde_ord_23.wav
+<region> lovel=079 hivel=086 amp_velcurve_086=1 sample=samples\20rde_ord_24.wav
+<region> lovel=087 hivel=093 amp_velcurve_093=1 sample=samples\20rde_ord_25.wav
+<region> lovel=094 hivel=100 amp_velcurve_100=1 sample=samples\20rde_ord_26.wav
+<region> lovel=101 hivel=106 amp_velcurve_106=1 sample=samples\20rde_ord_27.wav
+<region> lovel=107 hivel=111 amp_velcurve_111=1 sample=samples\20rde_ord_28.wav
+<region> lovel=112 hivel=116 amp_velcurve_116=1 sample=samples\20rde_ord_29.wav
+<region> lovel=117 hivel=120 amp_velcurve_120=1 sample=samples\20rde_ord_30.wav
+<region> lovel=121 hivel=124 amp_velcurve_124=1 sample=samples\20rde_ord_31.wav
+<region> lovel=125 hivel=127 amp_velcurve_127=1 sample=samples\20rde_ord_32.wav
+
+
+<group> loop_mode=one_shot off_by=051 key=53
+<region> lovel=001 hivel=030 amp_velcurve_030=1 sample=samples\20rde_bel_07.wav
+<region> lovel=031 hivel=050 amp_velcurve_050=1 sample=samples\20rde_bel_09.wav
+<region> lovel=051 hivel=066 amp_velcurve_066=1 sample=samples\20rde_bel_11.wav
+<region> lovel=067 hivel=080 amp_velcurve_080=1 sample=samples\20rde_bel_13.wav
+<region> lovel=081 hivel=093 amp_velcurve_093=1 sample=samples\20rde_bel_15.wav
+<region> lovel=094 hivel=105 amp_velcurve_105=1 sample=samples\20rde_bel_17.wav
+<region> lovel=106 hivel=117 amp_velcurve_117=1 sample=samples\20rde_bel_18.wav
+<region> lovel=118 hivel=127 amp_velcurve_127=1 sample=samples\20rde_bel_19.wav
+
+
+<group> loop_mode=one_shot volume=3 off_by=052 key=52
+<region> lovel=001 hivel=023 amp_velcurve_023=1 sample=samples\19chn_ord_08.wav
+<region> lovel=024 hivel=037 amp_velcurve_037=1 sample=samples\19chn_ord_10.wav
+<region> lovel=038 hivel=048 amp_velcurve_048=1 sample=samples\19chn_ord_12.wav
+<region> lovel=049 hivel=058 amp_velcurve_058=1 sample=samples\19chn_ord_14.wav
+<region> lovel=059 hivel=066 amp_velcurve_066=1 sample=samples\19chn_ord_16.wav
+<region> lovel=067 hivel=074 amp_velcurve_074=1 sample=samples\19chn_ord_18.wav
+<region> lovel=075 hivel=083 amp_velcurve_083=1 sample=samples\19chn_ord_20.wav
+<region> lovel=084 hivel=090 amp_velcurve_090=1 sample=samples\19chn_ord_22.wav
+<region> lovel=091 hivel=097 amp_velcurve_097=1 sample=samples\19chn_ord_24.wav
+<region> lovel=098 hivel=101 amp_velcurve_101=1 sample=samples\19chn_ord_25.wav
+<region> lovel=102 hivel=105 amp_velcurve_105=1 sample=samples\19chn_ord_26.wav
+<region> lovel=106 hivel=110 amp_velcurve_110=1 sample=samples\19chn_ord_27.wav
+<region> lovel=111 hivel=115 amp_velcurve_115=1 sample=samples\19chn_ord_28.wav
+<region> lovel=116 hivel=120 amp_velcurve_120=1 sample=samples\19chn_ord_29.wav
+<region> lovel=121 hivel=124 amp_velcurve_124=1 sample=samples\19chn_ord_30.wav
+<region> lovel=125 hivel=127 amp_velcurve_127=1 sample=samples\19chn_ord_31.wav
+
+
+<group> loop_mode=one_shot off_by=055 key=55
+<region> lovel=001 hivel=019 amp_velcurve_019=1 sample=samples\8spl_ord_08.wav
+<region> lovel=020 hivel=032 amp_velcurve_032=1 sample=samples\8spl_ord_10.wav
+<region> lovel=033 hivel=043 amp_velcurve_043=1 sample=samples\8spl_ord_12.wav
+<region> lovel=044 hivel=055 amp_velcurve_055=1 sample=samples\8spl_ord_13.wav
+<region> lovel=056 hivel=064 amp_velcurve_064=1 sample=samples\8spl_ord_14.wav
+<region> lovel=065 hivel=073 amp_velcurve_073=1 sample=samples\8spl_ord_15.wav
+<region> lovel=074 hivel=080 amp_velcurve_080=1 sample=samples\8spl_ord_16.wav
+<region> lovel=081 hivel=086 amp_velcurve_086=1 sample=samples\8spl_ord_17.wav
+<region> lovel=087 hivel=093 amp_velcurve_093=1 sample=samples\8spl_ord_18.wav
+<region> lovel=094 hivel=100 amp_velcurve_100=1 sample=samples\8spl_ord_19.wav
+<region> lovel=101 hivel=105 amp_velcurve_105=1 sample=samples\8spl_ord_20.wav
+<region> lovel=106 hivel=110 amp_velcurve_110=1 sample=samples\8spl_ord_21.wav
+<region> lovel=111 hivel=115 amp_velcurve_115=1 sample=samples\8spl_ord_22.wav
+<region> lovel=116 hivel=119 amp_velcurve_119=1 sample=samples\8spl_ord_23.wav
+<region> lovel=120 hivel=123 amp_velcurve_123=1 sample=samples\8spl_ord_24.wav
+<region> lovel=124 hivel=127 amp_velcurve_127=1 sample=samples\8spl_ord_25.wav
+
+
+<group> loop_mode=one_shot off_by=057 key=57
+<region> lovel=001 hivel=027 amp_velcurve_027=1 sample=samples\15crs_ord_07.wav
+<region> lovel=028 hivel=038 amp_velcurve_038=1 sample=samples\15crs_ord_09.wav
+<region> lovel=039 hivel=048 amp_velcurve_048=1 sample=samples\15crs_ord_11.wav
+<region> lovel=049 hivel=058 amp_velcurve_058=1 sample=samples\15crs_ord_13.wav
+<region> lovel=059 hivel=067 amp_velcurve_067=1 sample=samples\15crs_ord_15.wav
+<region> lovel=068 hivel=075 amp_velcurve_075=1 sample=samples\15crs_ord_17.wav
+<region> lovel=076 hivel=082 amp_velcurve_082=1 sample=samples\15crs_ord_19.wav
+<region> lovel=083 hivel=089 amp_velcurve_089=1 sample=samples\15crs_ord_21.wav
+<region> lovel=090 hivel=096 amp_velcurve_096=1 sample=samples\15crs_ord_23.wav
+<region> lovel=097 hivel=103 amp_velcurve_103=1 sample=samples\15crs_ord_24.wav
+<region> lovel=104 hivel=108 amp_velcurve_108=1 sample=samples\15crs_ord_25.wav
+<region> lovel=109 hivel=113 amp_velcurve_113=1 sample=samples\15crs_ord_26.wav
+<region> lovel=114 hivel=118 amp_velcurve_118=1 sample=samples\15crs_ord_27.wav
+<region> lovel=119 hivel=123 amp_velcurve_123=1 sample=samples\15crs_ord_28.wav
+<region> lovel=124 hivel=127 amp_velcurve_127=1 sample=samples\15crs_ord_29.wav
+
+
+// Choking for cymbals is same note one octave higher (not hihats)
+// sample with end=-1 is not played (but must exist?)
+<group> sample=samples\15crs_ord_29.wav end=-1
+<region> key=061 group=049
+<region> key=063 group=051
+<region> key=064 group=052
+<region> key=065 group=051
+<region> key=067 group=055
+<region> key=069 group=057

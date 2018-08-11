@@ -1,0 +1,536 @@
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+                                       
+        Ecasound Examples - The Best Place to Get Started with Ecasound
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Remember to also check out the Ecasound Tutorials and Articles [alt link] page,
+the ecasound(1) [alt link] manpage, and the Ecasound User’s Guide.
+
+The console mode user-interface, ecasound, is used in all the following
+examples. Other ecasound frontends may use a different syntax, but the basic
+principles are the still the same as long as ecasound is used as the backend
+engine.
+
+Version note: sections describing recently introduced features have a note
+about the minimum required version.
+
+  • Format Conversions
+  • Realtime Outputs (playing to a sound device)
+  • Realtime Inputs (recording from a sound device)
+  • Use with JACK audio server
+  • Effect Processing
+  • Using controller sources with effects
+  • Multitrack Recording
+  • Mixing
+  • Cut, Copy and Paste
+  • Manipulating objects - looping, reversing, ...
+  • Multichannel Processing
+  • Signal Routing through External Devices
+  • LADSPA Effect Plugins
+  • LV2 Effect Plugins
+  • Effect Presets
+  • More with MIDI
+  • Tone generation
+  • Piping data from other processes
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Format Conversions
+
+These first two commands do the exact same thing, conver somefile.wav to
+somefile.cdr (CDR is the CD-Audio track format). As no chains are specified,
+the default chain is created and used.
+
+    1. ecasound -i:somefile.wav -o:somefile.cdr
+    2. ecasound -i somefile.wav -o somefile.cdr
+
+This is not a very useful example, but hopefully helps to understand the way
+chains work:
+
+    3. ecasound -a:1,2 -i somefile.wav -a:1 -o somefile.cdr -a:2 -o somefile.mp3
+
+First, two new chains 1 and 2 (you can also use strings:
+'-a:some_name_with_no_whitespaces,some_other_name') are created. They are now
+the active chains. After this, input somefile.wav is connected to both these
+chains. The rest follows the same scheme. Chain '1' is set active and output
+somefile.cdr is attached to it. In the same way, somefile.mp3 is attached to
+chain '2'.
+
+The last example is similar to the first two, but now ecasound is started in
+interactive mode:
+
+    4. ecasound -c -i somefile.wav -o somefile.cdr
+
+Format Conversions - Resampling
+
+    1. ecasound -f:16,2,96000 -i resample,auto,foo44100.wav -o bar96k.wav
+    2. ecasound -f:16,2,44100 -i resample,auto,bar96k.wav -o foo44100.wav
+    3. ecasound -f:16,2,44100 -i resample-hq,48k,foo48k.wav -o bar.wav
+    4. ecasound -f:16,2,44100 -i resample,96k,third.raw -o foo44100.wav
+
+To do resampling, a special 'resample' input type must be used. In the first
+example above, the 44100Hz file foo44100.wav is resampled to 96kHz and the
+result is written to bar96k.wav. In the second example the reverse is done,
+sample rate is converted from 96khz to 44100Hz. In the last example, the from
+rate has to be specified explicitly as raw audio files do not contain the
+necessary header information.
+
+In the last example we do a 48000Hz to 44100Hz conversion using the
+'resample-hq' input type. If Ecasound was built with support for the
+libsamplerate package, 'resample-hq' selects the high-quality conversion mode.
+In this mode the conversion process requires more CPU power, but the results
+are of higher quality. Using libsamplerate also improves quality of the default
+'resample' mode.
+
+Realtime Outputs (playing to a sound device)
+
+Following are examples of recording from, and playing back to, ALSA sound
+device (Linux):
+
+    1. ecasound -i somefile.mp3 -o alsa
+    2. ecasound -i somefile.mp3 -o alsahw,0,0
+    3. ecasound -i somefile.mp3 -o alsaplugin,0,0
+    4. ecasound -i somefile.mp3 -o alsa,soundcard_name
+
+ALSA sound subsystem provides multiple ways to select which audio device to
+use, and how it is accessed. A plain "alsa" will use the default ALSA sound
+device (depends on system configuration). Alternatively you can either specify
+"alsahw" (to indicate you want use the ALSA direct hardware interface), or
+"alsaplugin" (to utilize the ALSA plugin layer). Both accept card number and
+device number as parameters. Optionally also subdevice can be given. The plugin
+layer is able to handle some type conversions automatically. Yet another option
+is to specify the ALSA device name ('soundcard_name'). The device name must be
+defined in the ALSA configuration files (either in ~/.asoundrc or in the global
+settings file).
+
+Following are examples of recording from, and playing back to, OSS sound device
+(Linux, BSDs and many other OS'es):
+
+    1. ecasound somefile.wav
+    2. ecasound -i somefile.wav
+    3. ecasound -i:somefile.wav
+    4. ecasound -i somefile.wav -o /dev/dsp
+
+If you haven't touched your ~/.ecasound/ecasoundrc configuration file, these
+should all do the same thing, output somefile.wav to /dev/dsp using the default
+chain. If no inputs are specified, ecasound tries to use the first non-option
+argument on the command line as a default input. If no chains are specified,
+the chain 'default' is created and set active. If no outputs are specified, the
+default-output defined in ~/.ecasound/ecasoundrc is used. This is normally /dev
+/dsp.
+
+See also section on JACK below.
+
+Realtime Inputs (recording from a sound device)
+
+    1. ecasound -i /dev/dsp0 -o somefile.wav
+    2. ecasound -i alsa -o somefile.wav -c
+    3. ecasound -i alsahw,1,0 -o somefile.wav
+
+These are simple examples of recording. When recording, it may be useful to run
+ecasound in interactive mode (-c).
+
+See also section on JACK below.
+
+Use with JACK audio server
+
+    1. ecasound -i foo.wav -o jack,system
+    2. ecasound -i foo.wav -o jack
+
+This will create a separate JACK output port for each channel of foo.wav, and
+automatically connect these Ecasound ports to the system PCM output ports in
+the JACK server. The second example will create JACK output ports, but does not
+establish any connections (you have to do this yourself with jack_connect,
+qjackconnet, qjackctl, or other similar tool).
+
+    3. ecasound -c -i foo.wav -o jack,system -G:jack,eca_slave,recv
+
+Like in previous examples, but the ecasound client name (as shown to other JACK
+clients) is set to "eca_slave", and ecasound is configured to react to incoming
+transport changes (play, stop, seek, etc). By default ecasound both sends and
+reacts to transport events.
+
+Version note: the above describes the updated JACK interface introduced in
+Ecasound 2.6. The old interfaces, "jack_alsa", "jack_auto" and "jack_generic"
+are deprecated, but still available in current versions of Ecasound.
+
+Effect Processing
+
+Ecasound is an extremely versatile tool when it comes to effect processing.
+After all, it was originally programmed for non-realtime signal processing.
+Here are some of examples:
+
+    1. ecasound -i somefile.mp3 -o alsa -ea:120
+    2. ecasound -a:default -i somefile.mp3 -o alsa -ea:120
+
+These two perform the same thing: an mp3 input file is amplified to 120%
+(linear scale) and fed to ALSA default PCM sound device.
+
+    3.ecasound -i somefile.mp3 -o alsa -etr:40,0,55 -ea:120
+
+Like the previous examples, but now a reverb effect, with a delay of 40
+milliseconds, with surround mode disabled and mix ratio of 55%, is added to the
+chain before the amplify effect. In other words the signal is first processed
+with the reverb and then amplified. Any number of effects can be combined this
+way. Note that when a real-time input/output, like the ALSA PCM device in above
+example, is part of the setup, one must have enough CPU power to run the effect
+algorithms in real-time (at the speed of the sound device). When this happens,
+ecasound will start warning about buffer over- or underruns (often referred to
+as 'xruns'), and the audio output may be garbled. An easy way to work aroud
+processing power limitations is to split the processing into two steps: first
+apply the effects and write output to a file, and then as a separate step play
+the file to a sound device.
+
+    4. ecasound -a:1,2 -i somefile.mp3 -o alsa \
+            -a:1 -etr:40,0,55 -ea:120 \
+            -a:2 -efl:400
+
+Ok, let's next do some parallel processing: two chains are created and the
+input and output files are connected to them. As a result, the input signal is
+processed with two sets of effects, and then mixed back together. You can
+create as many chains this way as you want.
+
+Using controller sources with effects
+
+    1. ecasound -i somefile.wav -o alsa -ef3:800,1.5,0.9 -kos:1,400,4200,0.2,0 -kos:2,0.1,1.5,0.15,0
+    2. ecasound -i somefile.wav -o alsa -ef3:800,1.5,0.9 -km:1,400,4200,74,1 -km:2,0.1,1.5,71,1
+
+The first example uses two sine oscillators
+('-kos:parameter,range_low,range_high,speed_in_Hz,initial_phase') to control a
+resonant lowpass filter. The cutoff frequency varies betweeen 400 and 4200 Hz,
+while resonance varies between 0.1 and 1.5. The initial phase is 0 (times pi).
+The second example uses MIDI continuous controllers
+('-km:parameter,range_low,range_high,controller_number,midi-channel') as
+controller sources. The ranges are the same as in the in first example.
+Controller numbers used are 74 (cutoff) and 71 (resonance). In other words you
+can use your synth's cutoff and resonance knobs.
+
+It's also possible to control controllers with other controllers using the
+'-kx' option. Normally when you add a controller, you're controlling the last
+specified chain operator. '-kx' changes this. Let's take an example:
+
+    3. ecasound -i file.wav -o alsa -ea:100 -kos:1,0,100,0.5,0 -kx -kos:4,0.1,5,0.5,0
+
+Same as before, but now another 0.5Hz sine oscillator is controlling the
+frequency of the first oscillator.
+
+Now let's add a MIDI-controller (CC) to the mix. In the following, a sine
+oscillator is assigned to the cutoff frequency, while other controller is
+controlling the resonance. MIDI control change messages from controller 2
+(range of 0-127) on channel 1 (range of 1-16 channels) are used to control the
+frequency of the sine oscillator (with MIDI control value range of 0-127 mapped
+to oscillator frequencies 0.5-1.5kHz).
+
+    4. ecasound -i file.wav -o alsa -ef3:1000,1.0,1.0 -kos:1,500,2000,1,0 \
+            -kos:2,0.2,1.0,0.5,0 \
+            -kx -km:1,0.1,1.5,2,1
+
+Multitrack Recording
+
+    1. ecasound -c -f:16,2,44100 \
+            -a:1 -i monitor-track.wav -o alsa \
+            -a:2 -i alsa -o new-track.wav
+
+It really is this simple. Then a default sample format is set with
+'-f:bits,channels,sample_rate'. Now all that's left is to specify two chains:
+one for monitoring and one for recording. When using the above command, you
+need to have some way of monitoring the signal that is recorded. The preferred
+way is to utilize hw-monitoring of the audio device: unmute and adjust the
+line-in level with the mixer application (e.g. "alsamixer" or "alsamixergui").
+If you want to use ecasound for digital monitoring, you have to add a separate
+chain for it:
+
+    2. ecasound -c -b:256 \
+            -a:1 -i monitor-track.wav \
+            -a:2,3 -i alsa \
+            -a:2 -o new-track.wav \
+            -a:1,3 -o alsa
+
+You can always do test recordings until you find the optimal volume levels
+(using the soundcard mixer apps and adjusting source volume), but ecasound
+offers a better way to do this. This is a bit ugly, but what's most important,
+it works in text-mode:
+
+    3. ecasound -c -f:16,2,44100 -a:1 -i alsa -o alsa -ev
+
+Basicly this just records from ALSA default PCM input, puts the signal through
+an analyze ('-ev') operator and outputs to ALSA output. The secret here is that
+you can get volume statistics with the estatus (or es) command in interactive
+mode. Newer ecasound versions (1.8.5 and newer) provide a separate
+'ecasignalview' application, which can be used to monitor signal level in
+real-time.
+
+Mixing
+
+Here's a few real-life mixdown examples.
+
+    1. ecasound -c \
+         -a:1 -i drums.wav \
+         -a:2 -i synth-background.wav \
+         -a:3 -i bass-guitar_take-2.ewf \
+         -a:4 -i brass-house-lead.wav \
+         -a:all -o alsa
+
+First of all, interactive-mode is selected with '-c' to allow controlling of
+mixdown playback (starting, stopping, seeking and so forth). The mixdown
+consists of four inputs (all stereo). Each input is routed to a dedicated
+chains (named '1'...'4'). The chains are mixed by routing them all to a single
+output device (the ALSA default PCM device).
+
+    2. ecasound -c -r \
+         -a:1 -i drums.wav -ea:200 \
+         -a:2 -i synth-background.wav -epp:40 -ea:120 \
+         -a:3 -i bass-guitar_take-2.ewf -ea:75 \
+         -a:4 -i brass-house-lead.wav -epp:60 -ea:50 \
+         -a:1,2,3,4 -o loop,1 \
+         -a:5,6 -i loop,1 \
+         -a:5 -o alsa \
+         -a:6 -o current-mix.wav
+
+This second example is more complex. The same inputs are used, but this time
+effects (amplify '-ea:mix_percent' and panning '-epp:left_right_balance') are
+also used. Additionally we want to route the full mix to both the ALSA sound
+device and to a file. As a single chain can be connected to at most one input
+and one output, use of a virtual loop device is needed in this example. The
+four input chains are first routed to a loop device 'loop,1' ('1' identifies
+the loop object instance). Then two new chains, '5' and '6', are defined. The
+loop device is set as input to both of these chains (using the '-a:5,6 -i
+loop,1' syntax). As the final step, the ALSA device is set as the output for
+chain '5' and the file 'current-mix.wav' as the output of chain '6'.
+
+Cut, Copy and Paste
+
+Here's a simple example where the first 60 seconds of bigfile.wav is written to
+part1.wav and the rest to part2.wav:
+
+    1.a) ecasound -i bigfile.wav -o part1.wav -t:60.0
+      b) ecasound -i bigfile.wav -y:60.0 -o part2.wav
+
+If you want to combine these files back to one big file:
+
+    2. ecasound -i part2.wav -o part1.wav -y:500
+
+In the above second example, part2.wav is appended to part1.wav.
+
+Manipulating objects - looping, reversing, ...
+
+To continuously loop an audio file, you can use 'audioloop':
+
+    1. ecasound -i audioloop,drumloop.wav -o alsa
+
+To run the loop for 65.0secs, you can use '-t':
+
+    2. ecasound -i audioloop,drumloop.wav -o alsa -t:65.0
+
+To play an audio file in reserve:
+
+    3. ecasound -i reverse,drumloop.wav -o alsa
+
+The various operations can also be stacked. Let's first start by using 'select'
+to play a 10sec clip covering range [5sec,15sec] of the input file
+'example.wav', using the ALSA output device.
+
+    4. ecasound  -i select,5,10,example.wav -o alsa
+
+Next let's play that segment in reverse:
+
+    5. ecasound  -i reverse,select,5,10,example.wav -o alsa
+
+But you can still keep adding new operators. Let's now loop the reversed
+segment:
+
+    6. ecasound  -i audioloop,reverse,select,5,10,audioclip.wav -o alsa
+
+Another available operator is "playat", which can be used to play an audio clip
+at a given moment in time (i.e. postpone the time it is played). A simple
+example of playing "audioclip.wav" at position 20sec (i.e. 20secs of silences
+and then file is played out from start).
+
+    7. ecasound  -i playat,20.0,audioclip.wav -o alsa
+
+This operatoror can be combined with others as well. To select a 10sec clip,
+starting at 25sec (i.e. 25-35sec of "audioclip.wav"), and play it at 180.5sec
+(with total length of 180.5+10.0=190.5sec):
+
+    8. ecasound  -i playat,180.5,select,25,10.0,audioclip.wav -o alsa
+
+Version note: 'audioloop', 'select' and 'playat' audio object types were added
+to ecasound version 2.5.0.
+
+Multichannel Processing
+
+Ecasound chains can transport multiple channels of audio. The channel count of
+a chain is defined by the input and output connected to it. Normally effects
+and other chain operators operate on all channels of a chain. But it is also
+possible to operate on specific c hannels only. Here's an example of how to
+split a four channel input file into four separate one channel output files:
+
+    1. ecasound -a:1,2,3,4 -i 4-channel-file.wav \
+                -a:1 -f:16,1,44100 -o mono-1.wav \
+                -a:2 -f:16,1,44100 -o mono-2.wav -chcopy:2,1 \
+                -a:3 -f:16,1,44100 -o mono-3.wav -chcopy:3,1 \
+                -a:4 -f:16,1,44100 -o mono-4.wav -chcopy:4,1
+
+Note that all four channels of '4-channel-file.raw' are routed to all the four
+chains '1' through '4'. At the output stage, all the output files are one
+channel (because of '-f:16,1,44100) and thus only the first channel of each
+chain is written to the output. To perform the correct routing, the '-chcopy'
+operator is used to copy source channel 'N' to first channel (which will be
+written to the output file). In chain '1' no channel copying is needed as the
+first channel already has the necessary contents.
+
+Version note: '-chcopy' was introduced in version 2.4.5. In earlier versions
+'-erc' provides similar functionality.
+
+To amplify a specific channel, '-eac' can be used. Here's an example where 3rd
+channel of a 4ch file is amplified by 150% (linear scale):
+
+    2. ecasound -i 4ch-infile.wav -ea:150,3 -o 4ch-outfile.wav
+
+Signal Routing through External Devices
+
+Signal routing is done using similar setups as is used for multirack recording.
+The only difference is that the realtime input(s) and output(s) are externally
+connected (fed through an external effect processor for instance).
+
+    1. ecasound -c -f:16,2,44100 \
+              -a:1 -i source-track.wav -o alsa \
+              -a:2 -i alsa -o processed-track.wav
+
+LADSPA Effect Plugins
+
+The following produces a 440Hz sine tone (e.g. for tuning purposes) and plays
+it out with the default ALSA PCM device. For this to work, one needs to have
+the LADSPA SDK needs installed (see www.ladspa.org).
+
+    1. ecasound -i null -o alsa -el:sine_fcac,440,1
+
+The next example produces a metrome signal with tempo of 120BPM, using a LADSPA
+plugin to create the sine tone (-el), ecasound pulse gate (-eemb) to create the
+pulse and finally a low-pass filter (-efl) to filter the resulting output.
+
+    2. ecasound -i:null -o:alsa -el:sine_fcac,880,1 -eemb:120,10 -efl:2000
+
+LV2 Effect Plugins
+
+LV2 is a plugin standard for audio systems, designed as a successor for LADSPA.
+See lv2plug.in website for more information, and links to available LV2
+plugins, documentation and other resources.
+
+In the first example, a +6dB gain is applied using LV2 example 'eq-amp' plugin.
+LV2 plugins are identified with URIs, so the first parameter to '-elv2' is the
+plugin URI (e.g. http://lv2plug.in/plugins/eg-amp).
+
+    1. ecasound -i foobar.wav -o alsa -elv2:http://lv2plug.in/plugins/eg-amp,6
+
+The next example shows how to use the analogueOsc plugin from swh-plugins
+package, to create a 400Hz square tone and play it to default ALSA audio
+output:
+
+    2. ecasound -i:null -o:alsa -elv2:http://plugin.org.uk/swh-plugins/analogueOsc,3,400,0.4,0.05
+
+LV2 (like LADSPA) plugins can be controlled just like other Ecasound plugins.
+E.g. making a 10sec 20-2000Hz sweep of the square tone from previous example:
+
+    3. ecasound -i:null -o:alsa -elv2:http://plugin.org.uk/swh-plugins/analogueOsc,3,20,0.4,0.05 -kl:2,20,2000,10
+
+Version note: For LV2 support, you need ecasound 2.9.0 or newer.
+
+Effect Presets
+
+In the above example for LADSPA, the sequence -el:sine_fcac,880,1 -eemb:120,10
+-efl:2000 was used to create a metronome signal. Combinations of effects like
+this can be stored for later use as Ecasound presets:
+
+    1. ecasound -i:null -o:alsa -pn:metronome,120
+
+This is defined in @prefix@/share/ecasound/effect_presets as:
+
+    # the metronome example, taking a single parameter (tempo)
+    metronome = -el:sine_fcac,880,1 -eemb:%1,10 -efl:2000 \
+            -ppn:bpm -ppd:100 -pd:Sineosc_metronome
+
+Passing parameters is supported (%1 is the first preset parameter, %2 the
+second, and so forth). In the above example, %1 is set to 120 and this may be
+modified during runtime (interactively, with oscillators, via MIDI, OSC, or any
+other method available for controlling parameters).
+
+A sample 'effect_presets' file is distributed with Ecasound.
+
+More MIDI examples
+
+The following is a simple example how an MIDI continuous controller (CC) is
+used to control an ecasound effect parameter (the cutoff frequency of the
+low-pass filter '-efl'):
+
+    1. ecasound -i somefile.wav -o alsa -efl:400 -km:1,400,4200,74,1
+
+The above example uses OSS rawmidi access, which is equivalent to adding
+'-Md:rawmidi,/dev/midi' to the command line. To do the same with ALSA, the
+syntax is as follows:
+
+    2. ecasound -i somefile.wav -o alsa -efl:400 -km:1,400,4200,74,1 -Md:rawmidi,/dev/snd/midiC0D0
+    3. ecasound -i somefile.wav -o alsa -efl:400 -km:1,400,4200,74,1 -Md:alsaseq,80:1
+    4. ecasound -i somefile.wav -o alsa -efl:400 -km:1,400,4200,74,1 -Md:alsaseq,KMidimon
+
+The first one uses the ALSA rawmidi interface and opens an ALSA device (card 0,
+device 0) for raw MIDI I/0. The second example uses the ALSA sequencer API,
+which is more powerful as you can route MIDI packets not only to hardware
+interfaces, but also to and from other applications supporting the sequencer
+API. "80,1" and "KMidimon" are sequencr ports to which ecasound should connect.
+You can use the "aconnect" (part of the alsa-utils package) tool to list all
+available sequencer ports.
+
+Version note: For ALSA sequencer support, you need ecasound 2.4.3 or newer.
+
+Tone generation
+
+Ecasound also provides a few tone generation primitives. These are mainly
+intended for testing, but can have other uses as well. For a more versatile set
+of tone generators, one can utilize the various LADSPA plugins that produce
+tones.
+
+A sine tone of 880Hz, played out to the default ALSA sound device:
+
+    1. ecasound -i tone,sine,880 -o alsa
+
+The above continuous to produce the tone indefinitely. It is also possible to
+create a test tone of finite length. First, a sine tone of 440Hz with length of
+exactly 22.25secs. Then a similar example, in which the length of the tone is
+given in samples (88200 in this case):
+
+    2. ecasound -i tone,sine,440,22.25 -o alsa
+    3. ecasound -i tone,sine,880,88200sa -o alsa
+
+Version note: 'tone' audio object type was added to ecasound version 2.5.0.
+
+Piping data from other processes
+
+Here is one example of how audio can be piped to ecasound:
+
+    1. mpg123 -s sometune.mp3 | ecasound -i:stdin -o alsa
+
+The above sends the output of mpg123 to standard output ('-s' option of mpg123)
+and reads it from standard input with ecasound ('-i:stdin' option), and plays
+it out through the default ALSA PCM device. Similarly, 'stdout' can be used to
+pipe data out from ecasound.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Back to index.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+
+
+
+
+
+
+
+
+
+
+Valid XHTML 1.0! Valid CSS!
+

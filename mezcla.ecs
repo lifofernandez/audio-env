@@ -1,0 +1,6 @@
+-n:ECA-chain_mix
+-a:1 -i jack,TR808,DRUMS -ea:500 
+-a:2 -i jack,GM,GMBANK -etr:10,surround,80	
+-a:3 -i jack,yoshimi,SYNTH -ea:300 -ete:10,30,50 -ea:100
+# -a:3 -i jack,zynaddsubfx,SYNTH
+-a:all -o jack,system -G:jack,ECA_mix
