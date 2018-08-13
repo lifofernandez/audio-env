@@ -66,36 +66,49 @@ timidity -iAD -Oj -B 2,6
 ```
 
 ## MIDI
+
 ### Listar entradas y salidas MIDI
+
 ```bash
 aconnect -l
 ```
+
 ### Conectar dispositivos MIDI 
+
 ```bash
 aconnect IN OUT
+```
+### MIDI dump
+
+```bash
+aseqdump
 ```
 
 ### Reproducir un archivo MIDI 
 
 #### Con ALSA aplaymidi a traves de puerto Trough
+
 ```bash
 aplaymidi -p14 ARCHIVO.mid
 ```
 
 #### Con tiMIDIty a travez del dispositivo default  
+
 ```bash
 timidity ~/midi-simple/MIDI_sample.mid -Os 
 ```
 
 ### Grabar MIDI del puerto Through de ALSA
+
+*Graba todo lo que se envie a ese puero, algo similar a un  MIDI merge* 
 ```bash
 arecordmidi -b100 -t3 -p14:0 -m129:0 -i9:8 REC.mid
 ```
-*Graba todo lo que se envie a ese puero, algo similar a un  MIDI merge* (no
-conseguí escuchar el metronomo -m129:0).
+(no conseguí escuchar el metronomo -m 129:0).
 
 
 ### Timidity confs path
+
 /etc/timidity++
 
 ### MIDI over LAN/WIFI
