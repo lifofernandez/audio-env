@@ -119,11 +119,40 @@ qmidinet -p 666
 
 ## INVESTIGAR, PROBAR y TO DO
 
+### Synths
+
+AMS AlsaModularSynth 
+
+http://alsamodular.sourceforge.net/
+
+startBristol -mini -jack -midi alsa -cli -window
+
+https://wiki.linuxaudio.org/apps/all/amsynth
+
+
 ### Arpegiadores
 https://sourceforge.net/projects/arpage/
+
 http://qmidiarp.sourceforge.net/
 
 ### Ruter MIDI 
+
+https://wiki.linuxaudio.org/apps/all/amidmap
+
+qmidiroute
+
 http://das.nasophon.de/mididings/
-https://github.com/tiwai/aseqview (lo probe, medio q no hace naa)
-startBristol -mini -jack -midi alsa -cli -window
+
+https://github.com/tiwai/aseqview
+(lo probe, medio q no hace naa)
+
+
+https://wiki.linuxaudio.org/apps/all/alsa_patch_bay
+http://pkl.net/~node/software/alsa-patch-bay/
+
+https://wiki.linuxaudio.org/apps/all/alsa_midi_kommander
+
+
+https://wiki.linuxaudio.org/apps/categories/alsa_seq
+
+
