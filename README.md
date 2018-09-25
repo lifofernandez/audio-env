@@ -42,7 +42,12 @@ jack_connect metro:120_bpm system:playback_1
 
 
 ## SYNTHES Y SAMPLERS
+
 ### Iniciar FLuidSynth a travez de JACK 
+
+bank offset
+http://lists.nongnu.org/archive/html/fluid-dev/2004-06/msg00007.html
+
 ```bash
 fluidsynth  \
 	-is -ajack -l \
