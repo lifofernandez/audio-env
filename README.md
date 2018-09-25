@@ -46,7 +46,11 @@ jack_connect metro:120_bpm system:playback_1
 ### Iniciar FLuidSynth a travez de JACK 
 
 bank offset
+
 http://lists.nongnu.org/archive/html/fluid-dev/2004-06/msg00007.html
+bank select metod (gm para GM soundfonts)
+http://www.fluidsynth.org/api/fluidsettings.xml#synth.midi-bank-select
+
 
 ```bash
 fluidsynth  \
