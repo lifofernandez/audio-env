@@ -45,10 +45,41 @@ jack_connect metro:120_bpm system:playback_1
 
 ### Iniciar FLuidSynth a travez de JACK 
 
-bank offset
+#### Load command configuration file (shell commands)
+f, --load-config
 
+#### Bank Offset
 http://lists.nongnu.org/archive/html/fluid-dev/2004-06/msg00007.html
-bank select metod (gm para GM soundfonts)
+
+
+For example, consider two soundfonts, first.fs2 and second.fs2, which
+contain all presets in bank 0.
+
+Load first.fs2 with bank offset 0:
+
+> load /my/soundfonts/first.sf2 1 0
+loaded SoundFont has ID 1
+
+Load second.fs2 with bank offset 1:
+
+> load /my/soundfonts/second.fs2 1 1
+loaded SoundFont has ID 2
+
+Fluidsynth now assigns soundfont IDs starting with 1 instead of 0.
+The soundfont ID value 0 can be used in the revised implementation of the
+"select" command to simulate a MIDI bank-select and program change
+message sequence for a given channel and should have the same effect
+as sending MIDI bank select and program change.  I.e., when using
+soundfont ID 0 in "select" the soundfont list is searched for the
+first existing specified preset in the given bank.
+
+For example, assign a preset 3 from bank 1 (second.fs2) to channel 5
+without using soundfont ID 2:
+
+> select 5 0 1 3
+
+#### Bank select method ('gm' para GM soundfonts)
+
 http://www.fluidsynth.org/api/fluidsettings.xml#synth.midi-bank-select
 
 
@@ -155,8 +186,8 @@ http://das.nasophon.de/mididings/
 https://github.com/tiwai/aseqview
 (lo probe, medio q no hace naa)
 
-
 https://wiki.linuxaudio.org/apps/all/alsa_patch_bay
+
 http://pkl.net/~node/software/alsa-patch-bay/
 
 https://wiki.linuxaudio.org/apps/all/alsa_midi_kommander
