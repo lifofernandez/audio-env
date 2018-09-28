@@ -67,3 +67,4 @@ then
 	aconnect $alsa_through $dump
 	echo "Lizteilor!"
 fi
+$SHELL
