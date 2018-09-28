@@ -32,7 +32,7 @@ kb=$(aconnect -l | grep "Origin49" | cut -f 1 -d ":" | cut -f 2 -d " ")
 vkb_o=$(aconnect -l | grep "VMPK Output" | cut -f 1 -d ":" | cut -f 2 -d " ")
 vkb_i=$(aconnect -l | grep "VMPK Input" | cut -f 1 -d ":" | cut -f 2 -d " ")
 router=$(aconnect -l | grep "qmidiroute" | cut -f 1 -d ":" | cut -f 2 -d " ")
-synth=$(aconnect -l | grep "FLUID" | cut -f 1 -d ":" | cut -f 2 -d " ")
+wavetablesynth=$(aconnect -l | grep "FLUID" | cut -f 1 -d ":" | cut -f 2 -d " ")
 
 if [ "$vkb_o" ]
 then
@@ -47,15 +47,16 @@ then
 	aconnect $kb $router
 	echo "Lizteilor!"
 fi
-if [ "$router" ]
+if [ "$router" ] && [ "$wavetablesynth" ]
 then
 	echo "Conectando $router:$alsa_through"
 	aconnect $router\:1 $alsa_through
+	aconnect $router\:2 $wavetablesynth
 	echo "Lizteilor!"
 fi
 
-if [ "$synth" ]
+if [ "$wavetablesynth" ]
 then
-	aconnect $alsa_through $synth
+	aconnect $alsa_through $wavetablesynth
 	echo "Lizteilor!"
 fi
