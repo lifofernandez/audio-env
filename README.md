@@ -196,3 +196,4 @@ https://wiki.linuxaudio.org/apps/all/alsa_midi_kommander
 https://wiki.linuxaudio.org/apps/categories/alsa_seq
 
 
+fw anduvo despues de instalar esto linux-firewire-utils
