@@ -15,19 +15,89 @@
 
 #sleep 3 &&
 
-fluidsynth \
+#fluidsynth \
+#-is \
+#-r48000 \
+#-f fluidsynthrc &
+
+
+fluidsynth -f fluidsynthrc \
+-m alsa_seq \
+-c 1024 \
+-a jack \
+-O s32 \
+-T wav \
+-r 48000 \
+-R 0 \
+-C 0 \
+-g 0.5 \
+-j \
 -is \
--r48000 \
--f fluidsynthrc &
+-o shell.port=9800 \
+-o audio.period-size=256 \
+-o audio.periods=3 \
+-o midi.alsa_seq.id='fluidsynthmidi' \
+-o audio.jack.id='fluidsynthaudio' \
+-o synth.midi-bank-select='gm' \
+-o audio.output-channels=16 \
+-o audio.jack.multi='yes' \
+-o synth.audio-channels=16 \
+-o synth.audio-groups=16 &
 
 sleep 5 &&
 
 jack_lsp &&
 
-jack_connect fluidsynth:left system:playback_1 
-jack_connect fluidsynth:right system:playback_2 
+jack_connect fluidsynthaudio:l_00 system:playback_1 
+jack_connect fluidsynthaudio:r_00 system:playback_2 
 
-qmidiroute ruteo.qmr &
+jack_connect fluidsynthaudio:l_01 system:playback_1 
+jack_connect fluidsynthaudio:r_01 system:playback_2 
+
+jack_connect fluidsynthaudio:l_02 system:playback_1 
+jack_connect fluidsynthaudio:r_02 system:playback_2 
+
+jack_connect fluidsynthaudio:l_03 system:playback_1 
+jack_connect fluidsynthaudio:r_03 system:playback_2 
+
+jack_connect fluidsynthaudio:l_04 system:playback_1 
+jack_connect fluidsynthaudio:r_04 system:playback_2 
+
+jack_connect fluidsynthaudio:l_05 system:playback_1 
+jack_connect fluidsynthaudio:r_05 system:playback_2 
+
+jack_connect fluidsynthaudio:l_06 system:playback_1 
+jack_connect fluidsynthaudio:r_06 system:playback_2 
+
+jack_connect fluidsynthaudio:l_07 system:playback_1 
+jack_connect fluidsynthaudio:r_07 system:playback_2 
+
+jack_connect fluidsynthaudio:l_08 system:playback_1 
+jack_connect fluidsynthaudio:r_08 system:playback_2 
+
+jack_connect fluidsynthaudio:l_09 system:playback_1 
+jack_connect fluidsynthaudio:r_09 system:playback_2 
+
+jack_connect fluidsynthaudio:l_10 system:playback_1 
+jack_connect fluidsynthaudio:r_10 system:playback_2 
+
+jack_connect fluidsynthaudio:l_11 system:playback_1 
+jack_connect fluidsynthaudio:r_11 system:playback_2 
+
+jack_connect fluidsynthaudio:l_12 system:playback_1 
+jack_connect fluidsynthaudio:r_12 system:playback_2 
+
+jack_connect fluidsynthaudio:l_13 system:playback_1 
+jack_connect fluidsynthaudio:r_13 system:playback_2 
+
+jack_connect fluidsynthaudio:l_14 system:playback_1 
+jack_connect fluidsynthaudio:r_14 system:playback_2 
+
+jack_connect fluidsynthaudio:l_15 system:playback_1 
+jack_connect fluidsynthaudio:r_15 system:playback_2 
+
+
+qmidiroute -p3 ruteo.qmr &
 #vmpk &
 urxvt -hold -e 'aseqdump' &
 sleep 5 &&
