@@ -2,7 +2,7 @@
 
 fluidsynth -f fluidsynthrc \
 -m alsa_seq \
--c 1024 \
+-c 256 \
 -a jack \
 -O s32 \
 -T wav \
@@ -10,7 +10,6 @@ fluidsynth -f fluidsynthrc \
 -R 0 \
 -C 0 \
 -g 0.5 \
--j \
 -is \
 -o shell.port=9800 \
 -o audio.period-size=256 \
@@ -20,7 +19,9 @@ fluidsynth -f fluidsynthrc \
 -o synth.midi-bank-select='gm' \
 -o audio.output-channels=10 \
 -o audio.jack.multi='yes' \
--o synth.midi-channels=10 \
 -o synth.audio-channels=10 &
-$SHELL
+#$SHELL
+#-j \
+#-K 24 \
+#-o synth.midi-channels=24 \
 

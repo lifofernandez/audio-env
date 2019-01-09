@@ -18,7 +18,13 @@ fonts
 #select 4 2 1 82
 #select 9 3 2 1  
 
+#router_clear
+router_begin note
+router_chan 1 11 0 0 
+router_end
+
 channels -verbose
 
 #noteon 1 60 127
 #noteoff 1 60
+
