@@ -5,10 +5,11 @@ qmidiroute -p1 qmidiroute-offset.qmr &
 
 #vkeybd &
 #vmpk &
-#urxvt -hold -e 'aseqdump' &
-#sleep 5 &&
 
-aconnect -l &
+#urxvt -hold -e 'aseqdump' &
+
+sleep 1 &&
+aconnect -l &&
 alsa_through=14
 origin49=$(aconnect -l | grep "Origin49" | cut -f 1 -d ":" | cut -f 2 -d " ")
 vmpk_i=$(aconnect -l | grep "VMPK Input" | cut -f 1 -d ":" | cut -f 2 -d " ")

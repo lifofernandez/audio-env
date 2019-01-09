@@ -20,7 +20,7 @@ fluidsynth -f fluidsynthrc \
 -o synth.midi-bank-select='gm' \
 -o audio.output-channels=10 \
 -o audio.jack.multi='yes' \
--o synth.audio-channels=10 \
--o synth.audio-groups=10 &
+-o synth.midi-channels=10 \
+-o synth.audio-channels=10 &
 $SHELL
 
