@@ -12,10 +12,10 @@ inst 1
 
 # Combination of bank-select and program-change
 #select chan sfont bank prog  
-select 1 1 1 33  
+select 1 1 0 33  
 select 2 1 0 24 
-select 3 1 1 88
-select 4 1 1 82
+select 3 1 0 88
+select 4 1 0 82
 #select 9 1 2 1  
 
 channels -verbose

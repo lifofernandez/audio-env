@@ -6,7 +6,7 @@ qmidiroute -p1 qmidiroute-offset.qmr &
 #vkeybd &
 #vmpk &
 
-#urxvt -hold -e 'aseqdump' &
+urxvt -hold -T 'dump' -e 'aseqdump' &
 
 sleep 1 &&
 aconnect -l &&
@@ -34,17 +34,17 @@ fi
 if [ "$router" ] && [ "$fluidsynth" ]
 then
 	aconnect $router:\1 $fluidsynth
-	echo "CONECTADO: $alsa_through:$fluidsynth"
+	echo "CONECTADO: $router:$fluidsynth"
 fi
 if [ "$router" ] && [ "$zynadd" ]
 then
 	aconnect $router:\1 $zynadd
-	echo "CONECTADO: $alsa_through:$zynadd"
+	echo "CONECTADO: $router:$zynadd"
 fi
 
 if [ "$router" ] && [ "$alsa_through" ]
 then
-	aconnect $router $alsa_through
+	aconnect $router:\1 $alsa_through
 	#aconnect $router\:2 $fluidsynth
 	echo "CONECTADO: $router:$alsa_through"
 fi
