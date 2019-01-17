@@ -3,7 +3,11 @@
 sleep 5
 ./fluidsynth.sh   
 ./zynaddsubfx.sh 
-sleep 5 &&
+./qmidiarp.sh
+sleep 5 
 ./midi-connect.sh 
+# cp midishrc /etc/midishrc &
+# midish & 
 ./audio-connect.sh & 
+clear &
 $SHELL

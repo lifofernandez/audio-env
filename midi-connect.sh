@@ -1,12 +1,12 @@
 #/usr/bin/env bash
 
-qmidiroute -p1 qmidiroute-offset.qmr &
+#qmidiroute -p1 qmidiroute-offset.qmr &
 #qmidiroute -p2 filter.qmr &
 
 #vkeybd &
 #vmpk &
 
-urxvt -hold -T 'dump' -e 'aseqdump' &
+urxvt -hold -T 'MIDIdump' -e 'aseqdump' &
 
 sleep 1 &&
 aconnect -l &&
