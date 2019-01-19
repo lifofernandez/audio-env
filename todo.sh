@@ -5,9 +5,9 @@ sleep 5
 ./zynaddsubfx.sh 
 ./qmidiarp.sh
 sleep 5 
-./midi-connect.sh 
+./audio-connect.sh & 
+#./midi-connect.sh 
 # cp midishrc /etc/midishrc &
 # midish & 
-./audio-connect.sh & 
 clear &
 $SHELL
