@@ -1,10 +1,10 @@
 #/usr/bin/env bash
 ./jack.sh        
-sleep 5
-./fluidsynth.sh   
+sleep 3
 ./zynaddsubfx.sh 
+./fluidsynth.sh   
 ./qmidiarp.sh
-sleep 5 
+sleep 6
 ./audio-connect.sh & 
 #./midi-connect.sh 
 # cp midishrc /etc/midishrc &

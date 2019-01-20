@@ -37,3 +37,4 @@ jack_connect zynaddsubfx:out-R system:playback_2
 
 $SHELL
 
+
