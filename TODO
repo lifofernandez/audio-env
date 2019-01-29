@@ -1,17 +1,10 @@
-[] Filtrar y rutear canales MIDI a dif syntes
-
-	[] http://das.nasophon.de/mididings/doc/submodules.html#event
-	[] reasingar canal del controlador  
-
-	[] https://github.com/gbevin/SendMIDI (envia msj midi desde tty)
-        [] elegir banko en el synte para el controlador
-
-	[*] Probar Sequencer midish http://www.midish.org/manual.html
-	(es para BSD y no encuentra ALSA)
-
-[ ] buscar fxbay para jackd1
-
-
-
-[*] zynaddsubfx --auto-connect --no-gui -O jack --load="/home/steve/bin/choir.xmz" 
+- [x] Filtrar y rutear canales MIDI a dif syntes
+	[ ] http://das.nasophon.de/mididings/doc/submodules.html#event
+	[ ] https://github.com/gbevin/SendMIDI (envia msj midi desde tty)
+        [x] elegir banko en el synte para el controlador
+	[x] Probar Sequencer midish http://www.midish.org/manual.html
+	    Anda perfect
+	[x] reasingar canal del controlador  
+- [ ] buscar fxbay para jackd1
+- [x] zynaddsubfx --auto-connect --no-gui -O jack --load="/home/steve/bin/choir.xmz" 
 (funka soave)

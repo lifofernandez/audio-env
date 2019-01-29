@@ -7,59 +7,95 @@ t 120
 #import "reserva/output.mid"
 
 # Dispositivos
+#dnew 1 "microKORG XL:microKORG XL MIDI 1" ro
+#dnew 1 "microKORG XL" ro
+#dnew 1 "FastTrack Pro" ro
 dnew 1 "Origin49" ro
 dnew 2 "qmidiarp:1" ro
 
 dnew 3 "qmidiarp:0" wo
-dnew 4 "FLUID Synth (fluidsynthmidi)" wo
+dnew 4  "FLUID Synth (fluidsynthmidi)" wo
 dnew 5 "ZynAddSubFX" wo 
 
 dmmctx {}
 dclktx {3}
 
 # Inputs
-inew teclado {1 0} 
-inew from_seq {2 0} 
-inew from_arp {2 1} 
-inew from_lfo {2 2} 
+inew teclado   {1 0} 
+
+inew from_seq_bajo1 {2 0} 
+inew from_lfo_bajo1 {2 1} 
+
+inew from_seq_comp1  {2 2} 
+inew from_arp_comp1  {2 3} 
+inew from_lfo_comp1  {2 4} 
+
+inew from_seq_kick1  {2 5} 
+
+#inew from_seq_melo1  {2 5} 
+#inew from_seq2_melo1  {2 6} 
+
+
 #ci origin
 
 # Outputs 
 #onew brass  {1 3} 
-onew to_seq  {3 0} 
-onew to_arp  {3 1} 
-onew to_lfo  {3 2} 
+onew to_seq_bajo1  {3 0} 
+onew to_lfo_bajo1  {3 1} 
+
+onew to_seq_comp1  {3 2} 
+onew to_arp_comp1  {3 3} 
+onew to_lfo_comp1  {3 4} 
+
+onew to_seq_kick   {3 5} 
+
+#onew from_seq_melo1   {2 5} 
+#onew from_seq2_melo1  {2 6} 
+
 onew to_flu  {4 0} 
 onew drums   {4 9} 
-onew to_pad  {5 10} 
-onew to_lead {5 11} 
+onew drums2  {4 8} 
+onew drums3  {5 15} 
+onew to_zyn1 {5 10} 
+onew to_zyn2 {5 11} 
+onew to_zyn3 {5 12} 
 #co drums 
 
 
-# Filtros
+## Filtros
 fnew teclado_drums
 fmap { any teclado } { any drums }
-fnew teclado_zynadd
-fmap { any teclado } { any to_pad }
-fnew teclado_seq
-fmap { any teclado } { any to_seq }
-fnew teclado_arp
-fmap { any teclado } { any to_arp }
-
+fnew teclado_drums2
+fmap { any teclado } { any drums2 }
+fnew teclado_drums3
+fmap { any teclado } { any drums3 }
+fnew teclado_piano
+fmap { any teclado } { any to_flu }
+fnew teclado_zyn1
+fmap { any teclado } { any to_zyn1 }
+fnew teclado_zyn2
+fmap { any teclado } { any to_zyn2 }
+fnew teclado_zyn3
+fmap { any teclado } { any to_zyn3 }
+#
 fnew arp
-#fnew arp_pad
-fmap { any teclado }  { any to_arp }
-fmap { any from_arp } { any to_pad }
-#fnew seq_lead
-fmap { any from_lfo } { any to_lead }
-fmap { any from_seq } { any to_lead }
+fmap { any from_seq_bajo1 }  { any to_zyn1 }
+fmap { any from_lfo_bajo1 }  { any to_zyn1 }
+#fmap { any teclado }         { any to_arp_comp1 }
+fmap { any from_seq_comp1 }  { any to_arp_comp1 }
+fmap { any from_arp_comp1 }  { any to_zyn2 }
+fmap { any from_lfo_comp1 }  { any to_zyn2 }
+#fmap { any from_lfo_comp1 }  { any to_zyn1 }
+fmap { any from_seq_kick1 }  { any drums2 }
 
-#cf teclado_drums
+
+cf teclado_piano
+cf teclado_drums2
 cf arp
 
 # Runnn 
 i
-p
+#p
 
 # Test
 #oaddev {non  drums 64 100}
@@ -67,11 +103,4 @@ p
 
 # To do:
 # [ ] - Stopear QMidiArp ¿usando eventos y msg custom?
-
-# Reserva
-#dclkrate 1 96
-
-#dnew 1 "129:0" wo 
-#dnew 0 "14:0" rw
-#dnew 3 "129:1" ro
 

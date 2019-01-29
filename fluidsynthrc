@@ -1,14 +1,13 @@
 load /usr/share/soundfonts/FluidR3_GM.sf2 1 0
-#load /usr/share/soundfonts/timidity-freepats.sf2 1 1
-#load /usr/share/soundfonts/80sAcDanceDrums.sf2 1 2
+load /usr/share/soundfonts/timidity-freepats.sf2 1 1
+load /usr/share/soundfonts/80sAcDanceDrums.sf2 1 2
 fonts
 echo "### 1 ###"
 inst 1
-#echo "### 2 ###"
-#inst 2
-#echo "### 3 ###"
-#inst 3
-#echo "### CHANNELS ###"
+echo "### 2 ###"
+inst 2
+echo "### 3 ###"
+inst 3
 
 # Combination of bank-select and program-change
 #select chan sfont bank prog  
@@ -16,14 +15,24 @@ select 1 1 0 33
 select 2 1 0 24 
 select 3 1 0 58
 select 4 1 0 82
-#select 9 1 2 1  
+select 8 3 2 1  
 
+echo "### CHANNELS ###"
 channels -verbose
 
 #noteon 1 60 127
 #noteoff 1 60
 
 router_clear
+router_begin note
+router_chan 0 9 1 0 
+router_end
+router_begin note
+router_chan 0 9 1 0 
+router_end
+router_begin note
+router_chan 0 9 1 0 
+router_end
 router_begin note
 router_chan 0 9 1 0 
 router_end
