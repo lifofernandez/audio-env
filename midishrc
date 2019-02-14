@@ -1,106 +1,105 @@
-# Generales
-tap start # hace que qmidiarp no pierda sync
+# GENERALES
+#tap start # hace que qmidiarp no pierda sync
+tap off # tap start o tap off no arranca, desde aca con "p" porlo menos
 t 120
 #setunit 96
 
 # Carga
 #import "reserva/output.mid"
 
-# Dispositivos
-#dnew 1 "microKORG XL:microKORG XL MIDI 1" ro
-#dnew 1 "microKORG XL" ro
-#dnew 1 "FastTrack Pro" ro
-dnew 1 "Origin49" ro
-dnew 2 "qmidiarp:1" ro
+# DISPOSITIVOS
+# Incomings
+dnew 0  "FLUID Synth (fluidsynthmidi)" wo
+dnew 1 "ZynAddSubFX" wo 
+dnew 2 "qmidiarp:0" wo
+# Outgoins
+dnew 3 "Origin49" ro
+#dnew 3 "microKORG XL:microKORG XL MIDI 1" ro
+#dnew 3 "microKORG XL" ro
+#dnew 3 "FastTrack Pro" ro
+dnew 4 "qmidiarp:1" ro
+# Dump & Through
+dnew 15 "Midi Through" ro
+dnew 14 "Midi Through" wo
+dnew 13 "aseqdump" wo
 
-dnew 3 "qmidiarp:0" wo
-dnew 4  "FLUID Synth (fluidsynthmidi)" wo
-dnew 5 "ZynAddSubFX" wo 
-
+# MMC & MTC
 dmmctx {}
-dclktx {3}
+dclktx {2}
 
-# Inputs
-inew teclado   {1 0} 
+# OUTPUTS 
+# WaveTableSynth
+onew to_flu0  {0 0} 
+onew to_flu1  {0 1} 
+onew to_flu2  {0 2} 
+onew to_flu3  {0 3} 
+onew to_flu4  {0 4} 
+onew to_flu5  {0 5} 
+onew to_flu6  {0 6} 
+onew to_flu7  {0 7} 
+onew to_drm0  {0 8} 
+onew to_drm1  {0 9} 
+# AnalogSynth
+onew to_zyn0  {1 10} 
+onew to_zyn1  {1 11} 
+onew to_zyn2  {1 12} 
+onew to_zyn3  {1 13} 
+onew to_zyn4  {1 14} 
+onew to_zyn5  {1 15} 
+# Secuencer
+onew to_seqA1 {2 0} 
+# Through & Dump
+inew fr_throu {15 0} 
+inew to_throu {14 0} 
+inew to_dump  {13 0} 
 
-inew from_seq_bajo1 {2 0} 
-inew from_lfo_bajo1 {2 1} 
-
-inew from_seq_comp1  {2 2} 
-inew from_arp_comp1  {2 3} 
-inew from_lfo_comp1  {2 4} 
-
-inew from_seq_kick1  {2 5} 
-
-#inew from_seq_melo1  {2 5} 
-#inew from_seq2_melo1  {2 6} 
-
-
+# INPUTS
+inew fr_kb    {3 0} 
+inew fr_seqA1 {4 0} 
 #ci origin
 
-# Outputs 
-#onew brass  {1 3} 
-onew to_seq_bajo1  {3 0} 
-onew to_lfo_bajo1  {3 1} 
 
-onew to_seq_comp1  {3 2} 
-onew to_arp_comp1  {3 3} 
-onew to_lfo_comp1  {3 4} 
+## FILTROS
+fnew kb_flu0
+fmap { any fr_kb } { any to_flu0 }
+fnew kb_flu1
+fmap { any fr_kb } { any to_flu1 }
+fnew kb_flu2
+fmap { any fr_kb } { any to_flu2 }
+fnew kb_flu3
+fmap { any fr_kb } { any to_flu3 }
+fnew kb_flu4
+fmap { any fr_kb } { any to_flu4 }
+fnew kb_flu5
+fmap { any fr_kb } { any to_flu5 }
+fnew kb_flu6
+fmap { any fr_kb } { any to_flu6 }
+fnew kb_flu7
+fmap { any fr_kb } { any to_flu7 }
+fnew kb_drm0
+fmap { any fr_kb } { any to_drm0 }
+fnew kb_drm1
+fmap { any fr_kb } { any to_drm1 }
 
-onew to_seq_kick   {3 5} 
+fnew kb_zyn0
+fmap { any fr_kb } { any to_zyn0 }
+fnew kb_zyn1
+fmap { any fr_kb } { any to_zyn1 }
+fnew kb_zyn2
+fmap { any fr_kb } { any to_zyn2 }
+fnew kb_zyn3
+fmap { any fr_kb } { any to_zyn3 }
 
-#onew from_seq_melo1   {2 5} 
-#onew from_seq2_melo1  {2 6} 
+fnew seqA1_zyn0
+fmap { any fr_seqA1 }  { any to_zyn0 }
 
-onew to_flu  {4 0} 
-onew drums   {4 9} 
-onew drums2  {4 8} 
-onew drums3  {5 15} 
-onew to_zyn1 {5 10} 
-onew to_zyn2 {5 11} 
-onew to_zyn3 {5 12} 
-#co drums 
+cf kb_flu2
+cf kb_drm0
+cf kb_zyn0
 
+m rec 
+metrocf {non to_drm1 42 127} {non to_drm1 42 100}
 
-## Filtros
-fnew teclado_drums
-fmap { any teclado } { any drums }
-fnew teclado_drums2
-fmap { any teclado } { any drums2 }
-fnew teclado_drums3
-fmap { any teclado } { any drums3 }
-fnew teclado_piano
-fmap { any teclado } { any to_flu }
-fnew teclado_zyn1
-fmap { any teclado } { any to_zyn1 }
-fnew teclado_zyn2
-fmap { any teclado } { any to_zyn2 }
-fnew teclado_zyn3
-fmap { any teclado } { any to_zyn3 }
-#
-fnew arp
-fmap { any from_seq_bajo1 }  { any to_zyn1 }
-fmap { any from_lfo_bajo1 }  { any to_zyn1 }
-#fmap { any teclado }         { any to_arp_comp1 }
-fmap { any from_seq_comp1 }  { any to_arp_comp1 }
-fmap { any from_arp_comp1 }  { any to_zyn2 }
-fmap { any from_lfo_comp1 }  { any to_zyn2 }
-#fmap { any from_lfo_comp1 }  { any to_zyn1 }
-fmap { any from_seq_kick1 }  { any drums2 }
-
-
-cf teclado_piano
-cf teclado_drums2
-cf arp
-
-# Runnn 
+# RUN
 i
-#p
-
-# Test
-#oaddev {non  drums 64 100}
-#oaddev {noff drums 64 100}
-
-# To do:
-# [ ] - Stopear QMidiArp ¿usando eventos y msg custom?
 
