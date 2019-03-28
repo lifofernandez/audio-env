@@ -8,3 +8,35 @@
 - [ ] buscar fxbay para jackd1
 - [x] zynaddsubfx --auto-connect --no-gui -O jack --load="/home/steve/bin/choir.xmz" 
 (funka soave)
+hw:Pro24DSP00058b|hw:Pro24DSP00058b|256|3|48000|0|0|nomon|swmeter|-|32bit
+[root@T420 ~/audio-env]
+$ zynaddsubfx -I alsa -O alsa
+
+ZynAddSubFX - Copyright (c) 2002-2013 Nasca Octavian Paul and others
+                Copyright (c) 2009-2017 Mark McCurry [active maintainer]
+This program is free software (GNU GPL v2 or later) and 
+it comes with ABSOLUTELY NO WARRANTY.
+
+
+Sample Rate = 48000
+Sound Buffer Size = 256 samples
+Internal latency = 5.3 ms
+ADsynth Oscil.Size = 256 samples
+lo server running on 10362
+[INFO] Nio::start()
+Starting Audio: ALSA
+ALSA buffer size: 2048
+Audio Started
+Starting MIDI: ALSA
+MIDI Started
+[INFO] exec-after-init
+[INFO] startup OSC
+[INFO] UI calbacks
+[INFO] OSC replay
+midi list updating...
+[INFO] auto_save setup
+[INFO] NSM Stuff
+[INFO] LASH Stuff
+[INFO] Main Loop...
+
+

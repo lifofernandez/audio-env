@@ -3,16 +3,14 @@
 jackd \
 -R \
 -P 99 \
--n 3 \
--d alsa \
--C \
--i 2 \
--P \
--o 4 \
+-d firewire \
 -r 48000 \
 -p 256 \
--d hw:2 &
-# -d hw:Pro24DSP00058b \
+-n 4 \
+-d hw:Pro24DSP00058b \
+-i 16 \
+-o 8 \
+&
 
 qjackctl &
 #$SHELL
@@ -36,3 +34,15 @@ qjackctl &
 #-I, --input-latency 	Extra input latency (frames) (default: 0)
 #-O, --output-latency 	Extra output latency (frames) (default: 0)
 #-X, --midi 	legacy (default: none)
+
+
+#hw:Pro24DSP00058b|hw:Pro24DSP00058b|256|3|44100|0|0|nomon|swmeter|-|32bit
+# -R \
+# -P 99 \
+#-r 48000 \
+#-d alsa \
+#-d hw:Pro24DSP00058b \
+#-C \
+#-i 16 \
+#-P \
+#-o 8 \
