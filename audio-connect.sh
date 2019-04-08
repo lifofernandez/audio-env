@@ -35,6 +35,9 @@ jack_connect fluidsynthaudio:r_09 system:playback_2
 jack_connect zynaddsubfx:out-L system:playback_1 
 jack_connect zynaddsubfx:out-R system:playback_2 
 
+jack_lsp &
+
+
 $SHELL
 
 

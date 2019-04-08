@@ -9,7 +9,7 @@ sleep 1 &&
 urxvt -hold -T 'MIDIdump' -e 'aseqdump' &
 sleep 6 &&
 ./audio-connect.sh & 
-#./midi-connect.sh 
+./midi-connect.sh 
 # cp midishrc /etc/midishrc &
 # midish & 
 clear &

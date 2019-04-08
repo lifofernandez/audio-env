@@ -20,39 +20,44 @@ fluidsynth=$(aconnect -l | grep "FLUID" | cut -f 1 -d ":" | cut -f 2 -d " ")
 zynadd=$(aconnect -l | grep "ZynAddSubFX" | cut -f 1 -d ":" | cut -f 2 -d " ")
 dump=$(aconnect -l | grep "aseqdump" | cut -f 1 -d ":" | cut -f 2 -d " ")
 
-if [ "$vmpk_o" ]
+if [ "$origin49" ] && [ "$zynadd" ]
 then
-	aconnect $vmpk_o $alsa_through
-	echo "CONECTADO: $vmpk_o:$alsa_through"
+	aconnect $origin49 $zynadd
+	echo "CONECTADO: $origin49:$zynadd"
 fi
-
-if [ "$origin49" ] && [ "$router" ]
-then
-	aconnect $origin49 $router
-	echo "CONECTADO: $origin49:$router"
-fi
-if [ "$router" ] && [ "$fluidsynth" ]
-then
-	aconnect $router:\1 $fluidsynth
-	echo "CONECTADO: $router:$fluidsynth"
-fi
-if [ "$router" ] && [ "$zynadd" ]
-then
-	aconnect $router:\1 $zynadd
-	echo "CONECTADO: $router:$zynadd"
-fi
-
-if [ "$router" ] && [ "$alsa_through" ]
-then
-	aconnect $router:\1 $alsa_through
-	#aconnect $router\:2 $fluidsynth
-	echo "CONECTADO: $router:$alsa_through"
-fi
-
-if [ "$dump" ]
-then
-	aconnect $alsa_through $dump
-	echo "CONECTADO: $alsa_through:$dump"
-fi
+#if [ "$vmpk_o" ]
+#then
+#	aconnect $vmpk_o $alsa_through
+#	echo "CONECTADO: $vmpk_o:$alsa_through"
+#fi
+#
+#if [ "$origin49" ] && [ "$router" ]
+#then
+#	aconnect $origin49 $router
+#	echo "CONECTADO: $origin49:$router"
+#fi
+#if [ "$router" ] && [ "$fluidsynth" ]
+#then
+#	aconnect $router:\1 $fluidsynth
+#	echo "CONECTADO: $router:$fluidsynth"
+#fi
+#if [ "$router" ] && [ "$zynadd" ]
+#then
+#	aconnect $router:\1 $zynadd
+#	echo "CONECTADO: $router:$zynadd"
+#fi
+#
+#if [ "$router" ] && [ "$alsa_through" ]
+#then
+#	aconnect $router:\1 $alsa_through
+#	#aconnect $router\:2 $fluidsynth
+#	echo "CONECTADO: $router:$alsa_through"
+#fi
+#
+#if [ "$dump" ]
+#then
+#	aconnect $alsa_through $dump
+#	echo "CONECTADO: $alsa_through:$dump"
+#fi
 #$SHELL
 
