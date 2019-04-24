@@ -1,16 +1,15 @@
 #/usr/bin/env bash
-./jack.sh        
+./jack.sh &&
 sleep 3 &&
-./zynaddsubfx.sh 
+./zynaddsubfx.sh &&
 sleep 1 &&
-./fluidsynth.sh   
-sleep 1 &&
-./qmidiarp.sh
-urxvt -hold -T 'MIDIdump' -e 'aseqdump' &
+./fluidsynth.sh &&  
+#sleep 1 &&
+#./qmidiarp.sh
 sleep 6 &&
-./audio-connect.sh & 
-./midi-connect.sh 
+./audio-connect.sh &&
+./midi-connect.sh &&
 # cp midishrc /etc/midishrc &
 # midish & 
-clear &
+clear &&
 $SHELL

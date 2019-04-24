@@ -13,6 +13,6 @@ jackd \
 -i 16 \
 -o 8 \
 &
+
 qjackctl &
-#$SHELL
 

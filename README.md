@@ -197,3 +197,4 @@ https://wiki.linuxaudio.org/apps/categories/alsa_seq
 
 
 fw anduvo despues de instalar esto linux-firewire-utils
+ecasound -c -f:f32_le,2,48000 -i jack -o jack,system -G:jack
