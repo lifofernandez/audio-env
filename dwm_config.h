@@ -41,13 +41,13 @@ static const Rule rules[] = {
 	/* class      		instance	title       	tags mask	isfloating   monitor */
 	{ "Firefox",  		NULL,		NULL,       	1,            	0,            0 },
 	{ "Chromium",  		NULL,		NULL,       	1,            	0,            0 },
-	{ "qjackctl",		NULL, 		NULL,		1 << 1,         0,            1 << 1 },
-	{ "qmidiarp",		NULL,		NULL,		1 << 2,         0,            1 << 1 },
-	{ "URxvt",		"urxvt",	"qmidiarp",	1 << 2,         0,            1 << 1 },
-	{ "Zynaddsubfx",	"zynaddsubfx",  NULL,		1 << 3,         0,            1 << 1 },
-	{ "URxvt",		"urxvt",	"zynaddsubfx",	1 << 3,         0,            1 << 1 },
-	{  NULL,		NULL,		"MIDIdump",	1 << 8,         0,            1 << 1 },
-	{ "qBittorrent",  	NULL,		NULL,		1 << 7,         0,            1 << 1 },
+	{ "qjackctl",		NULL, 		NULL,		1 << 1,         0,            1 },
+	{ "qmidiarp",		NULL,		NULL,		1 << 2,         0,            1 },
+	{ "URxvt",		"urxvt",	"qmidiarp",	1 << 2,         0,            1 },
+	{ "Zynaddsubfx",	"zynaddsubfx",  NULL,		1 << 3,         0,            1 },
+	{ "URxvt",		"urxvt",	"zynaddsubfx",	1 << 3,         0,            1 },
+	{  NULL,		NULL,		"MIDIdump",	1 << 8,         0,            1 },
+	{ "qBittorrent",  	NULL,		NULL,		1 << 7,         0,            1 },
 	{ "Gimp",     		NULL,		NULL,       	1 << 1,		1,            0 },
 };
 

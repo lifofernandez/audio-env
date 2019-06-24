@@ -1,6 +1,6 @@
 #/usr/bin/env bash
 
-jack_lsp &&
+jack_lsp 
 
 jack_connect fluidsynthaudio:l_00 system:playback_1 
 jack_connect fluidsynthaudio:r_00 system:playback_2 
@@ -35,7 +35,5 @@ jack_connect fluidsynthaudio:r_09 system:playback_2
 jack_connect zynaddsubfx:out-L system:playback_1 
 jack_connect zynaddsubfx:out-R system:playback_2 
 
-jack_lsp &&
-
-
+jack_lsp 
 
