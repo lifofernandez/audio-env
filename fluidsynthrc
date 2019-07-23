@@ -17,7 +17,8 @@ select 1 1 0 33
 select 2 1 0 24 
 select 3 1 0 58
 select 4 1 0 82
-select 8 2 1 1  
+select 8 2 0 1  
+select 9 2 1 1  
 
 echo "### CHANNELS ###"
 channels -verbose
