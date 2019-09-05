@@ -4,7 +4,7 @@ fluidsynth \
 -f fluidsynthrc \
 -a jack \
 -m alsa_seq \
--c 256 \
+-c 3 \
 -O s32 \
 -T wav \
 -r 48000 \

@@ -1,4 +1,5 @@
 #/usr/bin/env bash
+
 BACKEND=${1:-firewire}
 ./jack-${BACKEND}.sh &&
 sleep 3 &&
