@@ -2,7 +2,8 @@
 import "/root/Varios/output.mid"
 
 # DISPOSITIVOS
-dnew 1  "FLUID Synth (fluidsynthmidi)" wo
+dnew 0 "14:1" rw
+dnew 1 "FLUID Synth (fluidsynthmidi)" wo
 dnew 2 "ZynAddSubFX" wo 
 dnew 3 "Origin49" ro
 
@@ -11,84 +12,57 @@ dnew 14 "14:0" rw
 dnew 15 "aseqdump" wo
 
 
-
-
 # Truh & Dump
 #inew from_thru {14 0} 
 #onew to_thru {14 0} 
-##onew to_dump {15 0} 
-#
+#onew to_dump {15 0} 
+
 # INPUTS
 inew from_kb     {3 0} 
 
-inew from_file0  {0 0} 
-inew from_file1  {0 1} 
-inew from_file2  {0 2} 
-inew from_file3  {0 3} 
-inew from_file4  {0 4} 
-inew from_file5  {0 5} 
-inew from_file6  {0 6} 
-inew from_file7  {0 7} 
-inew from_file8  {0 8} 
-inew from_file9  {0 9} 
-inew from_file10 {0 10} 
-inew from_file11 {0 11} 
-inew from_file12 {0 12} 
-inew from_file13 {0 13} 
-inew from_file14 {0 14} 
-inew from_file15 {0 15} 
 
 # OUTPUTS 
 # WaveTable
-onew to_fluid0 {1 0} 
-onew to_fluid1 {1 1} 
-onew to_fluid2 {1 2} 
-onew to_fluid3 {1 3} 
-onew to_fluid4 {1 4} 
-onew to_fluid5 {1 5} 
-onew to_fluid6 {1 6} 
-onew to_fluid7 {1 7} 
-onew to_drums0 {1 8} 
-onew to_drums1 {1 9} 
+onew to_fluid0 {0 0} 
+onew to_fluid1 {0 1} 
+onew to_fluid2 {0 2} 
+onew to_fluid3 {0 3} 
+onew to_fluid4 {0 4} 
+onew to_fluid5 {0 5} 
+onew to_fluid6 {0 6} 
+onew to_fluid7 {0 7} 
+onew to_drums0 {0 8} 
+onew to_drums1 {0 9} 
 
 # Analog
-onew to_drums2 {2 9} 
 onew to_zynad0 {2 0} 
 onew to_zynad1 {2 1} 
 onew to_zynad2 {2 2} 
 onew to_zynad3 {2 3} 
 onew to_zynad4 {2 4} 
+onew to_drums2 {2 9} 
 
 ## FILTERS
 fnew file_fluid
 
-fmap { any from_kb }     { any {14 2} }
-#fmap { any from_kb }     { any to_zynad1 }
+fmap { any { 3 0 } } { any {  2 0 } }
+#fmap { any { 3 0 } } { any {  2 1 } }
+fmap { any { 3 0 } } { any { 15 0 } }
 
-fmap { any from_file0 }  { any to_fluid0 }
-fmap { any from_file1 }  { any to_fluid1 }
-fmap { any from_file2 }  { any to_fluid2 }
-fmap { any from_file3 }  { any to_fluid3 }
-fmap { any from_file4 }  { any to_fluid4 }
-fmap { any from_file5 }  { any to_fluid4 }
-fmap { any from_file6 }  { any to_fluid6 }
-fmap { any from_file7 }  { any to_fluid7 }
-fmap { any from_file8 }  { any to_drums0 }
-fmap { any from_file9 }  { any to_drums1 }
-fmap { any from_file10 } { any to_drums2 }
-fmap { any from_file11 } { any to_zynad0 }
-fmap { any from_file12 } { any to_zynad1 }
-fmap { any from_file13 } { any to_zynad2 }
-fmap { any from_file14 } { any to_zynad3 }
-fmap { any from_file15 } { any to_zynad4 }
+fmap { any { 0 0 } } { any { 2 0 } }
+fmap { any { 0 1 } } { any { 2 1 } }
+fmap { any { 0 9 } } { any { 1 7 } } #TR-808
+#fmap { any { 0 9 } } { any { 1 9 } }
+
+# rango de canales pisa mapeos individuales
+#fmap { any { 0 0..15} } { any {15 0..15} }
 
 fmap { any {14 0..15} } { any {15 0..15} }
-#fmap { any from_thru }     { any to_dump }
 
-cf file_fluid
+#cf file_fluid
 
-# m rec 
-m on
-metrocf {non to_drums1 42 127} {non to_drums1 42 100}
+#m rec 
+#m on
+metrocf {non to_drums1 31 127} {non to_drums1 31 60 }
 
 
