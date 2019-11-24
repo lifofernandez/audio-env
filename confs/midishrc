@@ -1,0 +1,68 @@
+# Load
+import "/root/Varios/output.mid"
+
+# DISPOSITIVOS
+dnew 0 "14:1" rw
+dnew 1 "FLUID Synth (fluidsynthmidi)" wo
+dnew 2 "ZynAddSubFX" wo 
+dnew 3 "Origin49" ro
+
+# DUMP & THRU 
+dnew 14 "14:0" rw
+dnew 15 "aseqdump" wo
+
+
+# Truh & Dump
+#inew from_thru {14 0} 
+#onew to_thru {14 0} 
+#onew to_dump {15 0} 
+
+# INPUTS
+inew from_kb     {3 0} 
+
+# OUTPUTS 
+# WaveTable
+onew to_fluid0 {0 0} 
+onew to_fluid1 {0 1} 
+onew to_fluid2 {0 2} 
+onew to_fluid3 {0 3} 
+onew to_fluid4 {0 4} 
+onew to_fluid5 {0 5} 
+onew to_fluid6 {0 6} 
+onew to_fluid7 {0 7} 
+onew to_drums0 {0 8} 
+onew to_drums1 {0 9} 
+
+# Analog
+onew to_zynad0 {2 0} 
+onew to_zynad1 {2 1} 
+onew to_zynad2 {2 2} 
+onew to_zynad3 {2 3} 
+onew to_zynad4 {2 4} 
+onew to_drums2 {2 9} 
+
+## FILTERS
+fnew file_fluid
+
+# filtro pitch bend del teclado por que anda mal en el teclado
+fmap { note { 3 0 } } { note {  2 0 } }
+#fmap { note { 3 0 } } { note {  2 0 } }
+fmap { note { 3 0 } } { note { 15 0 } }
+
+fmap { any { 0 0 } } { any { 2 0 } } # zynadd ch1
+fmap { any { 0 1 } } { any { 2 1 } } # zynadd ch2
+fmap { any { 0 7 } } { any { 1 7 } } # fluid  ch8 = TR-808
+fmap { any { 0 9 } } { any { 1 9 } }
+
+# rango de canales pisa mapeos individuales
+#fmap { any { 0 0..15} } { any {15 0..15} }
+
+fmap { any {14 0..15} } { any {15 0..15} }
+
+#cf file_fluid
+
+#m rec 
+#m on
+metrocf {non to_drums1 31 127} {non to_drums1 31 60 }
+
+
