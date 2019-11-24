@@ -1,6 +1,7 @@
 #/usr/bin/env bash
 
 BACKEND=onboard
+GUI=false
 FLUID=true
 AUDIO_CONECT=true
 
@@ -34,7 +35,6 @@ echo "VERBOSE: $VERBOSE"
 #done
 
 modprobe -r snd-dice
-
 
 case $BACKEND in
 onboard)
