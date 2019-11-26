@@ -1,5 +1,5 @@
 # Load
-import "/root/Varios/output.mid"
+# import "/root/Varios/output.mid"
 
 # DISPOSITIVOS
 dnew 0 "14:1" rw
@@ -62,7 +62,7 @@ fmap { any {14 0..15} } { any {15 0..15} }
 #cf file_fluid
 
 #m rec 
-#m on
-metrocf {non to_drums1 31 127} {non to_drums1 31 60 }
-
-
+m on
+metrocf {non to_drums1 31 127} {non to_drums1 31 110 }
+t 126
+i
