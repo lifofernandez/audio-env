@@ -68,13 +68,16 @@ sleep 5 &&
 if [ "$GUI" = true ]; then
 	echo "GUI"
 	qjackctl &
- 	urxvt -T 'zynaddsubfx' -e sh -c 'zynaddsubfx -I alsa -O jack-multi -l confs/clean.xmz' &
  	urxvt -hold -T 'MIDIdump' -e 'aseqdump' &
+ 	#urxvt -T 'zynaddsubfx' -e sh -c 'zynaddsubfx -I alsa -O jack-multi -l confs/zynadd.xmz' &
+ 	#urxvt -T 'yoshimi' -e sh -c 'yoshimi -I -c -a yoshimi -J default --samplerate 48000 -b 256 --state=confs/yoshimi.state' &
+ 	yoshimi -I -c -a yoshimi -J default --samplerate 48000 -b 256 --state=confs/yoshimi.state &
 fi
  
 if [ "$GUI" = false ]; then
 	echo "NO GUI"
-	zynaddsubfx -U -I alsa -O jack-multi -l confs/clean.xmz &
+	#zynaddsubfx -U -I alsa -O jack-multi -l confs/zynadd.xmz &
+ 	yoshimi --state=confs/yoshimi -i -c -a yoshimi -J default --samplerate 48000 -b 256 &
 
 	aseqdump &
 	DUMP_PID=$!
@@ -101,14 +104,44 @@ if [ "$FLUID" = true ]; then
 	-o audio.jack.multi='yes' \
 	-o midi.alsa_seq.id='fluidsynthmidi' \
 	-o synth.midi-bank-select='gm' \
-	-o synth.audio-channels=10 &
+	-o synth.audio-channels=8 &
 fi
 
 sleep 5 &&
 
 if [ "$AUDIO_CONECT" = true ]; then
-	jack_connect zynaddsubfx:out-L system:playback_1 
-	jack_connect zynaddsubfx:out-R system:playback_2 
+	#jack_connect zynaddsubfx:out-L system:playback_1 
+	#jack_connect zynaddsubfx:out-R system:playback_2 
+
+	# jack_connect zynaddsubfx:part0/out-L system:playback_1
+	# jack_connect zynaddsubfx:part0/out-R system:playback_2
+	# jack_connect zynaddsubfx:part1/out-L system:playback_1
+	# jack_connect zynaddsubfx:part1/out-R system:playback_2
+	# jack_connect zynaddsubfx:part2/out-L system:playback_1
+	# jack_connect zynaddsubfx:part2/out-R system:playback_2
+	# jack_connect zynaddsubfx:part3/out-L system:playback_1
+	# jack_connect zynaddsubfx:part3/out-R system:playback_2
+	# jack_connect zynaddsubfx:part4/out-L system:playback_1
+	# jack_connect zynaddsubfx:part4/out-R system:playback_2
+	# jack_connect zynaddsubfx:part5/out-L system:playback_1
+	# jack_connect zynaddsubfx:part5/out-R system:playback_2
+	# jack_connect zynaddsubfx:part6/out-L system:playback_1
+	# jack_connect zynaddsubfx:part6/out-R system:playback_2
+	# jack_connect zynaddsubfx:part7/out-L system:playback_1
+	# jack_connect zynaddsubfx:part7/out-R system:playback_2
+	#jack_connect zynaddsubfx:part8/out-L system:playback_1
+	#jack_connect zynaddsubfx:part8/out-R system:playback_2
+	#jack_connect zynaddsubfx:part9/out-L system:playback_1
+	#jack_connect zynaddsubfx:part9/out-R system:playback_2
+	#jack_connect zynaddsubfx:part10/out-L system:playback_1 
+	#jack_connect zynaddsubfx:part10/out-R system:playback_2 
+	#jack_connect zynaddsubfx:part11/out-L system:playback_1 
+	#jack_connect zynaddsubfx:part11/out-R system:playback_2 
+	#jack_connect zynaddsubfx:part12/out-L system:playback_1 
+	#jack_connect zynaddsubfx:part12/out-R system:playback_2 
+	#jack_connect zynaddsubfx:part13/out-L system:playback_1 
+	#jack_connect zynaddsubfx:part15/out-L system:playback_1 
+	#jack_connect zynaddsubfx:part15/out-R system:playback_2 
 	
 	jack_connect fluidsynthaudio:l_00 system:playback_1 
 	jack_connect fluidsynthaudio:r_00 system:playback_2 
@@ -126,10 +159,22 @@ if [ "$AUDIO_CONECT" = true ]; then
 	jack_connect fluidsynthaudio:r_06 system:playback_2 
 	jack_connect fluidsynthaudio:l_07 system:playback_1 
 	jack_connect fluidsynthaudio:r_07 system:playback_2 
-	jack_connect fluidsynthaudio:l_08 system:playback_1 
-	jack_connect fluidsynthaudio:r_08 system:playback_2 
-	jack_connect fluidsynthaudio:l_09 system:playback_1 
-	jack_connect fluidsynthaudio:r_09 system:playback_2 
+	#jack_connect fluidsynthaudio:l_08 system:playback_1 
+	#jack_connect fluidsynthaudio:r_08 system:playback_2 
+	#jack_connect fluidsynthaudio:l_09 system:playback_1 
+	#jack_connect fluidsynthaudio:r_09 system:playback_2 
+	#jack_connect fluidsynthaudio:l_10 system:playback_1 
+	#jack_connect fluidsynthaudio:r_10 system:playback_2 
+	#jack_connect fluidsynthaudio:l_11 system:playback_1 
+	#jack_connect fluidsynthaudio:r_11 system:playback_2 
+	#jack_connect fluidsynthaudio:l_12 system:playback_1 
+	#jack_connect fluidsynthaudio:r_12 system:playback_2 
+	#jack_connect fluidsynthaudio:l_13 system:playback_1 
+	#jack_connect fluidsynthaudio:r_13 system:playback_2 
+	#jack_connect fluidsynthaudio:l_14 system:playback_1 
+	#jack_connect fluidsynthaudio:r_14 system:playback_2 
+	#jack_connect fluidsynthaudio:l_15 system:playback_1 
+	#jack_connect fluidsynthaudio:r_15 system:playback_2 
 fi
 
 
@@ -139,8 +184,6 @@ if [ "$VERBOSE" ]; then
 fi
 
 $SHELL
-
-
 
 # qmidiroute -p1 confs/qmidiroute.qmr &
 # qmidiroute -p2 confs/filter.qmr &
@@ -199,9 +242,6 @@ $SHELL
 # 	aconnect $alsa_through $dump
 # 	echo "CONECTADO: $alsa_through:$dump"
 # fi
-
-
-
 
 #./jack-${BACKEND}.sh &&
 #sleep 3 &&

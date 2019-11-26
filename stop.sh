@@ -1,10 +1,11 @@
 #/usr/bin/env bash
-#killall vmpk
-killall qjackctl
 killall fluidsynth
+killall yoshimi
+killall aseqdump
+killall qjackctl
+killall jackd
+#killall vmpk
 #killall qmidiroute
 #killall qmidiarp
-#killall aseqdump
-killall jackd
 $SHELL
 

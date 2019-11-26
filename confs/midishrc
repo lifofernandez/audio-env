@@ -100,7 +100,7 @@ metrocf {non { 1 9 } 31 127} {non { 1 9} 31 110 }
 # t 126
 i
 
-proc load track{
+proc cargar track{
   #import "/root/output.mid"
   import $track 
   g 0                             # go to the beginning
