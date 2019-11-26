@@ -1,9 +1,15 @@
 # Load
 # DISPOSITIVOS
-# dnew 0 "14:1" rw
+#import "/root/output.mid"
+#dnew 0 "14:1" rw
 
 dnew 1 "FLUID Synth (fluidsynthmidi)" wo
-dnew 2 "ZynAddSubFX" wo 
+# dnew 2 "ZynAddSubFX" wo 
+
+# dnew 2 "yoshimi" wo
+# MIDISH NO LE MANDA A YOSHSIMI
+# WORKARROUND
+dnew 2 "a2j_bridge" wo
 
 # INPUTS
 # dnew 3 "Origin49" ro
@@ -51,7 +57,7 @@ dnew 2 "ZynAddSubFX" wo
 # fmap { any { 14 0..15} } { any { 15 0..15 } }
 
 
-#fnew file_fluid
+fnew file_fluid
 #
 ## FROM FILE TO SYNTHS
 #fmap { any { 0 0 } } { any { 2 0 } } # ZynAdd BASS 
@@ -94,21 +100,20 @@ dnew 2 "ZynAddSubFX" wo
  
 # cf file_fluid
 
+metrocf {non { 1 9 } 31 127} {non { 1 9} 31 110 }
 # m rec 
 # m on
-metrocf {non { 1 9 } 31 127} {non { 1 9} 31 110 }
 # t 126
 i
 
 proc cargar track{
-  #import "/root/output.mid"
   import $track 
   g 0                             # go to the beginning
   sel [mend]                      # select to the end
   for t in [tlist] {              # for each track:
           ct $t                   # make it the current track
           # tevmap {any 0 } {any 1}  # set all events device 0 -> 1
-         tevmap { any { 0 0 } } { any { 2 0 } }  
+         tevmap { any { 0 0..7 } } { any { 2 0..7 } }  
          tevmap { any { 0 8..15 } } { any { 1 8..15 } }  
   }
 }

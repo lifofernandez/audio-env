@@ -70,14 +70,18 @@ if [ "$GUI" = true ]; then
 	qjackctl &
  	urxvt -hold -T 'MIDIdump' -e 'aseqdump' &
  	#urxvt -T 'zynaddsubfx' -e sh -c 'zynaddsubfx -I alsa -O jack-multi -l confs/zynadd.xmz' &
- 	#urxvt -T 'yoshimi' -e sh -c 'yoshimi -I -c -a yoshimi -J default --samplerate 48000 -b 256 --state=confs/yoshimi.state' &
- 	yoshimi -I -c -a yoshimi -J default --samplerate 48000 -b 256 --state=confs/yoshimi.state &
+
+	a2jmidi_bridge &
+ 	urxvt -T 'yoshimi' -e sh -c 'yoshimi -I -C -j -J --samplerate 48000 -b 256 -o 256 --state=confs/yoshimi' &
+ 	#yoshimi -I -c -a -J --samplerate 48000 -b 256 -o 256 --state=confs/yoshimi &
 fi
  
 if [ "$GUI" = false ]; then
 	echo "NO GUI"
 	#zynaddsubfx -U -I alsa -O jack-multi -l confs/zynadd.xmz &
- 	yoshimi --state=confs/yoshimi -i -c -a yoshimi -J default --samplerate 48000 -b 256 &
+
+	a2jmidi_bridge &
+ 	yoshimi -i -c -j -J --samplerate 48000 -b 256 -o 256 --state=confs/yoshimi &
 
 	aseqdump &
 	DUMP_PID=$!
@@ -110,25 +114,25 @@ fi
 sleep 5 &&
 
 if [ "$AUDIO_CONECT" = true ]; then
+
 	#jack_connect zynaddsubfx:out-L system:playback_1 
 	#jack_connect zynaddsubfx:out-R system:playback_2 
-
-	# jack_connect zynaddsubfx:part0/out-L system:playback_1
-	# jack_connect zynaddsubfx:part0/out-R system:playback_2
-	# jack_connect zynaddsubfx:part1/out-L system:playback_1
-	# jack_connect zynaddsubfx:part1/out-R system:playback_2
-	# jack_connect zynaddsubfx:part2/out-L system:playback_1
-	# jack_connect zynaddsubfx:part2/out-R system:playback_2
-	# jack_connect zynaddsubfx:part3/out-L system:playback_1
-	# jack_connect zynaddsubfx:part3/out-R system:playback_2
-	# jack_connect zynaddsubfx:part4/out-L system:playback_1
-	# jack_connect zynaddsubfx:part4/out-R system:playback_2
-	# jack_connect zynaddsubfx:part5/out-L system:playback_1
-	# jack_connect zynaddsubfx:part5/out-R system:playback_2
-	# jack_connect zynaddsubfx:part6/out-L system:playback_1
-	# jack_connect zynaddsubfx:part6/out-R system:playback_2
-	# jack_connect zynaddsubfx:part7/out-L system:playback_1
-	# jack_connect zynaddsubfx:part7/out-R system:playback_2
+	#jack_connect zynaddsubfx:part0/out-L system:playback_1
+	#jack_connect zynaddsubfx:part0/out-R system:playback_2
+	#jack_connect zynaddsubfx:part1/out-L system:playback_1
+	#jack_connect zynaddsubfx:part1/out-R system:playback_2
+	#jack_connect zynaddsubfx:part2/out-L system:playback_1
+	#jack_connect zynaddsubfx:part2/out-R system:playback_2
+	#jack_connect zynaddsubfx:part3/out-L system:playback_1
+	#jack_connect zynaddsubfx:part3/out-R system:playback_2
+	#jack_connect zynaddsubfx:part4/out-L system:playback_1
+	#jack_connect zynaddsubfx:part4/out-R system:playback_2
+	#jack_connect zynaddsubfx:part5/out-L system:playback_1
+	#jack_connect zynaddsubfx:part5/out-R system:playback_2
+	#jack_connect zynaddsubfx:part6/out-L system:playback_1
+	#jack_connect zynaddsubfx:part6/out-R system:playback_2
+	#jack_connect zynaddsubfx:part7/out-L system:playback_1
+	#jack_connect zynaddsubfx:part7/out-R system:playback_2
 	#jack_connect zynaddsubfx:part8/out-L system:playback_1
 	#jack_connect zynaddsubfx:part8/out-R system:playback_2
 	#jack_connect zynaddsubfx:part9/out-L system:playback_1
@@ -159,6 +163,7 @@ if [ "$AUDIO_CONECT" = true ]; then
 	jack_connect fluidsynthaudio:r_06 system:playback_2 
 	jack_connect fluidsynthaudio:l_07 system:playback_1 
 	jack_connect fluidsynthaudio:r_07 system:playback_2 
+
 	#jack_connect fluidsynthaudio:l_08 system:playback_1 
 	#jack_connect fluidsynthaudio:r_08 system:playback_2 
 	#jack_connect fluidsynthaudio:l_09 system:playback_1 
@@ -175,6 +180,10 @@ if [ "$AUDIO_CONECT" = true ]; then
 	#jack_connect fluidsynthaudio:r_14 system:playback_2 
 	#jack_connect fluidsynthaudio:l_15 system:playback_1 
 	#jack_connect fluidsynthaudio:r_15 system:playback_2 
+
+	jack_connect yoshimi:left system:playback_1 
+	jack_connect yoshimi:right system:playback_2 
+	jack_connect a2j_bridge:capture yoshimi:midi\ in
 fi
 
 
@@ -185,23 +194,33 @@ fi
 
 $SHELL
 
+
+# MIDI
+
+#alsa_through=14
+#
+#yoshimi=$(aconnect -l | grep "yoshimi" | cut -f 1 -d ":" | cut -f 2 -d " ")
+#if [ "$tr" ] && [ "$yoshimi" ]
+#then
+#	aconnect $alsa_through $yoshimi
+#	echo "CONECTADO: $alsa_through:$yoshimi"
+#fi
+
 # qmidiroute -p1 confs/qmidiroute.qmr &
 # qmidiroute -p2 confs/filter.qmr &
 
-# ENTRADAS
 # VIRTUALES
 # vkeybd &
 # vmpk &
 
-# alsa_through=14
-# origin49=$(aconnect -l | grep "Origin49" | cut -f 1 -d ":" | cut -f 2 -d " ")
 # vmpk_i=$(aconnect -l | grep "VMPK Input" | cut -f 1 -d ":" | cut -f 2 -d " ")
 # vmpk_o=$(aconnect -l | grep "VMPK Output" | cut -f 1 -d ":" | cut -f 2 -d " ")
 # vkeybd=$(aconnect -l | grep "Virtual" | cut -f 1 -d ":" | cut -f 2 -d " ")
+# origin49=$(aconnect -l | grep "Origin49" | cut -f 1 -d ":" | cut -f 2 -d " ")
 # router=$(aconnect -l | grep "qmidiroute" | cut -f 1 -d ":" | cut -f 2 -d " ")
 # fluidsynth=$(aconnect -l | grep "FLUID" | cut -f 1 -d ":" | cut -f 2 -d " ")
-# zynadd=$(aconnect -l | grep "ZynAddSubFX" | cut -f 1 -d ":" | cut -f 2 -d " ")
 # dump=$(aconnect -l | grep "aseqdump" | cut -f 1 -d ":" | cut -f 2 -d " ")
+
 
 # if [ "$origin49" ] && [ "$zynadd" ]
 # then

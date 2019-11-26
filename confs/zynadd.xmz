@@ -17,7 +17,7 @@ version-revision="5" ZynAddSubFX-author="Nasca Octavian Paul">
 <par name="max_addsynth_voices" value="8" />
 </BASE_PARAMETERS>
 <MASTER>
-<par_real name="volume" value="-15.8333" exact_value="0xC17D5556" />
+<par_real name="volume" value="-40" exact_value="0xC2200000" />
 <par name="key_shift" value="64" />
 <par_bool name="nrpn_receive" value="yes" />
 <MICROTONAL>
@@ -40,7 +40,7 @@ version-revision="5" ZynAddSubFX-author="Nasca Octavian Paul">
 <par name="min_key" value="0" />
 <par name="max_key" value="127" />
 <par name="key_shift" value="64" />
-<par name="rcv_chn" value="8" />
+<par name="rcv_chn" value="0" />
 <par name="velocity_sensing" value="64" />
 <par name="velocity_offset" value="64" />
 <par_bool name="note_on" value="yes" />
@@ -68,7 +68,7 @@ version-revision="5" ZynAddSubFX-author="Nasca Octavian Paul">
 <ADD_SYNTH_PARAMETERS>
 <par_bool name="stereo" value="yes" />
 <AMPLITUDE_PARAMETERS>
-<par_real name="volume" value="-2.5" exact_value="0xC01FFFF6" />
+<par_real name="volume" value="-19.375" exact_value="0xC19AFFFF" />
 <par name="panning" value="64" />
 <par name="velocity_sensing" value="64" />
 <par name="fadein_adjustment" value="20" />
