@@ -72,8 +72,7 @@ if [ "$GUI" = true ]; then
  	#urxvt -T 'zynaddsubfx' -e sh -c 'zynaddsubfx -I alsa -O jack-multi -l confs/zynadd.xmz' &
 
 	a2jmidi_bridge &
- 	urxvt -T 'yoshimi' -e sh -c 'yoshimi -I -C -j -J --samplerate 48000 -b 256 -o 256 --state=confs/yoshimi' &
- 	#yoshimi -I -c -a -J --samplerate 48000 -b 256 -o 256 --state=confs/yoshimi &
+ 	urxvt -T 'yoshimi' -e sh -c 'yoshimi -I -C -j -J --samplerate 48000 -b 256 -o 256 --load=confs/yoshimi.state' &
 fi
  
 if [ "$GUI" = false ]; then
@@ -81,7 +80,8 @@ if [ "$GUI" = false ]; then
 	#zynaddsubfx -U -I alsa -O jack-multi -l confs/zynadd.xmz &
 
 	a2jmidi_bridge &
- 	yoshimi -i -c -j -J --samplerate 48000 -b 256 -o 256 --state=confs/yoshimi &
+ 	yoshimi -i -c -j -J --samplerate 48000 -b 256 -o 256 --load=confs/yoshimi.xmz &
+ 	#yoshimi -i -c -j -J --samplerate 48000 -b 256 -o 256 &
 
 	aseqdump &
 	DUMP_PID=$!
