@@ -12,33 +12,26 @@ do
       BACKEND="$2"
       ;;
     -g|--graphical)
-      GUI="$2"
+      GUI=true
       ;;
     -v|--verbose)
-      VERBOSE="$2"
+      VERBOSE=true
       ;;
   esac
   shift
 done
 
-echo "BACKEND: $BACKEND"
-echo "GUI: $GUI"
-echo "VERBOSE: $VERBOSE"
-
-#while getopts b:g:v option
-#do
-#case "${option}" in
-#	b) BACKEND=${OPTARG};;
-#	g) GUI=${OPTARG};;
-#	v) VERBOSE=${OPTARG};;
-#esac
-#done
+echo "################################"
+echo "# BACKEND: $BACKEND"
+echo "# GUI: $GUI"
+echo "# VERBOSE: $VERBOSE"
+echo "###############################"
 
 modprobe -r snd-dice
 
 case $BACKEND in
 onboard)
-	echo "JACK INTEGRADA"
+	echo "# JACK OBOARD #"
 	jackd \
 	-R \
 	-d alsa \
@@ -49,7 +42,7 @@ onboard)
 	;;
 
 firewire)
-	echo "JACK FIREWIRE"
+	echo "# JACK FIREWIRE #"
 	jackd \
 	-R \
 	-P 99 \
@@ -64,30 +57,34 @@ firewire)
 esac
 
 sleep 10 &&
-
 if [ "$GUI" = true ]; then
-	echo "GUI"
-	qjackctl &
- 	urxvt -hold -T 'MIDIdump' -e 'aseqdump' &
+	echo "# ANALOG: GUI"
  	#urxvt -T 'zynaddsubfx' -e sh -c 'zynaddsubfx -I alsa -O jack-multi -l confs/zynadd.xmz' &
 	a2jmidi_bridge &
  	urxvt -T 'yoshimi' -e sh -c 'yoshimi -I -C -j -J --samplerate 48000 -b 256 -o 256 --load=confs/yoshimi.xmz' &
+
+	echo "# DUMP: GUI"
+	qjackctl &
+ 	urxvt -hold -T 'MIDIdump' -e 'aseqdump' &
 fi
  
 if [ "$GUI" = false ]; then
-	echo "NO GUI"
+
+	echo "# ANALOG: NO GUI"
 	#zynaddsubfx -U -I alsa -O jack-multi -l confs/zynadd.xmz &
 	a2jmidi_bridge &
  	yoshimi -i -c -j -J --samplerate 48000 -b 256 -o 256 --load=confs/yoshimi.xmz &
  	#yoshimi -i -c -j -J --samplerate 48000 -b 256 -o 256 &
+
+	echo "# DUMP: NO GUI"
 	aseqdump &
 	DUMP_PID=$!
 	echo "dump ID:"$DUMP_PID
 fi
 
-sleep 5 &&
-
+sleep 10 &&
 if [ "$FLUID" = true ]; then
+	echo "# WAVETABLE: NO GUI"
 	fluidsynth \
 	-f confs/fluidsynthrc \
 	-a jack \
@@ -108,10 +105,10 @@ if [ "$FLUID" = true ]; then
 	-o synth.audio-channels=8 &
 fi
 
+echo "# ESPERA]NDO CONECCIONES #" &&
 sleep 5 &&
-
 if [ "$AUDIO_CONECT" = true ]; then
-
+	echo "# JACK: CONECCIONES"
 	#jack_connect zynaddsubfx:out-L system:playback_1 
 	#jack_connect zynaddsubfx:out-R system:playback_2 
 	#jack_connect zynaddsubfx:part0/out-L system:playback_1
