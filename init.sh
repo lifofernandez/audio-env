@@ -63,26 +63,23 @@ firewire)
 	;;
 esac
 
-sleep 5 &&
+sleep 10 &&
 
 if [ "$GUI" = true ]; then
 	echo "GUI"
 	qjackctl &
  	urxvt -hold -T 'MIDIdump' -e 'aseqdump' &
  	#urxvt -T 'zynaddsubfx' -e sh -c 'zynaddsubfx -I alsa -O jack-multi -l confs/zynadd.xmz' &
-
 	a2jmidi_bridge &
- 	urxvt -T 'yoshimi' -e sh -c 'yoshimi -I -C -j -J --samplerate 48000 -b 256 -o 256 --load=confs/yoshimi.state' &
+ 	urxvt -T 'yoshimi' -e sh -c 'yoshimi -I -C -j -J --samplerate 48000 -b 256 -o 256 --load=confs/yoshimi.xmz' &
 fi
  
 if [ "$GUI" = false ]; then
 	echo "NO GUI"
 	#zynaddsubfx -U -I alsa -O jack-multi -l confs/zynadd.xmz &
-
 	a2jmidi_bridge &
  	yoshimi -i -c -j -J --samplerate 48000 -b 256 -o 256 --load=confs/yoshimi.xmz &
  	#yoshimi -i -c -j -J --samplerate 48000 -b 256 -o 256 &
-
 	aseqdump &
 	DUMP_PID=$!
 	echo "dump ID:"$DUMP_PID
