@@ -1,4 +1,6 @@
 # Load
+dmmctx {}
+dclktx  {}
 # DISPOSITIVOS
 #import "/root/output.mid"
 #dnew 0 "14:1" rw
@@ -12,22 +14,24 @@ dnew 1 "FLUID Synth (fluidsynthmidi)" wo
 dnew 2 "a2j_bridge" wo
 
 # INPUTS
-# dnew 3 "Origin49" ro
-# inew from_kb     {3 0} 
+dnew 3 "Origin49" ro
+#inew from_kb {3 0} 
+
 
 # DUMP & THRU 
 # dnew 14 "14:0" rw
-# dnew 15 "aseqdump" wo
 # inew from_thru {14 0} 
 # onew to_thru {14 0} 
-# onew to_dump {15 0} 
+
+dnew 15 "aseqdump" wo
+onew dump {15 0} 
 
 
 # OUTPUTS 
 # WaveTable
 
 ## Analog
-#onew to_zynad0 {2 0} 
+onew to_zynad0 {2 0} 
 #onew to_zynad1 {2 1} 
 #onew to_zynad2 {2 2} 
 #onew to_zynad3 {2 3} 
@@ -49,15 +53,25 @@ dnew 2 "a2j_bridge" wo
 
 # Drop Pitch Bend
 # del teclado por que anda mal en el teclado
-# fmap { note { 3 0 } } { note {  2 0 } }
-# fmap { note { 3 0 } } { note { 15 0 } }
+
+fnew kb_analog 
+#fmap { any { 3 0 } } { any { 2 0 } }
+#fmap { note from_kb } { note to_zynad0  }
+fmap { note { 3 0 } } { note { 2 0 } }
+fmap { ctl { 3 0 } 12 } { ctl {  2 0 } 10 }
+#
+# WARNING: si se usa map "any" pisa map "note" previo
+#fmap { any { 3 0 } } { any { 15 0 } }
+#
+fmap { note { 3 0 } } { note { 15 0 } }
+#fmap { ctl { 3 0 } } { ctl { 15 0 } }
 
 # rango de canales pisa mapeos individuales
 # fmap { any {  0 0..15} } { any { 15 0..15 } }
 # fmap { any { 14 0..15} } { any { 15 0..15 } }
 
 
-fnew file_fluid
+#fnew file_fluid
 #
 ## FROM FILE TO SYNTHS
 #fmap { any { 0 0 } } { any { 2 0 } } # ZynAdd BASS 
@@ -103,7 +117,7 @@ fnew file_fluid
 metrocf {non { 1 9 } 31 127} {non { 1 9} 31 110 }
 # m rec 
 m on
-# t 126
+t 100
 #i
 
 proc cargar track{
@@ -117,5 +131,22 @@ proc cargar track{
          tevmap { any { 0 8..15 } } { any { 1 8..15 } }  
   }
   metrocf {non { 1 9 } 31 127} {non { 1 9} 31 110 }
-  m on
+  p
+  #m on
 }
+
+# dmmctx { devnum1 devnum2 ... }
+# Configure the given devices to transmit MMC start, stop and relocate messages.
+# Useful to control MMC-capable audio applications from midish. By default,
+# devices transmit MMC. 
+# 
+# dclktx { devnum1 devnum2 ... }
+# Configure the given devices to transmit MIDI clock information (MIDI ticks,
+# MIDI start and MIDI stop events). Useful to synchronize an external sequencer
+# to midish. 
+# 
+# dclkrx devnum
+# set device number ``devnum'' to be the master MIDI clock source. It will give
+# midish MIDI ticks, MIDI start and MIDI stop events. This useful to synchronize
+# midish to an external sequencer. If ``devnum'' is ``nil'', then the internal
+# clock will be used and midish will act as master device. 
