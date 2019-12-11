@@ -2,6 +2,9 @@
 
 Seteos, configs, notas, scripts, etc.
 
+## Dependencias
+pacman -S a2jmidid
+
 ## JACK1 y TiMIDIty + controlador externo 
 
 ## AUDIO
