@@ -8,8 +8,11 @@ AUDIO_CONECT=true
 while [[ "$#" -gt 0 ]]
 do
   case $1 in
-    -b|--backend)
-      BACKEND="$2"
+    #-b|--backend)
+    #  BACKEND="$2"
+    #  ;;
+    -fw|--firewire)
+      BACKEND=firewire
       ;;
     -g|--graphical)
       GUI=true
@@ -109,6 +112,12 @@ echo "# ESPERA]NDO CONECCIONES #" &&
 sleep 5 &&
 if [ "$AUDIO_CONECT" = true ]; then
 	echo "# JACK: CONECCIONES"
+
+	if [ "$BACKEND" = firewire ]; then
+		jack_connect system:capture_1 system:playback_1
+		jack_connect system:capture_1 system:playback_2
+	fi
+
 	#jack_connect zynaddsubfx:out-L system:playback_1 
 	#jack_connect zynaddsubfx:out-R system:playback_2 
 	#jack_connect zynaddsubfx:part0/out-L system:playback_1
@@ -178,6 +187,7 @@ if [ "$AUDIO_CONECT" = true ]; then
 	jack_connect yoshimi:left system:playback_1 
 	jack_connect yoshimi:right system:playback_2 
 	jack_connect a2j_bridge:capture yoshimi:midi\ in
+
 fi
 
 
