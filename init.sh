@@ -114,41 +114,16 @@ if [ "$AUDIO_CONECT" = true ]; then
 	echo "# JACK: CONECCIONES"
 
 	if [ "$BACKEND" = firewire ]; then
+                alsa_in -j cloop -dcloop &
+                alsa_out -j ploop -dploop &
+        	jack_connect cloop:capture_1 system:playback_1
+        	jack_connect cloop:capture_2 system:playback_2
+
 		jack_connect system:capture_1 system:playback_1
 		jack_connect system:capture_1 system:playback_2
+
 	fi
 
-	#jack_connect zynaddsubfx:out-L system:playback_1 
-	#jack_connect zynaddsubfx:out-R system:playback_2 
-	#jack_connect zynaddsubfx:part0/out-L system:playback_1
-	#jack_connect zynaddsubfx:part0/out-R system:playback_2
-	#jack_connect zynaddsubfx:part1/out-L system:playback_1
-	#jack_connect zynaddsubfx:part1/out-R system:playback_2
-	#jack_connect zynaddsubfx:part2/out-L system:playback_1
-	#jack_connect zynaddsubfx:part2/out-R system:playback_2
-	#jack_connect zynaddsubfx:part3/out-L system:playback_1
-	#jack_connect zynaddsubfx:part3/out-R system:playback_2
-	#jack_connect zynaddsubfx:part4/out-L system:playback_1
-	#jack_connect zynaddsubfx:part4/out-R system:playback_2
-	#jack_connect zynaddsubfx:part5/out-L system:playback_1
-	#jack_connect zynaddsubfx:part5/out-R system:playback_2
-	#jack_connect zynaddsubfx:part6/out-L system:playback_1
-	#jack_connect zynaddsubfx:part6/out-R system:playback_2
-	#jack_connect zynaddsubfx:part7/out-L system:playback_1
-	#jack_connect zynaddsubfx:part7/out-R system:playback_2
-	#jack_connect zynaddsubfx:part8/out-L system:playback_1
-	#jack_connect zynaddsubfx:part8/out-R system:playback_2
-	#jack_connect zynaddsubfx:part9/out-L system:playback_1
-	#jack_connect zynaddsubfx:part9/out-R system:playback_2
-	#jack_connect zynaddsubfx:part10/out-L system:playback_1 
-	#jack_connect zynaddsubfx:part10/out-R system:playback_2 
-	#jack_connect zynaddsubfx:part11/out-L system:playback_1 
-	#jack_connect zynaddsubfx:part11/out-R system:playback_2 
-	#jack_connect zynaddsubfx:part12/out-L system:playback_1 
-	#jack_connect zynaddsubfx:part12/out-R system:playback_2 
-	#jack_connect zynaddsubfx:part13/out-L system:playback_1 
-	#jack_connect zynaddsubfx:part15/out-L system:playback_1 
-	#jack_connect zynaddsubfx:part15/out-R system:playback_2 
 	
 	jack_connect fluidsynthaudio:l_00 system:playback_1 
 	jack_connect fluidsynthaudio:r_00 system:playback_2 
@@ -166,23 +141,6 @@ if [ "$AUDIO_CONECT" = true ]; then
 	jack_connect fluidsynthaudio:r_06 system:playback_2 
 	jack_connect fluidsynthaudio:l_07 system:playback_1 
 	jack_connect fluidsynthaudio:r_07 system:playback_2 
-
-	#jack_connect fluidsynthaudio:l_08 system:playback_1 
-	#jack_connect fluidsynthaudio:r_08 system:playback_2 
-	#jack_connect fluidsynthaudio:l_09 system:playback_1 
-	#jack_connect fluidsynthaudio:r_09 system:playback_2 
-	#jack_connect fluidsynthaudio:l_10 system:playback_1 
-	#jack_connect fluidsynthaudio:r_10 system:playback_2 
-	#jack_connect fluidsynthaudio:l_11 system:playback_1 
-	#jack_connect fluidsynthaudio:r_11 system:playback_2 
-	#jack_connect fluidsynthaudio:l_12 system:playback_1 
-	#jack_connect fluidsynthaudio:r_12 system:playback_2 
-	#jack_connect fluidsynthaudio:l_13 system:playback_1 
-	#jack_connect fluidsynthaudio:r_13 system:playback_2 
-	#jack_connect fluidsynthaudio:l_14 system:playback_1 
-	#jack_connect fluidsynthaudio:r_14 system:playback_2 
-	#jack_connect fluidsynthaudio:l_15 system:playback_1 
-	#jack_connect fluidsynthaudio:r_15 system:playback_2 
 
 	jack_connect yoshimi:left system:playback_1 
 	jack_connect yoshimi:right system:playback_2 

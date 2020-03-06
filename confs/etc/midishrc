@@ -57,9 +57,14 @@ onew to_zynad0 {2 0}
 fnew kb_analog 
 #fmap { any { 3 0 } } { any { 2 0 } }
 fmap { note { 3 0..15 }   } { note { 2 0..15 }    }
+fmap { ctl  { 3 0..15 } 1 } { ctl  { 2 0..15 } 1  }
 fmap { ctl  { 3 0..15 } 7 } { ctl  { 2 0..15 } 7  }
 fmap { ctl  { 3 0..15 } 8 } { ctl  { 2 0..15 } 71 }
 fmap { ctl  { 3 0..15 } 9 } { ctl  { 2 0..15 } 74 }
+fmap { ctl  { 3 0..15 } 10 } { ctl  { 2 0..15 } 75 }
+fmap { ctl  { 3 0..15 } 11 } { ctl  { 2 0..15 } 76 }
+fmap { ctl  { 3 0..15 } 12 } { ctl  { 2 0..15 } 77 }
+fmap { ctl  { 3 0..15 } 13 } { ctl  { 2 0..15 } 78 }
 
 #
 # WARNING: si se usa map "any" pisa map "note" previo
