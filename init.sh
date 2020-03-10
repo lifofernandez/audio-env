@@ -1,6 +1,7 @@
 #/usr/bin/env bash
 
 BACKEND=onboard
+FW=$( lsfirewire | grep Focusrite )
 GUI=false
 FLUID=true
 AUDIO_CONECT=true
@@ -8,12 +9,9 @@ AUDIO_CONECT=true
 while [[ "$#" -gt 0 ]]
 do
   case $1 in
-    #-b|--backend)
-    #  BACKEND="$2"
+    #-fw|--firewire)
+    #  BACKEND=firewire
     #  ;;
-    -fw|--firewire)
-      BACKEND=firewire
-      ;;
     -g|--graphical)
       GUI=true
       ;;
@@ -23,6 +21,15 @@ do
   esac
   shift
 done
+
+
+if [ -z "$FW" ]
+then
+	echo "No encotre FW." 
+else
+	echo "Encontre: $FW." 
+        BACKEND=firewire
+fi
 
 echo "################################"
 echo "# BACKEND: $BACKEND"
@@ -59,9 +66,9 @@ firewire)
 	;;
 esac
 
-sleep 10 &&
+sleep 5 &&
 if [ "$GUI" = true ]; then
-	echo "# ANALOG: GUI"
+	echo "# ANALOG SYNTH: GUI"
  	#urxvt -T 'zynaddsubfx' -e sh -c 'zynaddsubfx -I alsa -O jack-multi -l confs/zynadd.xmz' &
 	a2jmidi_bridge &
  	urxvt -T 'yoshimi' -e sh -c 'yoshimi -I -C -j -J --samplerate 48000 -b 256 -o 256 --load=confs/yoshimi.xmz' &
@@ -73,58 +80,62 @@ fi
  
 if [ "$GUI" = false ]; then
 
-	echo "# ANALOG: NO GUI"
+	echo "# ANALOG SYNTH: No GUI"
 	#zynaddsubfx -U -I alsa -O jack-multi -l confs/zynadd.xmz &
 	a2jmidi_bridge &
  	yoshimi -i -c -j -J --samplerate 48000 -b 256 -o 256 --load=confs/yoshimi.xmz &
- 	#yoshimi -i -c -j -J --samplerate 48000 -b 256 -o 256 &
 
-	echo "# DUMP: NO GUI"
+	echo "# DUMP: No GUI"
 	aseqdump &
 	DUMP_PID=$!
-	echo "dump ID:"$DUMP_PID
+	echo "DUMOP ID:"$DUMP_PID
+
+	#sleep 5 &&
+
+	if [ "$FLUID" = true ]; then
+		echo "# WAVETABLE SYNTH: No GUI"
+		fluidsynth \
+		-f confs/fluidsynthrc \
+		-a jack \
+		-m alsa_seq \
+		-c 3 \
+		-O s32 \
+		-T wav \
+		-r 48000 \
+		-R 0 \
+		-C 0 \
+		-g 0.5 \
+		-is \
+		-o shell.port=9800 \
+		-o audio.jack.id='fluidsynthaudio' \
+		-o audio.jack.multi='yes' \
+		-o midi.alsa_seq.id='fluidsynthmidi' \
+		-o synth.midi-bank-select='gm' \
+		-o synth.audio-channels=9 &
+	fi
 fi
 
-sleep 10 &&
-if [ "$FLUID" = true ]; then
-	echo "# WAVETABLE: NO GUI"
-	fluidsynth \
-	-f confs/fluidsynthrc \
-	-a jack \
-	-m alsa_seq \
-	-c 3 \
-	-O s32 \
-	-T wav \
-	-r 48000 \
-	-R 0 \
-	-C 0 \
-	-g 0.5 \
-	-is \
-	-o shell.port=9800 \
-	-o audio.jack.id='fluidsynthaudio' \
-	-o audio.jack.multi='yes' \
-	-o midi.alsa_seq.id='fluidsynthmidi' \
-	-o synth.midi-bank-select='gm' \
-	-o synth.audio-channels=8 &
-fi
 
-echo "# ESPERA]NDO CONECCIONES #" &&
-sleep 5 &&
 if [ "$AUDIO_CONECT" = true ]; then
-	echo "# JACK: CONECCIONES"
 
 	if [ "$BACKEND" = firewire ]; then
-                alsa_in -j cloop -dcloop &
-                alsa_out -j ploop -dploop &
+		echo "ALSA LOOPBACK"
+		alsa_in -j cloop -dcloop > /dev/null 2>&1 &
+		alsa_out -j ploop -dploop > /dev/null 2>&1 & 
+
+	        echo "# ESPERA]NDO LOOPBACK#" 
+		sleep 3 &&
         	jack_connect cloop:capture_1 system:playback_1
         	jack_connect cloop:capture_2 system:playback_2
 
 		jack_connect system:capture_1 system:playback_1
 		jack_connect system:capture_1 system:playback_2
-
 	fi
 
-	
+	echo "# ESPERA]NDO CONECCIONES #" 
+	echo "# JACK: CONECCIONES"
+
+	# TO DO: PASAR POR ECASOUND
 	jack_connect fluidsynthaudio:l_00 system:playback_1 
 	jack_connect fluidsynthaudio:r_00 system:playback_2 
 	jack_connect fluidsynthaudio:l_01 system:playback_1 
