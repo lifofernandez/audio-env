@@ -82,7 +82,7 @@ if [ "$GUI" = false ]; then
 
 	echo "# ANALOG SYNTH: No GUI"
 	#zynaddsubfx -U -I alsa -O jack-multi -l confs/zynadd.xmz &
-	a2jmidi_bridge &
+	a2jmidi_bridge > /dev/null 2>&1 &
  	yoshimi -i -c -j -J --samplerate 48000 -b 256 -o 256 --load=confs/yoshimi.xmz &
 
 	echo "# DUMP: No GUI"
