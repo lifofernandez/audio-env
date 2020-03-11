@@ -3,3 +3,4 @@ cp /etc/asound.conf    etc/
 cp /etc/modules-load.d etc/ -r
 
 cp /etc/midishrc       etc/
+cp /usr/share/ecasound usr/share/ -r

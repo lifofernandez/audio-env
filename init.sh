@@ -107,9 +107,9 @@ if [ "$GUI" = false ]; then
 		-g 0.5 \
 		-is \
 		-o shell.port=9800 \
-		-o audio.jack.id='fluidsynthaudio' \
+		-o audio.jack.id='fluidsynth' \
 		-o audio.jack.multi='yes' \
-		-o midi.alsa_seq.id='fluidsynthmidi' \
+		-o midi.alsa_seq.id='fluidsynth' \
 		-o synth.midi-bank-select='gm' \
 		-o synth.audio-channels=9 &
 	fi
@@ -136,22 +136,22 @@ if [ "$AUDIO_CONECT" = true ]; then
 	echo "# JACK: CONECCIONES"
 
 	# TO DO: PASAR POR ECASOUND
-	jack_connect fluidsynthaudio:l_00 system:playback_1 
-	jack_connect fluidsynthaudio:r_00 system:playback_2 
-	jack_connect fluidsynthaudio:l_01 system:playback_1 
-	jack_connect fluidsynthaudio:r_01 system:playback_2 
-	jack_connect fluidsynthaudio:l_02 system:playback_1 
-	jack_connect fluidsynthaudio:r_02 system:playback_2 
-	jack_connect fluidsynthaudio:l_03 system:playback_1 
-	jack_connect fluidsynthaudio:r_03 system:playback_2 
-	jack_connect fluidsynthaudio:l_04 system:playback_1 
-	jack_connect fluidsynthaudio:r_04 system:playback_2 
-	jack_connect fluidsynthaudio:l_05 system:playback_1 
-	jack_connect fluidsynthaudio:r_05 system:playback_2 
-	jack_connect fluidsynthaudio:l_06 system:playback_1 
-	jack_connect fluidsynthaudio:r_06 system:playback_2 
-	jack_connect fluidsynthaudio:l_07 system:playback_1 
-	jack_connect fluidsynthaudio:r_07 system:playback_2 
+	jack_connect fluidsynth:l_00 system:playback_1 
+	jack_connect fluidsynth:r_00 system:playback_2 
+	jack_connect fluidsynth:l_01 system:playback_1 
+	jack_connect fluidsynth:r_01 system:playback_2 
+	jack_connect fluidsynth:l_02 system:playback_1 
+	jack_connect fluidsynth:r_02 system:playback_2 
+	jack_connect fluidsynth:l_03 system:playback_1 
+	jack_connect fluidsynth:r_03 system:playback_2 
+	jack_connect fluidsynth:l_04 system:playback_1 
+	jack_connect fluidsynth:r_04 system:playback_2 
+	jack_connect fluidsynth:l_05 system:playback_1 
+	jack_connect fluidsynth:r_05 system:playback_2 
+	jack_connect fluidsynth:l_06 system:playback_1 
+	jack_connect fluidsynth:r_06 system:playback_2 
+	jack_connect fluidsynth:l_07 system:playback_1 
+	jack_connect fluidsynth:r_07 system:playback_2 
 
 	jack_connect yoshimi:left system:playback_1 
 	jack_connect yoshimi:right system:playback_2 
