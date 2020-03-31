@@ -48,7 +48,7 @@ onboard)
 	-r 48000 \
 	-p 256 \
 	-n 4 \
-	-d hw:0 &
+	-d hw:1 &
 	;;
 
 firewire)
@@ -67,6 +67,7 @@ firewire)
 esac
 
 sleep 5 &&
+
 if [ "$GUI" = true ]; then
 	echo "# ANALOG SYNTH: GUI"
  	#urxvt -T 'zynaddsubfx' -e sh -c 'zynaddsubfx -I alsa -O jack-multi -l confs/zynadd.xmz' &
@@ -92,78 +93,31 @@ if [ "$GUI" = false ]; then
 
 	#sleep 5 &&
 
-	if [ "$FLUID" = true ]; then
-		echo "# WAVETABLE SYNTH: No GUI"
-		fluidsynth \
-		-f confs/fluidsynthrc \
-		-a jack \
-		-m alsa_seq \
-		-c 3 \
-		-O s32 \
-		-T wav \
-		-r 48000 \
-		-R 0 \
-		-C 0 \
-		-g 0.5 \
-		-is \
-		-o shell.port=9800 \
-		-o audio.jack.id='fluidsynth' \
-		-o audio.jack.multi='yes' \
-		-o midi.alsa_seq.id='fluidsynth' \
-		-o synth.midi-bank-select='gm' \
-		-o synth.audio-channels=9 &
-	fi
+fi
+if [ "$FLUID" = true ]; then
+	echo "# WAVETABLE SYNTH: No GUI"
+	fluidsynth \
+	-f confs/fluidsynthrc \
+	-a jack \
+	-m alsa_seq \
+	-c 3 \
+	-O s32 \
+	-T wav \
+	-r 48000 \
+	-R 0 \
+	-C 0 \
+	-g 0.5 \
+	-is \
+	-o shell.port=9800 \
+	-o audio.jack.id='fluidsynth' \
+	-o audio.jack.multi='yes' \
+	-o midi.alsa_seq.id='fluidsynth' \
+	-o synth.midi-bank-select='gm' \
+	-o synth.audio-channels=9 &
 fi
 
-
-if [ "$AUDIO_CONECT" = true ]; then
-
-	if [ "$BACKEND" = firewire ]; then
-		echo "ALSA LOOPBACK"
-		alsa_in -j cloop -dcloop > /dev/null 2>&1 &
-		alsa_out -j ploop -dploop > /dev/null 2>&1 & 
-
-	        echo "# ESPERA]NDO LOOPBACK#" 
-		sleep 3 &&
-        	jack_connect cloop:capture_1 system:playback_1
-        	jack_connect cloop:capture_2 system:playback_2
-
-		jack_connect system:capture_1 system:playback_1
-		jack_connect system:capture_1 system:playback_2
-	fi
-
-	echo "# ESPERA]NDO CONECCIONES #" 
-	echo "# JACK: CONECCIONES"
-
-	# TO DO: PASAR POR ECASOUND
-	jack_connect fluidsynth:l_00 system:playback_1 
-	jack_connect fluidsynth:r_00 system:playback_2 
-	jack_connect fluidsynth:l_01 system:playback_1 
-	jack_connect fluidsynth:r_01 system:playback_2 
-	jack_connect fluidsynth:l_02 system:playback_1 
-	jack_connect fluidsynth:r_02 system:playback_2 
-	jack_connect fluidsynth:l_03 system:playback_1 
-	jack_connect fluidsynth:r_03 system:playback_2 
-	jack_connect fluidsynth:l_04 system:playback_1 
-	jack_connect fluidsynth:r_04 system:playback_2 
-	jack_connect fluidsynth:l_05 system:playback_1 
-	jack_connect fluidsynth:r_05 system:playback_2 
-	jack_connect fluidsynth:l_06 system:playback_1 
-	jack_connect fluidsynth:r_06 system:playback_2 
-	jack_connect fluidsynth:l_07 system:playback_1 
-	jack_connect fluidsynth:r_07 system:playback_2 
-
-	jack_connect yoshimi:left system:playback_1 
-	jack_connect yoshimi:right system:playback_2 
-	jack_connect a2j_bridge:capture yoshimi:midi\ in
-
-fi
-
-
-if [ "$VERBOSE" ]; then
-	jack_lsp 
-	aconnect -l 
-fi
+jack_lsp 
+aconnect -l 
 
 $SHELL
 

@@ -201,3 +201,5 @@ https://wiki.linuxaudio.org/apps/categories/alsa_seq
 
 fw anduvo despues de instalar esto linux-firewire-utils
 ecasound -c -f:f32_le,2,48000 -i jack -o jack,system -G:jack
+ alsa_out -j ploop -d ploop
+ffmpeg -f alsa -ac 2 -ar 44100 -i ploop out.wav
