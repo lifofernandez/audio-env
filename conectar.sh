@@ -10,8 +10,8 @@ if [ "$AUDIO_CONECT" = true ]; then
 
 	if [ "$BACKEND" = firewire ]; then
 		echo "ALSA LOOPBACK"
-		alsa_in -j cloop -dcloop > /dev/null 2>&1 &
-		alsa_out -j ploop -dploop > /dev/null 2>&1 & 
+        	alsa_out -j ploop -dploop > /dev/null 2>&1 & 
+		        alsa_in -j cloop -dcloop > /dev/null 2>&1 &
 
 	        echo "# ESPERA]NDO LOOPBACK#" 
 		sleep 3 &&
@@ -23,6 +23,7 @@ if [ "$AUDIO_CONECT" = true ]; then
 	fi
 
 	echo "# ESPERA]NDO CONECCIONES #" 
+
 	echo "# JACK: CONECCIONES"
 
 	# TO DO: PASAR POR ECASOUND
@@ -43,8 +44,10 @@ if [ "$AUDIO_CONECT" = true ]; then
 	jack_connect fluidsynth:l_07 system:playback_1 
 	jack_connect fluidsynth:r_07 system:playback_2 
 
-	jack_connect yoshimi:left system:playback_1 
-	jack_connect yoshimi:right system:playback_2 
+	jack_connect yoshimi:left    system:playback_1 
+	jack_connect yoshimi:right   system:playback_2 
+
+
 	jack_connect a2j_bridge:capture yoshimi:midi\ in
 
 fi

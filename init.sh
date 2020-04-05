@@ -84,16 +84,19 @@ if [ "$GUI" = false ]; then
 	echo "# ANALOG SYNTH: No GUI"
 	#zynaddsubfx -U -I alsa -O jack-multi -l confs/zynadd.xmz &
 	a2jmidi_bridge > /dev/null 2>&1 &
+
  	yoshimi -i -c -j -J --samplerate 48000 -b 256 -o 256 --load=confs/yoshimi.xmz &
+	sleep 3 &&
+	jack_connect a2j_bridge:capture yoshimi:midi\ in
 
 	echo "# DUMP: No GUI"
 	aseqdump &
 	DUMP_PID=$!
 	echo "DUMOP ID:"$DUMP_PID
 
-	#sleep 5 &&
 
 fi
+
 if [ "$FLUID" = true ]; then
 	echo "# WAVETABLE SYNTH: No GUI"
 	fluidsynth \
