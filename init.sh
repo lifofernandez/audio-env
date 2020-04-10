@@ -2,6 +2,15 @@
 
 BACKEND=onboard
 FW=$( lsfirewire | grep Focusrite )
+
+if [ -z "$FW" ]
+then
+	echo "No encotre FW." 
+else
+	echo "Encontre: $FW." 
+        BACKEND=firewire
+fi
+
 GUI=false
 FLUID=true
 AUDIO_CONECT=true
@@ -21,15 +30,6 @@ do
   esac
   shift
 done
-
-
-if [ -z "$FW" ]
-then
-	echo "No encotre FW." 
-else
-	echo "Encontre: $FW." 
-        BACKEND=firewire
-fi
 
 echo "################################"
 echo "# BACKEND: $BACKEND"
@@ -61,18 +61,27 @@ firewire)
 	-p 256 \
 	-n 4 \
 	-d hw:Pro24DSP00058b \
-	-i 16 \
-	-o 8 &
+	-i 4 \
+	-o 2 &
 	;;
 esac
 
-sleep 5 &&
+sleep 3 &&
+echo "# MIXER "
+#urxvt -T 'ECAsound' -e sh -c 'ecasound -f:f32_le,2,48000 -s:confs/mezcla.ecs -c' &
+
+urxvt -T 'NAMA' -e sh -c 'nama ' &
+
+
 
 if [ "$GUI" = true ]; then
 	echo "# ANALOG SYNTH: GUI"
- 	#urxvt -T 'zynaddsubfx' -e sh -c 'zynaddsubfx -I alsa -O jack-multi -l confs/zynadd.xmz' &
+ 	# urxvt -T 'zynaddsubfx' -e sh -c 'zynaddsubfx -I alsa -O jack-multi -l confs/zynadd.xmz' &
 	a2jmidi_bridge &
- 	urxvt -T 'yoshimi' -e sh -c 'yoshimi -I -C -j -J --samplerate 48000 -b 256 -o 256 --load=confs/yoshimi.xmz' &
+ 	urxvt -T 'Yoshimi' -e sh -c 'yoshimi -I -C -j -J --samplerate 48000 -b 256 -o 256 --load=confs/yoshimi.xmz' &
+
+	sleep 3 &&
+	jack_connect a2j_bridge:capture yoshimi:midi\ in
 
 	echo "# DUMP: GUI"
 	qjackctl &
@@ -82,7 +91,7 @@ fi
 if [ "$GUI" = false ]; then
 
 	echo "# ANALOG SYNTH: No GUI"
-	#zynaddsubfx -U -I alsa -O jack-multi -l confs/zynadd.xmz &
+	# zynaddsubfx -U -I alsa -O jack-multi -l confs/zynadd.xmz &
 	a2jmidi_bridge > /dev/null 2>&1 &
 
  	yoshimi -i -c -j -J --samplerate 48000 -b 256 -o 256 --load=confs/yoshimi.xmz &
@@ -116,11 +125,12 @@ if [ "$FLUID" = true ]; then
 	-o audio.jack.multi='yes' \
 	-o midi.alsa_seq.id='fluidsynth' \
 	-o synth.midi-bank-select='gm' \
-	-o synth.audio-channels=9 &
+	-o synth.audio-channels=10 &
 fi
 
-jack_lsp 
-aconnect -l 
+
+# jack_lsp 
+# aconnect -l 
 
 $SHELL
 

@@ -1,21 +1,24 @@
 -n:ECA-chain_mix
 
- -a:1 -i jack,,fluid_1 -ea:500 
- -a:2 -i jack,,fluid_2 -etr:10,surround,80	
- -a:3 -i jack,,fluid_3
+ -a:1 -i jack,,fluid_1 -ea:400 
+ -a:2 -i jack,,fluid_2 -ea:600 	
+ -a:3 -i jack,,fluid_3 -ea:600 -ete:60,30,50   -ea:500 
  -a:4 -i jack,,fluid_4	
  -a:5 -i jack,,fluid_5
  -a:6 -i jack,,fluid_6	
  -a:7 -i jack,,fluid_7
  -a:8 -i jack,,fluid_8	
  
- -a:9 -i jack,,yoshi_1 -ea:300 -ete:10,30,50 -ea:100
--a:10 -i jack,,yoshi_2 
--a:11 -i jack,,yoshi_3 
--a:12 -i jack,,yoshi_4 
+ -a:9 -i jack,,yoshi_1 -ea:100 
+-a:10 -i jack,,yoshi_2 -ea:100
+-a:11 -i jack,,yoshi_3 -ea:100 -ete:40,30,50 -ea:100
+-a:12 -i jack,,yoshi_4 -etr:10,surround,10
 -a:13 -i jack,,yoshi_5 
 -a:14 -i jack,,yoshi_6 
 -a:15 -i jack,,yoshi_7 
 -a:16 -i jack,,yoshi_8 
 
--a:all -o jack,system -G:jack,ECA_mix
+-a:1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16 -o loop,1 
+-a:17,18 -i loop,1 
+-a:17 -o jack,system -G:jack,ECA_mix
+-a:18 -o /root/current-mix.wav

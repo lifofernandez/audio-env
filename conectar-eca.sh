@@ -26,14 +26,15 @@ jack_connect yoshimi:track_3_l ECA_mix:yoshi_3_1
 jack_connect yoshimi:track_3_r ECA_mix:yoshi_3_2 
 jack_connect yoshimi:track_4_l ECA_mix:yoshi_4_1 
 jack_connect yoshimi:track_4_r ECA_mix:yoshi_4_2 
-jack_connect yoshimi:track_5_l ECA_mix:yoshi_5_1 
-jack_connect yoshimi:track_5_r ECA_mix:yoshi_5_2 
-jack_connect yoshimi:track_6_l ECA_mix:yoshi_6_1 
-jack_connect yoshimi:track_6_r ECA_mix:yoshi_6_2 
-jack_connect yoshimi:track_7_l ECA_mix:yoshi_7_1 
-jack_connect yoshimi:track_7_r ECA_mix:yoshi_7_2 
-jack_connect yoshimi:track_8_l ECA_mix:yoshi_8_1 
-jack_connect yoshimi:track_8_r ECA_mix:yoshi_8_2 
+
+#jack_connect yoshimi:track_5_l ECA_mix:yoshi_5_1 
+#jack_connect yoshimi:track_5_r ECA_mix:yoshi_5_2 
+#jack_connect yoshimi:track_6_l ECA_mix:yoshi_6_1 
+#jack_connect yoshimi:track_6_r ECA_mix:yoshi_6_2 
+#jack_connect yoshimi:track_7_l ECA_mix:yoshi_7_1 
+#jack_connect yoshimi:track_7_r ECA_mix:yoshi_7_2 
+#jack_connect yoshimi:track_8_l ECA_mix:yoshi_8_1 
+#jack_connect yoshimi:track_8_r ECA_mix:yoshi_8_2 
 
 #jack_connect yoshimi:left    ffmpeg:input_1 
 #jack_connect yoshimi:right   ffmpeg:input_2 
