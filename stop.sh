@@ -2,6 +2,7 @@
 killall fluidsynth
 killall yoshimi
 killall a2j_bridge
+pkill -f Yoshimi
 pkill -f aseqdump
 pkill -f ECAsound
 pkill -f NAMA

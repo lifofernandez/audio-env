@@ -68,9 +68,9 @@ esac
 
 sleep 3 &&
 echo "# MIXER "
-#urxvt -T 'ECAsound' -e sh -c 'ecasound -f:f32_le,2,48000 -s:confs/mezcla.ecs -c' &
+urxvt -T 'ECAsound' -e sh -c 'ecasound -f:f32_le,2,48000 -s:confs/mezcla.ecs -c' &
 
-urxvt -T 'NAMA' -e sh -c 'nama ' &
+#urxvt -T 'NAMA' -e sh -c 'nama ' &
 
 
 

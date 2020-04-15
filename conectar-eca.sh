@@ -17,6 +17,10 @@ jack_connect fluidsynth:l_06   ECA_mix:fluid_7_1
 jack_connect fluidsynth:r_06   ECA_mix:fluid_7_2 
 jack_connect fluidsynth:l_07   ECA_mix:fluid_8_1 
 jack_connect fluidsynth:r_07   ECA_mix:fluid_8_2 
+jack_connect fluidsynth:l_08   ECA_mix:fluid_9_1 
+jack_connect fluidsynth:r_08   ECA_mix:fluid_9_2 
+jack_connect fluidsynth:l_09   ECA_mix:fluid_10_1 
+jack_connect fluidsynth:r_09   ECA_mix:fluid_10_2 
 
 jack_connect yoshimi:track_1_l ECA_mix:yoshi_1_1 
 jack_connect yoshimi:track_1_r ECA_mix:yoshi_1_2 
