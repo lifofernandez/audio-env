@@ -76,9 +76,12 @@ urxvt -T 'ECAsound' -e sh -c 'ecasound -f:f32_le,2,48000 -s:confs/mezcla.ecs -c'
 
 if [ "$GUI" = true ]; then
 	echo "# ANALOG SYNTH: GUI"
- 	# urxvt -T 'zynaddsubfx' -e sh -c 'zynaddsubfx -I alsa -O jack-multi -l confs/zynadd.xmz' &
+
 	a2jmidi_bridge &
- 	urxvt -T 'Yoshimi' -e sh -c 'yoshimi -I -C -j -J --samplerate 48000 -b 256 -o 256 --load=confs/yoshimi.xmz' &
+ 	
+	urxvt -T 'Yoshimi' \
+	-e sh -c 'yoshimi -I -C -j -J -R 48000 -b 256 -o 256 --jack-midi=a2j_bridge:capture --state=confs/yoshimi.state  --load-instrument=confs/yoshimi.xiz --load=confs/yoshimi.xmz' &
+
 
 	sleep 3 &&
 	jack_connect a2j_bridge:capture yoshimi:midi\ in
@@ -91,7 +94,6 @@ fi
 if [ "$GUI" = false ]; then
 
 	echo "# ANALOG SYNTH: No GUI"
-	# zynaddsubfx -U -I alsa -O jack-multi -l confs/zynadd.xmz &
 	a2jmidi_bridge > /dev/null 2>&1 &
 
  	yoshimi -i -c -j -J --samplerate 48000 -b 256 -o 256 --load=confs/yoshimi.xmz &

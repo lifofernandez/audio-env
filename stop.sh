@@ -1,12 +1,12 @@
 #/usr/bin/env bash
+pkill -f aseqdump
+killall ecasound
+pkill -f ECAsound
+pkill -f NAMA
+pkill -f Yoshimi
 killall fluidsynth
 killall yoshimi
 killall a2j_bridge
-pkill -f Yoshimi
-pkill -f aseqdump
-pkill -f ECAsound
-pkill -f NAMA
-killall ecasound
 killall qjackctl
 killall jackd
 
