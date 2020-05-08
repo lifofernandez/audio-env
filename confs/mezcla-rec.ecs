@@ -20,5 +20,7 @@
 
 -a:1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16 -o loop,1 
 
--a:17 -i loop,1 
+#-a:17 -i loop,1 
+-a:17,18 -i loop,1 
 -a:17 -o jack,system -G:jack,ECA_mix -efh:20
+-a:18 -o /root/current-mix.wav

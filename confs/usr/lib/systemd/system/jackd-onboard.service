@@ -1,0 +1,16 @@
+[Unit]
+Description=JACK ONBOARD
+After=sound.target
+ConditionPathExists=!/dev/fw1
+
+[Service]
+LimitRTPRIO=infinity
+LimitMEMLOCK=infinity
+#User=root
+#User=lf
+Group=audio
+ExecStart=/usr/bin/jackd --slave-driver alsa_midi -R -d alsa -r 48000 -p 256 -n 4 -d hw:1 
+
+[Install]
+#WantedBy=multi-user.target
+WantedBy=default.target

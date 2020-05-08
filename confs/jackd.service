@@ -1,0 +1,81 @@
+[Unit]
+Description=JACK FW
+After=sound.target
+
+[Service]
+LimitRTPRIO=infinity
+LimitMEMLOCK=infinity
+User=root
+ExecStart=/usr/bin/jackd -R -P 99 -d firewire -r 48000 -p 256 -n 4 -d hw:Pro24DSP00058b -i 4 -o 2 
+
+[Install]
+WantedBy=multi-user.target
+
+#
+#
+#/usr/bin/env bash
+
+#BACKEND=onboard
+#FW=$( lsfirewire | grep Focusrite )
+#
+#if [ -z "$FW" ]
+#then
+#	echo "No encotre FW." 
+#else
+#	echo "Encontre: $FW." 
+#        BACKEND=firewire
+#fi
+#
+#GUI=false
+#
+#while [[ "$#" -gt 0 ]]
+#do
+#  case $1 in
+#    #-fw|--firewire)
+#    #  BACKEND=firewire
+#    #  ;;
+#    -g|--graphical)
+#      GUI=true
+#      ;;
+#    -v|--verbose)
+#      VERBOSE=true
+#      ;;
+#  esac
+#  shift
+#done
+#
+#echo "################################"
+#echo "# BACKEND: $BACKEND"
+#echo "# GUI: $GUI"
+#echo "# VERBOSE: $VERBOSE"
+#echo "###############################"
+#
+#modprobe -r snd-dice
+#
+#case $BACKEND in
+#onboard)
+#	echo "# JACK OBOARD #"
+#	jackd \
+#	-R \
+#	-d alsa \
+#	-r 48000 \
+#	-p 256 \
+#	-n 4 \
+#	-d hw:1 &
+#	;;
+#
+#firewire)
+#	echo "# JACK FIREWIRE #"
+#	jackd \
+#	-R \
+#	-P 99 \
+#	-d firewire \
+#	-r 48000 \
+#	-p 256 \
+#	-n 4 \
+#	-d hw:Pro24DSP00058b \
+#	-i 4 \
+#	-o 2 &
+#	;;
+#esac
+

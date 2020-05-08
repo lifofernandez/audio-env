@@ -1,0 +1,19 @@
+Source: jack-midi-clock
+Section: sound
+Priority: optional
+Maintainer: Robin Gareus <robin@gareus.org>
+Build-Depends: debhelper (>= 9),
+ dpkg-dev (>= 1.16.1~),
+ libjack-dev | libjack-jackd2-dev
+Homepage: http://www.teuton.org/~gabriel/jack_midi_clock
+Standards-Version: 3.9.3
+
+Package: jack-midi-clock
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: MIDI beat clock utility
+ A simple and robust command-line tool to send
+ MIDI beat clock that accurately follows JACK Transport.
+ .
+ It also features an instumentation tool to parse and dump
+ incoming MCLK messages.

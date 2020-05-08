@@ -1,26 +1,76 @@
-#/usr/bin/env bash
+#!/usr/bin/env bash
 
-BACKEND=onboard
-FW=$( lsfirewire | grep Focusrite )
+#BACKEND=onboard
+#FW=$( lsfirewire | grep Focusrite )
+#
+#if [ -z "$FW" ]
+#then
+#	echo "No encotre FW." 
+#else
+#	echo "Encontre: $FW." 
+#        BACKEND=firewire
+#fi
 
-if [ -z "$FW" ]
-then
-	echo "No encotre FW." 
-else
-	echo "Encontre: $FW." 
-        BACKEND=firewire
-fi
+
+# echo "################################"
+# echo "# BACKEND: $BACKEND"
+# echo "# GUI: $GUI"
+# echo "# VERBOSE: $VERBOSE"
+# echo "###############################"
+# 
+# modprobe -r snd-dice
+# 
+# case $BACKEND in
+# onboard)
+# 	echo "# JACK OBOARD #"
+# 	jackd \
+# 	-R \
+# 	-d alsa \
+# 	-r 48000 \
+# 	-p 256 \
+# 	-n 4 \
+# 	-d hw:1 &
+# 	;;
+# 
+# firewire)
+# 	echo "# JACK FIREWIRE #"
+# 	jackd \
+# 	-R \
+# 	-P 99 \
+# 	-d firewire \
+# 	-r 48000 \
+# 	-p 256 \
+# 	-n 4 \
+# 	-d hw:Pro24DSP00058b \
+# 	-i 4 \
+# 	-o 2 &
+# 	;;
+# esac
+# 
+# sleep 3 &&
 
 GUI=false
 FLUID=true
 AUDIO_CONECT=true
 
+BPM=120
+METRO="4/4"
+
+
+while getopts ":t:m:" opt; do
+  case $opt in
+    t) BPM="$OPTARG"
+    ;;
+    m) METRO="$OPTARG"
+    ;;
+    #\?) echo "Invalid option -$OPTARG" >&2
+    #;;
+  esac
+done
+
 while [[ "$#" -gt 0 ]]
 do
   case $1 in
-    #-fw|--firewire)
-    #  BACKEND=firewire
-    #  ;;
     -g|--graphical)
       GUI=true
       ;;
@@ -31,48 +81,18 @@ do
   shift
 done
 
-echo "################################"
-echo "# BACKEND: $BACKEND"
-echo "# GUI: $GUI"
-echo "# VERBOSE: $VERBOSE"
-echo "###############################"
+# MIDISH <JACK TRANSPORT SYNC> ECASOUND 
+urxvt -T 'KLICK' -e sh -c "klick -T $METRO $BPM" &
+jack_midi_clock &
+sleep 1 &&
+jack_connect jack_midi_clock:mclk_out "alsa_midi:Midi Through Port-0 (in)"
+jack_connect klick:out system:playback_1
+jack_connect klick:out system:playback_2
 
-modprobe -r snd-dice
-
-case $BACKEND in
-onboard)
-	echo "# JACK OBOARD #"
-	jackd \
-	-R \
-	-d alsa \
-	-r 48000 \
-	-p 256 \
-	-n 4 \
-	-d hw:1 &
-	;;
-
-firewire)
-	echo "# JACK FIREWIRE #"
-	jackd \
-	-R \
-	-P 99 \
-	-d firewire \
-	-r 48000 \
-	-p 256 \
-	-n 4 \
-	-d hw:Pro24DSP00058b \
-	-i 4 \
-	-o 2 &
-	;;
-esac
-
-sleep 3 &&
 echo "# MIXER "
+# urxvt -T 'ECAsound' -e sh -c 'ecasound -f:f32_le,2,48000 -s:confs/mezcla-rec.ecs -c' &
+# urxvt -T 'NAMA' -e sh -c 'nama ' &
 urxvt -T 'ECAsound' -e sh -c 'ecasound -f:f32_le,2,48000 -s:confs/mezcla.ecs -c' &
-
-#urxvt -T 'NAMA' -e sh -c 'nama ' &
-
-
 
 if [ "$GUI" = true ]; then
 	echo "# ANALOG SYNTH: GUI"
@@ -86,9 +106,8 @@ if [ "$GUI" = true ]; then
 	sleep 3 &&
 	jack_connect a2j_bridge:capture yoshimi:midi\ in
 
-	echo "# DUMP: GUI"
 	qjackctl &
- 	urxvt -hold -T 'MIDIdump' -e 'aseqdump' &
+
 fi
  
 if [ "$GUI" = false ]; then
@@ -100,12 +119,16 @@ if [ "$GUI" = false ]; then
 	sleep 3 &&
 	jack_connect a2j_bridge:capture yoshimi:midi\ in
 
+fi
+
+if [ "$VERBOSE" = true ]; then
 	echo "# DUMP: No GUI"
 	aseqdump &
 	DUMP_PID=$!
 	echo "DUMOP ID:"$DUMP_PID
 
-
+	#echo "# DUMP: GUI"
+ 	#urxvt -hold -T 'MIDIdump' -e 'aseqdump' &
 fi
 
 if [ "$FLUID" = true ]; then
@@ -131,10 +154,10 @@ if [ "$FLUID" = true ]; then
 fi
 
 
+# $SHELL
+
 # jack_lsp 
 # aconnect -l 
-
-$SHELL
 
 
 # MIDI

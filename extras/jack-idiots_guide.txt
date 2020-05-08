@@ -1,0 +1,541 @@
+
+<h1>Sound Engineers Guide to Jackd</h1>
+
+This page attempts to collect in one place various issues surrounding the
+design and abilities of Paul Davis's wonderful Jackd (http://jackaudio.org) 
+from the point of view of a technical user. It is not an introduction 
+or a usage howto.
+
+Thanks to all the developers who have contributed to this fantastic
+example of FOSS development.
+
+
+hardware support:
+-----------------
+Hardware support is good due to its usage of Alsa as a back-end. There are 
+some gaps, and its possible that these gaps may get bigger in the future 
+due to consumers accepting increasingly unhelpful behaviour from 
+manufacturers.
+
+As well as Alsa's direct access to soundcard hardware, Jack also can be
+used with the dmix plugin to share the card with other non-Jack applications,
+albeit at the expense of some audio quality.
+
+In addition, Jackd supports some firewire devices such as from Edirol and
+Focusrite. This does not use Alsa, but is done directly using FFADO
+(http://ffado.org/?q=devicesupport/list).
+
+
+audio quality:
+--------------
+Being designed for discerning audio usage, Jackd doesn't
+suffer from any audio quality issues. It uses 32bit floating point
+throughout, which is considered adequate for the vast majority 
+of work.
+
+Dithering options are available if required. Other than dithering, jack
+does not modify the signal in any way.
+
+In terms of timing accuracy, due to the blocked nature of audio processing,
+event timing can be up to 10ms out (4096, 44.1k), eg in the
+case of a tempo change.
+
+
+latency:
+--------
+In most cases Jackd offers equal or better latency than competing systems.
+Recent patches for 2.6 kernels can achieve latencies of around 1ms over
+and above the inherent soundcard latency. This round trip soundcard 
+latency can be as high as 4ms. For comparison, each metre you are from the 
+speaker adds another 3ms.
+
+Typical Jackd latency is about 6ms. This is for a system with 2 periods, 
+each of size 128, running at 44.1kHz.
+
+
+system integration:
+-------------------
+Currently jackd is usually started and stopped manually. However, libjack does
+have a recently added function to automatically start it on demand, which some
+jack apps make use of.
+
+Running Jack as a system service started automatically at startup is easy if
+desired. This approach is not officially encouraged, as in some situations it
+raises security and stability issues and prevents other applications from
+accessing audio hardware.
+
+Non jack apps can be used via the Alsa Jack-plugin
+(http://alsa.opensrc.org/index.php/Jack_(plugin)).
+This allows properly behaved Alsa applications to record and playback through
+Jackd. These apps see Jack as add addition 'device'.
+
+Other audio backends such as Pulseaudio and Gstreamer can use Jackd as
+a backend/sink.
+
+Older methods are the LD_PRELOAD hack using the libjackasyn from 
+Guenter Geiger. And the bio2jack that non-callback based apps such as 
+mplayer can use. These wrappers do not and cannot support jack-transport.
+
+
+scalability:
+------------
+Because of the context switching, there is increasing overhead as the number
+of clients is increased. The figure of 20 clients has been mentioned as
+a rough maximum. This might be a practical limitation for some uses, such
+as constructing a modular synth.
+
+
+controllers:
+------------
+there are a few applications to help with inter-connections and stopping/starting.
+
+gui's:
+    -qjackctl: http://qjackctl.sourceforge.net
+    -patchage: http://om-synth.nongnu.org/patchage.html
+    -qjackconnect from Matthias Nagorni: http://www.suse.de/~mana/jack.html
+
+command line:
+    -jack_connect and jack_lsp can be used for command line patching.
+     To use bash completion, see this email from Florian Schmidt:
+     http://lalists.stanford.edu/lau/2007/10/0203.html
+
+dbus:
+    there is an exciting new patch to Jackd from Nedko Arnaudov that allows
+    you to control jack via dbus. Still very experimental atm. Search for
+    "jack dbus and logs improvement".
+
+
+non-realtime graph execution:
+-----------------------------
+A fairly standard feature of music production software is to be able 
+to render (parts of) the graph at faster than realtime, often to 
+reduce the amount of dsp required to 'run' a project. This has now been 
+implemented by switching to 'offline' mode. With the addition of jackmidi, 
+midi can now still be used in this mode. All hardware i/o is of course muted.
+This would break any clients that used a kernel/cpu clock.
+
+
+multiple soundcards:
+--------------------
+multiple cards on the same machine can be used if they are synced 
+together. This can be achieved by either using a central word-clock 
+or by feeding a digital audio feed from one card into another and
+putting it into slave mode.
+In order for jack to access them, they must be abstracted to a single
+'device' using an alsa config file.
+
+If you dont mind some quality loss due to resampling, you have other
+options:
+
+Alsainout is a recent jack client that will make a resampled
+connection to an alsa device.
+(http://trac.jackaudio.org/jack/wiki/WalkThrough/User/AlsaInOut)
+
+You can also run a separate unsynced jackd server for each 
+soundcard and use jack-diplomat
+(http://spark.woaf.net/jack_diplomat-0.70.tar.bz2) to transfer 
+between them.
+
+
+multiple jack servers:
+----------------------
+It is now possible to run more than one server on the same machine
+concurrently using separate soundcards. Nothing is synchronised, 
+each server has its own separate process graph and transport
+state. A single client app can access each server. Netjack or 
+jack_diplomat can be used to route signals between them.
+
+
+transport:
+----------
+see excellent detailed documentation at
+http://jackit.sourceforge.net/docs/reference/html/transport-design.html
+
+Jackd offers centralised transport control. Transport changes in one
+client are reflected simultaneously in all others. Eg, a client can
+issue the command: "go to bar 21 and start playing".
+Time is specified in either jack_frames, bars/beats/ticks or smpte time.
+The ticks resolution (eg 1920 ticks per beat) is specified by the 
+timebase_master client.
+
+Timebase master: although jackd counts time while the graph is running, the
+'transport master' provides tempo and smpte-formatted information.  (despite
+its name the timebase_master does NOT really control the timing of the
+system.) Timebase_master can either be jackd (the default (but note that jackd
+only provides frame numbers.)) or one of its clients.
+<!--
+FIXME why is jackd not always timebase master?-->
+
+tempo changes:
+Currently jackd cannot do tempo changes. Tempo map information is confined
+to one client only (the Timebase Master). Because of this, other clients
+cannot reliably operate with tempo changes as they do not know when the
+tempo change occurred. Also, for example, other clients will not be able
+to give visual feedback on the tempo map. The tempo info needs to be stored
+in the server, accessible by all. This is not complicated, but just needs
+the details to be worked out. It would make a nice little project for someone
+to make a patch for this.
+
+Currently, with tempo only being updated once a period, there is a potential
+error of about 4096/44100, or 10ms.
+
+Seamless looping support is sometimes talked about.
+
+There is a utility app called jack_trans2midi which will convert jack transport
+information to midi clock.
+
+
+slaving:
+--------
+<!--[FIXME 050510 Paul Davis says that Ardour can slave to a hardware video machine.]-->
+
+Being able to slave to an external device is an absolutely essential feature for
+professional situations, which is currently not supported by Jack.
+
+The Ardour and Rosegarden clients can act as MTC slaves. Ardour can sync to
+both MTC and MMC, and apparently it works very well, but other clients do _not_
+get synced even if Ardour is the timebase master. <!-- ??? does Ardour actually do dsp on the audio ??? --> 
+In theory, Rosegarden _can_ be a timebase master when slaved via MTC, but apparently
+this has not been properly tested.
+
+Jackd cannot currently act as a positional master for external systems, but
+Ardour can output mtc. Work was being done on a software smpte generator,
+but afaik it never came to fruition.
+
+There was previously some discussion of implementing the sgi UST/MSC timestamping,
+as used by some more video oriented applications, but nothing concrete is 
+currently planned. Usage of OpenML (http://www.khronos.org/openml/) or MLT
+(http://mlt.sourceforge.net/) has not been discussed, afaik.
+
+MMC can be used using jackctlmmc: http://apps.linuxaudio.org/apps/all/jackctlmmc
+
+There is no support for such things as VITC, video sync, 9-pin RS422 video 
+controllers.
+<!--
+example cases (none of which are currently possible):
+1-slaving to protools.
+  Any tdm system should be able to provide Aes-ebu/Spdif/wordclock to derive clock 
+  sync. Most tdm systems are able to provide mtc (which can be converted to smpte 
+  if required). The Digidesign USD box can output live smpte synced to the running 
+  track.
+2-slaving to a drum machine (or other hardware sequencer) with analogue out.
+  Use mtc. Clock sync not required.
+3-slaving to a drum-machine with digital out.
+  Use mtc. Use drum-machine digital out as clock source for the soundcard.
+4-slaving to hardware video machine.
+  Use smpte. Use digital out if available.
+5-slaving to Cubase or other consumer app.
+  Should be possible depending on the capabilities of the machine the master
+  is running on.
+-->
+
+http://ltcsmpte.sf.net/ contains code for a syncing jack to timecode.
+"It includes a simple JACK tool that displays incoming LTC and can encode
+jack-transport to LTC."
+
+(also check out the gstreamer 'gst-launch' app, with a chain of rtp and a codec, 
+using jack as a source/sink)
+
+
+multimedia:
+-----------
+Luis Garrido's video player Xjadeo (http://sourceforge.net/projects/xjadeo/)
+can be used to sync a video with jack-transport. Lives
+(http://lives.sourceforge.net/) as of 1.3.3 also has jack transport sync capability.
+
+There are very few possibilities for syncing to other media types such as  
+swf/smil/sdl running on the same machine. This is not the fault of Jackd of 
+course. Various comprehensive multimedia frameworks have been proposed but 
+so far come to nothing.
+
+Patches are available to incorporate the transferal of video streams into Jackd 
+itself. See: http://estudiolivre.org/videojack
+For example, you can use Ekiga to have Jack-powered video conferencing!
+
+
+64 bit audio wordlength:
+------------------------
+There is some benefit in working at higher wordlengths, and as processing power
+gets cheaper, it is becoming increasing common, often inside particular
+processors. Cakewalk software uses fully 64 bit processing, and it is 
+also common in mastering applications. For comparison, recent Digidesign hardware 
+works at a mixture of 24/48/56bit integers.
+
+Currently Jackd only supports 32bit audio wordlength, and while implementing
+64bit probably wouldnt be difficult (especially as the x87 and SSE support 64
+bit operations), there is little demand from current Jack users.
+
+
+64bit cpu's:
+------------
+Jackd fully supports 64bit cpu's.
+
+Lots of linux audio applications still do not run in 64bit mode, but
+as of version 0.114 (with further mods in 0.116), Jackd compiled as a 
+64 bit application can now connect 32 bit clients and vice versa.
+
+
+scrubbing:
+----------
+Scrubbing of the graph is not possible. As far as i am aware there
+is no demand for this feature.
+
+
+plugins:
+--------
+jack has support for in-process plugins. Plugins should be able to do
+anything that a regular client can do, but without the context switch.
+However, except for the examples with the jackd source (inprocess.c and 
+intime.c), there are currently none.
+
+(Note that LADSPA plugins are plugged into jack clients and not directly into jack.)
+
+
+remote clients / distributed processing:
+----------------------------------------
+
+Use of more than one box is fairly essential for execution of even moderately 
+complex projects. It currently seems very unlikely that any reasonably-priced general
+purpose (ie, open) pci dsp cards will be forthcoming from hardware manufacturers. 
+
+It's also useful as a way of routing audio between different rooms, removing
+the need for specialised audio cabling, and overcoming spdif cable length restrictions,
+and possible clock sync and jitter problems.
+
+netjack: http://netjack.sourceforge.net/
+         Netjack designed to have fully (synced) slaved soundcardless jackd's as 'processor farms'.
+         Consists of a jack client for the master box, and a 'network' jack driver for 
+         the slave. It features single-period roundtrip latency, transport sync, latency
+         compensation, and support for slow-sync clients.
+
+         For use with unsynchronised systems, there is optional asynchronous resampling and 
+         bitrate reduction for slow networks such as the Internet. The latest version has
+         support for celt, a high-compression constant-latency lossy codec
+         (http://www.celt-codec.org).
+
+         24 channels are reported to work reliably at a latency of 5.8ms over 100Mb ethernet.
+         However, because its designed to be low latency, there is very little additional
+         buffering, so its important to keep the network segment free of other traffic,
+         especially X messages, so for serious usage, an additional ethernet card is required.
+
+			Udp is used for network transport.
+
+         Netjack is packaged within Jackd itself.
+         Authors: Torben H, Dan Mills, Robert Jonsson.
+
+jackdmp: The netjack support in jack2 currently doesnt support Transport, but does support
+         automatic host discovery.
+
+icecast:
+There is a working icecast (http://www.icecast.org) jack client (now included 
+with the icecast distribution) which can be used to transmit the compressed output of a 
+jack node to a remote machine. I dont know if it can do more than that. Presumably the 
+remote sink, slaves to this stream, ie there cannot be a jack graph on the remote end. 
+This method is utilised for example in the gtk InternetDj application 
+(http://freshmeat.net/projects/idjc).
+
+
+varispeed:
+----------
+Jack can be varisped by syncing your audio hardware.
+Note, there is some confusion over the term 'varispeed'. Due to the change in 
+sample frequency this is only useful in certain situations (eg when the output
+is feeding a dac or resampler). In some ways the dsp equivalent, of 
+timestretching/pitchshifting/resampling is not true varispeed, although it 
+is sometimes convenient to refer to it as such.
+
+
+pitchshifting:
+--------------
+(realtime pitchshifting of one or more Jackd nodes)
+Not supported.
+
+While a nasty thing to have to do, pitchshifting is often useful,
+even if just for auditioning purposes.
+It has been inconclusively discussed on the mailing list (FIXME: refs?).
+For best results this would have to be done at individual nodes on the Jack
+graph. It seems unrealistic to expect all clients to support this, but
+it could theoretically be done by Jack itself. It could be tricky to work
+out which nodes to pitchshift, to avoid signals being shifted twice. 
+It seems unlikely that this will be done, even in the medium term.
+
+
+time stretching:
+----------------
+Not supported.
+
+Tempo change without changing pitch. Similar situation to pitchshifting
+only slightly more complex and with less demand.
+
+
+driver switching:
+-----------------
+This could be useful for freeing up hardware for other uses without
+disrupting the graph.
+status: Probably working now, but i havn't checked.
+
+
+disconnections:
+---------------
+Occasionally clients get booted from the graph for being too slow.
+There is no official policy on what clients should do in this situation.
+Some clients automatically reconnect. Potentially, this can be handled
+by a session manager such as LASH.
+A workaround is to run jackd with the timeout switch, but this isnt
+always 100% successful.
+
+In addition, Jackd will sometimes commit suicide, via the Watchdog.
+This is not configurable.
+
+
+hardware monitoring:
+--------------------
+There is support for zero latency monitoring on some RME and Maudio cards.
+
+
+on-the-fly sample-rate/buffer-size changing:
+--------------------------------------------
+this would prevent having to restart jackd and reconstruct
+the graph in order to make some mode changes.
+Buffer size changing could be particularly useful for changing
+from a 'recording' to a 'mixing' mode with higher latency.
+
+status: not sure but i believe buffer-resizing was added in v0.99
+
+
+routing changes:
+----------------
+This cannot be done without an xrun. (The jack audio thread stops while
+the new graph order is recalculated.)
+
+There is a client available to do realtime switching on pre-configured nodes.
+
+
+sessioning support:
+-------------------
+LASH (http://www.nongnu.org/lash/) offers the ability to 
+save/retrieve your complete audio/midi setup - including Jack 
+connections - in one operation.
+
+status: still work to be done in this area, but things look promising
+with recent renewered interest, and incorporation of dbus.
+
+
+'framedrop'/soft mode:
+----------------------
+Normal operation of jackd enforces strict obediance from clients.
+If they are late in providing data, they are booted. This is to
+ensure that the running project is executed 100% or not at all.
+This is inappropriate in any kind of performance situation, such as
+a live event, or a studio engineer playing a project for a client.<!--
+In addition, certain clients are unavoidably 'slow'.
+There has previously been some discussion about implementing a jackd
+mode which allows 'framedropping' for unresponsive clients. This
+would make playback more robust, and improve perceived
+response times to locate requests. Perhaps muted clients could be 
+unmuted again at musically appropriate times such as at the start of a bar.
+The importance of this feature would be increased dramatically if
+network based clients were active.
+if other options can be changed on-the-fly, then this would be too (ideally).-->
+
+Jackd's 'softmode' option allows that clients can be late in processing
+data, and will not be booted from the graph for doing so. However, this
+causes the whole graph to be delayed and an audible glitch is likely
+to result.
+
+Stephane Letz has implemented this feature as part of the 
+alternative Jack implemtation, Jackdmp (jackd-multi-processor). 
+(http://www.grame.fr/~letz/jackdmp.html)
+Jackdmp calls this "asynchronous activation mode".
+It adds an extra 'process-cycle' to allow for failed clients.
+http://www.grame.fr/Recherche/Publications/list/list.php?lang=fr contains 
+a technical paper with the details. It works by timeslicing each period
+into multiple parts, and each cpu core is allocated all the nodes for one
+of the timeslices.
+
+
+Reverse Play:
+-------------
+status: not implemented, not important.
+
+
+looping:
+--------
+extremely important for music production.
+Requires clients to made aware in advance that there is a discontinuity 
+in the middle of a frame.
+Loops need to be able to go forward, not just backward.
+
+status: not fully implemented. scheduled for post v1.0.
+
+
+midi:
+-----
+Recent versions of Jackd include timestamped midi. Jackmidi provides 
+tight synchronisation of midi to the audio, gives the possibility of 
+using midi in freewheeling renders, and simplifies application development.
+
+Jackmidi is in all recent versions of jack 1 and 2.
+
+-jackmidi doesnt have its own routing. Everything that the client sends 
+    to an output port will be sent to all clients that are connected to 
+    that output port. Because of the healthy state of kernel scheduling,
+    support is only provided for real-time(ish) messages - you cannot
+    pre-queue them (beyond the current process block?).
+-routing to and from alsa midi:
+    Jackd includes support for this from version 0.108 onwards using the 
+    -X alsa driver switch which connects alsaseq devices to jackmidi.
+    Alternatively there is the A2jmidi daemon by Nedko Arnaudov
+    (http://home.gna.org/a2jmidid/) which reportedly has better timing.
+-apps that are currently able to use jackmidi: 
+    Muse (1.1) (http://muse-sequencer.org),
+    Hydrogen (0.9.6),
+    Linux-Sampler (http://www.linuxsampler.org/),
+    Ingen (Om), Specimen, ZynAddSubFX/zynjacku, Azr3, Jack-keyboard,
+    Non-sequencer (http://non.tuxfamily.org/),
+    Jackmixer, Machina, Ardour-3,
+    Epichord (http://evanr.infinitymotel.net/epichord/),
+    Bristol (http://sourceforge.net/projects/bristol/),
+    Jacker (tracker) (http://www.bitbucket.org/paniq/jacker),
+    Yoshimi (http://yoshimi.sourceforge.net/),
+    zynjacku (http://home.gna.org/zynjacku/),
+    Specimen sampler (http://zhevny.com/specimen/),
+    Qsynth,
+    Virtual MIDI Piano Keyboard 0.4,
+    Jack-smf-tools (http://sourceforge.net/projects/jack-smf-utils/).
+
+    All LV2 and DSSI hosts support jack midi, so any synth plugin
+    (eg Whysynth) will work.
+-midi patching works with both Patchage and QJackCtl.
+
+
+jack2 (jackdmp)
+---------------
+
+Jack2 is being maintained in parallel to Jack1
+
+A major advantage of Jack2 not mentioned above, is that connections
+and disconnections should be glitchless.
+
+
+dither
+------
+Jackd can only dither the output to the soundcard.
+In offline mode, i presume that the output is usually still floating point.
+
+given that 32bit fp is not enough resolution to do technically accurate
+dithering to 24bit int, the subjective performance of the dithering algorithm
+should be subjected to some critical appraisal, but i dont know if this has
+been done.
+
+
+the future
+----------
+It looks like version 2 of Jackd may run as a true always-running system daemon
+with the ability to switch soundcards (backends) on the fly. Various control
+options will be available, including the recently added Dbus interface.
+
+
+author: Tim Orford, 2003-8.
+This document can be used under the terms of the GPL v3 license.
+

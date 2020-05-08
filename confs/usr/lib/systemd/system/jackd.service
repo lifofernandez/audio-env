@@ -1,0 +1,26 @@
+[Unit]
+Description=JACK
+After=sound.target
+ConditionPathExists=/dev/fw1
+
+[Service]
+Type=simple
+#Environment="JACK_PROMISCUOUS_SERVER="
+#UMask=0
+LimitRTPRIO=infinity
+LimitMEMLOCK=infinity
+# User=root
+# User=all
+#User=root
+Group=audio
+ExecStart=/usr/bin/jackd --slave-driver alsa_midi -R -P 99 -d firewire -r 48000 -p 256 -n 4 -d hw:Pro24DSP00058b -i 4 -o 2 
+
+# Hardening
+#SystemCallArchitectures=native
+#MemoryDenyWriteExecute=true
+#NoNewPrivileges=true
+
+[Install]
+#WantedBy=multi-user.target
+WantedBy=default.target
+

@@ -1,0 +1,7 @@
+jack_midi_clock
+jack_midi_clock.so
+jack_mclk_dump
+
+*.swp
+cscope.*
+tags

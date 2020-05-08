@@ -18,8 +18,8 @@ inst 2
 select 0 1 0 1
 select 1 1 0 33 # BAJO
 select 2 1 0 4
-select 3 1 0 23
-select 4 1 0 26
+select 3 1 0 26
+select 4 1 0 28
 select 5 1 0 45
 select 6 1 0 8
 select 7 1 0 2
@@ -27,15 +27,16 @@ select 7 1 0 2
 select 8 2 1 1 # DRUMS sf 2 80AcDanceDrums
 select 9 1 128 0 # Standar 
 
-#chan 0, sfont 1, bank 0, preset 1, Bright Yamaha Grand
+#chan 0, sfont 1, bank 0, preset 1,  Bright Yamaha Grand
 #chan 1, sfont 1, bank 0, preset 33, Fingered Bass
-#chan 2, sfont 1, bank 0, preset 4, Rhodes EP
-#chan 3, sfont 1, bank 0, preset 23, Bandoneon
-#chan 4, sfont 1, bank 0, preset 26, Jazz Guitar
+#chan 2, sfont 1, bank 0, preset 4,  Rhodes EP
+#chan 3, sfont 1, bank 0, preset 26, Jazz Guitar
+#chan 4, sfont 1, bank 0, preset 28, Muted Guitar
 #chan 5, sfont 1, bank 0, preset 45, Pizzicato Section
-#chan 6, sfont 1, bank 0, preset 8, Celesta
-#chan 7, sfont 1, bank 0, preset 2, Electric Piano
-#chan 8, sfont 2, bank 0, preset 1, Dance Drums
+#chan 6, sfont 1, bank 0, preset 8,  Celesta
+#chan 7, sfont 1, bank 0, preset 2,  Electric Piano
+#chan 8, sfont 2, bank 0, preset 1,  Dance Drums
+#
 #chan 9, sfont 1, bank 128, preset 0, Standard
 
 # select 9 1 128 25 # TR 808
