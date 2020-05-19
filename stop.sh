@@ -19,5 +19,5 @@ killall qjackctl
 #killall vmpk
 #killall qmidiroute
 #killall qmidiarp
-$SHELL
+#$SHELL
 
