@@ -210,3 +210,7 @@ ffmpeg -i menos.wav -codec:a libmp3lame -qscale:a 2 menos.mp3
 sox out.wav menos.wav trim 8 148
 
 http://www.freesoundvault.com/sounds/drums/kits/80sAcDanceDrums.sf2
+
+http://www.somascape.org/midi/tech/spec.html#usx7F06
+
+http://jackctlmmc.sourceforge.net/
