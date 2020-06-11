@@ -1,6 +1,6 @@
-# Load
-dmmctx {}
-dclktx  {}
+#dmmctx {}
+#dclktx  {}
+
 # DISPOSITIVOS
 #import "/root/output.mid"
 #dnew 0 "14:1" rw
@@ -12,9 +12,8 @@ dnew 1 "FLUID Synth (fluidsynth)" wo
 # WORK ARROUND
 # MIDISH NO SE COMUNICA DIRECTAMENTE CON YOSHSIMI, hay que usar a2j_bridje
 dnew 2 "a2j_bridge" wo
+#dnew 3 "Origin49" ro
 
-# INPUTS
-dnew 3 "Origin49" ro
 
 # inew from_kb {3 0} 
 # DUMP & THRU 
@@ -22,28 +21,43 @@ dnew 3 "Origin49" ro
 # inew from_thru {14 0} 
 # onew to_thru {14 0} 
 
-dnew 4 "alsa_midi:Midi Through Port-0 (in)" ro
-dclkrx 4;
+#dnew 4 "alsa_midi:Midi Through Port-0 (in)" ro
+dnew 4 "14:0" ro
+proc external_clock {
+  dclkrx 4;
+}
+external_clock
 
-dnew 15 "aseqdump" wo
+proc dump{
+  dnew 15 "aseqdump" wo
+}
+proc dump_file{
+  dump
+  tevmap { any { 0 10..15  } } { any { 2 10..15  } }  
+  tevmap { any { 0 0..15 } } { any { 15 0..15 } }  
+}
+
 
 ## FILTERS
 
 
 proc teclado{
+  # INPUTS
+  dnew 3 "Origin49" ro
   fnew kb_analog 
   # Drop Pitch Bend
   # del teclado por que anda mal en el teclado
   fmap { note { 3 0 } } { note { 1 0 } }
-  # fmap { note { 3 0..15 }   } { note { 2 0..15 }    }
-  # fmap { ctl  { 3 0..15 } 1 } { ctl  { 2 0..15 } 1  }
-  # fmap { ctl  { 3 0..15 } 7 } { ctl  { 2 0..15 } 7  }
-  # fmap { ctl  { 3 0..15 } 8 } { ctl  { 2 0..15 } 71 }
-  # fmap { ctl  { 3 0..15 } 9 } { ctl  { 2 0..15 } 74 }
-  # fmap { ctl  { 3 0..15 } 10 } { ctl  { 2 0..15 } 75 }
-  # fmap { ctl  { 3 0..15 } 11 } { ctl  { 2 0..15 } 76 }
-  # fmap { ctl  { 3 0..15 } 12 } { ctl  { 2 0..15 } 77 }
-  # fmap { ctl  { 3 0..15 } 13 } { ctl  { 2 0..15 } 78 }
+  # CONTROLES
+  fmap { note { 3 0..15 }   } { note { 2 0..15 }    }
+  fmap { ctl  { 3 0..15 } 1 } { ctl  { 2 0..15 } 1  }
+  fmap { ctl  { 3 0..15 } 7 } { ctl  { 2 0..15 } 7  }
+  fmap { ctl  { 3 0..15 } 8 } { ctl  { 2 0..15 } 71 }
+  fmap { ctl  { 3 0..15 } 9 } { ctl  { 2 0..15 } 74 }
+  fmap { ctl  { 3 0..15 } 10 } { ctl  { 2 0..15 } 75 }
+  fmap { ctl  { 3 0..15 } 11 } { ctl  { 2 0..15 } 76 }
+  fmap { ctl  { 3 0..15 } 12 } { ctl  { 2 0..15 } 77 }
+  fmap { ctl  { 3 0..15 } 13 } { ctl  { 2 0..15 } 78 }
 }
 
 # WARNING: si se usa map "any" pisa map "note" previo
@@ -55,25 +69,17 @@ proc teclado{
 # fmap { any {  0 0..15} } { any { 15 0..15 } }
 # fmap { any { 14 0..15} } { any { 15 0..15 } }
 
-metrocf { non { 1 9 } 31 127 } { non { 1 9 } 31 110 }
-m on
-t 60
-teclado
-i
+# teclado
 
-
-#in Midish you add the ALSA port of the bridge. For a2jmidi_bridge this is:
-#dnew 6 "j2a_bridge" ro;
-#Then you choose that device - six in the above example - as the master clock:
-#dclkrx 6;
-
-#I put this in my .midishrc as the procedure add_ext_clk:
-proc add_ext_clk {
-   #dnew 6 "j2a_bridge" ro;
-   #dclkrx 6;
+proc click{
+  metrocf { non { 1 9 } 31 127 } { non { 1 9 } 31 110 }
+  m on
 }
+# click
+p
 
 proc cargar track{
+  s
   import $track 
   g 0                # go to the beginning
   sel [mend]         # select to the end
@@ -81,13 +87,15 @@ proc cargar track{
     ct $t            # make it the current track
     # tevmap {any 0 } {any 1}  # set all events device 0 -> 1
     tevmap { any { 0 0..9 } } { any { 1 0..9 } }  
-    tevmap { any { 0 10..15  } } { any { 2 10..15  } }  
-    tevmap { any { 0 0..15 } } { any { 15 0..15 } }  
+    tevmap { any { 0 10..15 } } { any { 2 10..15 } }  
+    #dump_file
   }
-  teclado
-  metrocf {non { 1 9 } 31 127} {non { 1 9} 31 110 }
+  # teclado
+  # click
+  external_clock
+  setunit 96
   # t 60
-  # p
+  p
 }
 
 
@@ -124,3 +132,14 @@ proc cargar track{
 # cf file_fluid
 # 12 All notes off (no. 123) 
 
+# 18.1 Device attributes
+# The following table summarizes the device attributes:
+# 
+# attribute	description
+# device number	integer that is used to reference the device
+# clkrate	number of ticks per whole note, default is 96, which corresponds to the MIDI standard
+# clock ``tx'' flag	boolean; if it is set, the real-time MIDI clock events (like start, stop, ticks) are transmitted to the MIDI device.
+# ixctlset	list of continuous controllers that are expected to be received with 14-bit precision.
+# oxctlset	list of continuous controllers that will be transmitted with 14-bit precision
+# iev	list of compound event types the device transmits; it's a subset of ``xpc'', ``nrpn'', ``rpn''.
+# oev	list of compound event types the device accepts; it's a subset of ``xpc'', ``nrpn'', ``rpn''.

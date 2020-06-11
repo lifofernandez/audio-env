@@ -90,7 +90,8 @@ jack_connect jack_midi_clock:mclk_out "alsa_midi:Midi Through Port-0 (in)"
 #jack_connect klick:out system:playback_2
 
 echo "# MIXER "
-urxvt -T 'ECAsound' -e sh -c 'ecasound -f:f32_le,2,48000 -s:confs/mezcla-rec.ecs -c' &
+urxvt -T 'ECAsound' -e sh -c 'ecasound -f:f32_le,2,48000 -s:confs/mezcla-rec.ecs -c -Md:alsaseq,ECAmidi' &
+#urxvt -T 'ECAsound' -e sh -c 'ecasound -f:f32_le,2,48000 -s:confs/mezcla-rec.ecs -c' &
 #urxvt -T 'ECAsound' -e sh -c 'ecasound -f:f32_le,2,48000 -s:confs/mezcla.ecs -c' &
 
 # urxvt -T 'NAMA' -e sh -c 'nama ' &

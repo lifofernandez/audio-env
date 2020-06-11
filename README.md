@@ -214,3 +214,5 @@ http://www.freesoundvault.com/sounds/drums/kits/80sAcDanceDrums.sf2
 http://www.somascape.org/midi/tech/spec.html#usx7F06
 
 http://jackctlmmc.sourceforge.net/
+https://sourceforge.net/projects/jackctlmmc/
+https://wiki.linuxaudio.org/apps/all/gjacktransport
