@@ -56,7 +56,6 @@ AUDIO_CONECT=true
 BPM=120
 METRO="4/4"
 
-
 while getopts ":t:m:" opt; do
   case $opt in
     t) BPM="$OPTARG"
@@ -84,13 +83,15 @@ done
 # MIDISH <JACK TRANSPORT SYNC> ECASOUND 
 urxvt -T 'KLICK' -e sh -c "klick -T $METRO $BPM" &
 jack_midi_clock &
+jackctlmmc &
 sleep 1 &&
 jack_connect jack_midi_clock:mclk_out "alsa_midi:Midi Through Port-0 (in)"
 #jack_connect klick:out system:playback_1
 #jack_connect klick:out system:playback_2
 
 echo "# MIXER "
-urxvt -T 'ECAsound' -e sh -c 'ecasound -f:f32_le,2,48000 -s:confs/mezcla-rec.ecs -c -Md:alsaseq,ECAmidi' &
+#urxvt -T 'ECAsound' -e sh -c 'ecasound -f:f32_le,2,48000 -s:confs/mezcla-rec.ecs -c -Md:alsaseq,ECAmidi' &
+urxvt -T 'ECAsound' -e sh -c 'ecasound -f:f32_le,2,48000 -s:confs/mezcla-rec.ecs -K -C' &
 #urxvt -T 'ECAsound' -e sh -c 'ecasound -f:f32_le,2,48000 -s:confs/mezcla-rec.ecs -c' &
 #urxvt -T 'ECAsound' -e sh -c 'ecasound -f:f32_le,2,48000 -s:confs/mezcla.ecs -c' &
 
@@ -100,8 +101,12 @@ if [ "$GUI" = true ]; then
 
 	a2jmidi_bridge &
  	
-	urxvt -T 'Yoshimi' \
-	-e sh -c 'yoshimi -I -C -j -J -R 48000 -b 256 -o 256 --jack-midi=a2j_bridge:capture --state=confs/yoshimi.state  --load-instrument=confs/yoshimi.xiz --load=confs/yoshimi.xmz' &
+	yoshimiflags=' -I -C -j -J -R 48000 -b 256 -o 256'
+	yoshimiflags+=' --jack-midi=a2j_bridge:capture --state=confs/yoshimi.state'
+	yoshimiflags+=' --load-instrument=confs/yoshimi.xiz --load=confs/yoshimi.xmz'
+	urxvt -T 'Yoshimi' -e sh -c 'yoshimi '$yoshimiflags &
+
+	#-I -C -j -J -R 48000 -b 256 -o 256 --jack-midi=a2j_bridge:capture --state=confs/yoshimi.state  --load-instrument=confs/yoshimi.xiz --load=confs/yoshimi.xmz' &
 
 
 	sleep 3 &&
@@ -120,16 +125,17 @@ if [ "$GUI" = false ]; then
 	sleep 3 &&
 	jack_connect a2j_bridge:capture yoshimi:midi\ in
 
-fi
-
-if [ "$VERBOSE" = true ]; then
+	sleep 1 &&
 	echo "# DUMP: No GUI"
 	aseqdump &
 	DUMP_PID=$!
 	echo "DUMOP ID:"$DUMP_PID
 
-	#echo "# DUMP: GUI"
- 	#urxvt -hold -T 'MIDIdump' -e 'aseqdump' &
+fi
+
+if [ "$VERBOSE" = true ]; then
+	echo "# DUMP: GUI"
+ 	urxvt -hold -T 'MIDIdump' -e 'aseqdump' &
 fi
 
 if [ "$FLUID" = true ]; then
