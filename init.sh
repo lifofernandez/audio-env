@@ -91,26 +91,29 @@ jack_connect jack_midi_clock:mclk_out "alsa_midi:Midi Through Port-0 (in)"
 
 echo "# MIXER "
 #urxvt -T 'ECAsound' -e sh -c 'ecasound -f:f32_le,2,48000 -s:confs/mezcla-rec.ecs -c -Md:alsaseq,ECAmidi' &
-urxvt -T 'ECAsound' -e sh -c 'ecasound -f:f32_le,2,48000 -s:confs/mezcla-rec.ecs -K -C' &
+#urxvt -T 'ECAsound' -e sh -c 'ecasound -f:f32_le,2,48000 -s:confs/mezcla-rec.ecs -K -C' &
 #urxvt -T 'ECAsound' -e sh -c 'ecasound -f:f32_le,2,48000 -s:confs/mezcla-rec.ecs -c' &
-#urxvt -T 'ECAsound' -e sh -c 'ecasound -f:f32_le,2,48000 -s:confs/mezcla.ecs -c' &
+
+# urxvt -T 'ECAsound' -e sh -c 'ecasound -f:f32_le,2,48000 -s:confs/mezcla.ecs -c' &
 
 # urxvt -T 'NAMA' -e sh -c 'nama ' &
 if [ "$GUI" = true ]; then
 	echo "# ANALOG SYNTH: GUI"
 
-	a2jmidi_bridge &
+	# no es necesario por que jackd tiene un midi alsa/jack bridge incorporado
+	# -X, --slave-driver
+	#a2jmidi_bridge &
  	
 	yoshimiflags=' -I -C -j -J -R 48000 -b 256 -o 256'
 	yoshimiflags+=' --jack-midi=a2j_bridge:capture --state=confs/yoshimi.state'
 	yoshimiflags+=' --load-instrument=confs/yoshimi.xiz --load=confs/yoshimi.xmz'
-	urxvt -T 'Yoshimi' -e sh -c 'yoshimi '$yoshimiflags &
+	#urxvt -T 'Yoshimi' -e sh -c 'yoshimi '$yoshimiflags &
 
-	#-I -C -j -J -R 48000 -b 256 -o 256 --jack-midi=a2j_bridge:capture --state=confs/yoshimi.state  --load-instrument=confs/yoshimi.xiz --load=confs/yoshimi.xmz' &
+	urxvt -T 'Yoshimi' -e sh -c 'yoshimi -I -C -j -J -R 48000 -b 256 -o 256 --jack-midi=a2j_bridge:capture --state=confs/yoshimi.state  --load-instrument=confs/yoshimi.xiz --load=confs/yoshimi.xmz' &
 
 
 	sleep 3 &&
-	jack_connect a2j_bridge:capture yoshimi:midi\ in
+	#jack_connect a2j_bridge:capture yoshimi:midi\ in
 
 	qjackctl &
 
@@ -119,11 +122,13 @@ fi
 if [ "$GUI" = false ]; then
 
 	echo "# ANALOG SYNTH: No GUI"
-	a2jmidi_bridge > /dev/null 2>&1 &
+	# no es necesario por que jackd tiene un bridge incorporado
+	# -X, --slave-driver
+	#a2jmidi_bridge > /dev/null 2>&1 &
 
  	yoshimi -i -c -j -J --samplerate 48000 -b 256 -o 256 --load=confs/yoshimi.xmz &
 	sleep 3 &&
-	jack_connect a2j_bridge:capture yoshimi:midi\ in
+	#jack_connect a2j_bridge:capture yoshimi:midi\ in
 
 	sleep 1 &&
 	echo "# DUMP: No GUI"
@@ -157,7 +162,8 @@ if [ "$FLUID" = true ]; then
 	-o audio.jack.multi='yes' \
 	-o midi.alsa_seq.id='fluidsynth' \
 	-o synth.midi-bank-select='gm' \
-	-o synth.audio-channels=10 &
+	-o synth.audio-groups=16 \
+	-o synth.audio-channels=16 &
 fi
 
 

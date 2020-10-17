@@ -1,6 +1,5 @@
 #/usr/bin/env bash
 pkill -f aseqdump
-killall aseqdump
 killall jack_midi_clock
 pkill -f KLICK
 killall klick
@@ -13,6 +12,7 @@ killall yoshimi
 killall a2jmidi_bridge
 killall qjackctl
 killall jackctlmmc
+killall aseqdump
 
 #killall jackd
 #systemctl stop jackd.service

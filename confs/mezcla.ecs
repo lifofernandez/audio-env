@@ -18,7 +18,14 @@
 -a:15 -i jack,,yoshi_5 
 -a:16 -i jack,,yoshi_6 
 
--a:1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16 -o loop,1 
+-a:18 -i /root/Documents/Tri/ok/01-lead-consolidated.wav  
+-a:19 -i /root/Documents/Tri/ok/02-coro_final2-consolidated.wav
+-a:20 -i /root/Documents/Tri/ok/03-coro_final-consolidated.wav
+-a:21 -i /root/Documents/Tri/ok/04-coro_estribo-consolidated.wav
+-a:22 -i /root/Documents/Tri/ok/05-alto-consolidated.wav
+-a:23 -i /root/Documents/Tri/ok/06-agudos-consolidated.wav
+
+-a:1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,18,19,20,21,22,23 -o loop,1 
 
 -a:17 -i loop,1 
 -a:17 -o jack,system -G:jack,ECA_mix -efh:20
