@@ -216,3 +216,5 @@ http://www.somascape.org/midi/tech/spec.html#usx7F06
 http://jackctlmmc.sourceforge.net/
 https://sourceforge.net/projects/jackctlmmc/
 https://wiki.linuxaudio.org/apps/all/gjacktransport
+
+https://github.com/swesterfeld/liquidsfz
